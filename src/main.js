@@ -10,7 +10,7 @@ import VueResource from 'vue-resource';
 import { store } from './store/store';
 
 // Bootstrap
-import 'bootstrap';
+        import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 Vue.use(VueRouter);
@@ -18,7 +18,7 @@ Vue.use(VueResource);
 
 export const router = new VueRouter({
     routes,
-    mode: 'history'
+         mode: 'history'
 });
 
 new Vue({
