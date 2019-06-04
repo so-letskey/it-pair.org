@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import SingleCard from "./SingleCard.vue";
+import SingleCard from "./PropositionList/SingleCard.vue";
 
 export default {
   components: {

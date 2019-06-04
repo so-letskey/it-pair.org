@@ -11,7 +11,11 @@
         It uses utility classes for typography and spacing to space content out
         within the larger container.
       </p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+      <router-link to="/app"
+        ><a class="btn btn-primary btn-lg" href="#" role="button"
+          >Learn more</a
+        ></router-link
+      >
     </div>
   </div>
 </template>
