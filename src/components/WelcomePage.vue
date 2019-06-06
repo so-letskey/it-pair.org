@@ -11,8 +11,8 @@
         It uses utility classes for typography and spacing to space content out
         within the larger container.
       </p>
-      <router-link to="/app"
-        ><a class="btn btn-primary btn-lg" href="#" role="button"
+      <router-link :to="{ name: 'advertsList' }"
+        ><a class="btn btn-primary btn-lg" role="button"
           >Learn more</a
         ></router-link
       >

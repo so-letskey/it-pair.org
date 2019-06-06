@@ -5,11 +5,12 @@
       :key="'Advert: ' + index"
       :advert="advert"
     />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import SingleCard from "./PropositionList/SingleCard.vue";
+import SingleCard from "./AdvertList/SingleCard.vue";
 
 export default {
   components: {

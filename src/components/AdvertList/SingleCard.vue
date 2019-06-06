@@ -6,13 +6,26 @@
       <p class="card-text">
         With supporting text below as a natural lead-in to additional content.
       </p>
-      <a href="#" class="btn btn-primary">Read More</a>
+      <router-link
+        :to="{ name: 'advertDescription', params: { id: advert.id } }"
+        >Read More</router-link
+      >
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["advert"]
+  props: {
+    advert: {
+      type: Object,
+      default: function() {
+        return {
+          title: "None",
+          description: "Not passed"
+        };
+      }
+    }
+  }
 };
 </script>
