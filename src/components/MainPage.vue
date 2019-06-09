@@ -5,7 +5,6 @@
       :key="'Advert: ' + index"
       :advert="advert"
     />
-    <router-view></router-view>
   </div>
 </template>
 
