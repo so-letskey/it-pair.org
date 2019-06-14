@@ -73,6 +73,7 @@
 
 <script>
 import Multiselect from "vue-multiselect";
+import * as firebase from "firebase";
 
 export default {
   components: {
@@ -124,7 +125,24 @@ export default {
         description: this.description,
         id: Math.floor(Math.random() * 100)
       };
-      console.log(advert);
+
+      let advert2 = {
+        imię: "witek",
+        nazwisko: "solecki"
+      };
+
+      this.$http
+        .post("https://it-pair.firebaseio.com/data.json", advert)
+        .then(response => console.log(response))
+        .catch(err => alert(err));
+
+      firebase
+        .database()
+        .ref("adverts2")
+        .once("value")
+        .then(res => console.log(res))
+        .catch(err => alert(err));
+
       this.$store.dispatch("addNewAdvert", advert);
     },
     consoleLogStore() {
