@@ -122,28 +122,18 @@ export default {
     submitAdvert() {
       let advert = {
         title: this.title,
-        description: this.description,
-        id: Math.floor(Math.random() * 100)
+        description: this.description
       };
-
-      let advert2 = {
-        imię: "witek",
-        nazwisko: "solecki"
-      };
-
-      this.$http
-        .post("https://it-pair.firebaseio.com/data.json", advert)
-        .then(response => console.log(response))
-        .catch(err => alert(err));
 
       firebase
         .database()
-        .ref("adverts2")
-        .once("value")
-        .then(res => console.log(res))
+        .ref("adverts")
+        .push(advert)
+        .then(response => {
+          advert.id = response.key;
+          this.$store.dispatch("addNewAdvert", advert);
+        })
         .catch(err => alert(err));
-
-      this.$store.dispatch("addNewAdvert", advert);
     },
     consoleLogStore() {
       console.log(this.$store.state.adverts);

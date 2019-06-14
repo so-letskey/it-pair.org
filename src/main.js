@@ -37,5 +37,8 @@ new Vue({
       appId: "1:113512295049:web:9439a28aa30fbd5c"
     });
   },
+  mounted() {
+    this.$store.dispatch("loadAdverts");
+  },
   render: h => h(App)
 });
