@@ -1,10 +1,10 @@
 <template>
   <div id="main">
     <div class="jumbotron">
-      <h1 class="display-4">Hello, world!</h1>
+      <h1 class="display-4">Strona główna</h1>
       <p class="lead">
-        This is a simple hero unit, a simple jumbotron-style component for
-        calling extra attention to featured content or information.
+        Nie myślałem jeszcze nad tym co dokładnie miałoby się tutuj pojawić, to
+        jest do przemyślenia.
       </p>
       <hr class="my-4" />
       <p>
@@ -19,3 +19,9 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.btn {
+  color: white !important;
+}
+</style>

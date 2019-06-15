@@ -27,13 +27,23 @@
             >Search</router-link
           >
         </li>
-        <li class="nav-item">
+        <li v-if="!this.$store.state.signedUp" class="nav-item">
+          <router-link
+            :to="{ name: 'advertAddition' }"
+            tag="a"
+            class="nav-link disabled"
+            >Add disabled</router-link
+          >
+        </li>
+        <li v-if="this.$store.state.signedUp" class="nav-item">
           <router-link :to="{ name: 'advertAddition' }" tag="a" class="nav-link"
-            >Add</router-link
+            >Add ok</router-link
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Account</a>
+          <router-link :to="{ name: 'userSignUp' }" tag="a" class="nav-link"
+            >Account</router-link
+          >
         </li>
       </ul>
     </div>

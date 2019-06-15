@@ -2,6 +2,7 @@ import WelcomePage from "./components/WelcomePage.vue";
 import MainPage from "./components/MainPage";
 import AdvertDescription from "./components/AdvertList/AdvertDescription";
 import AdvertAdditionForm from "./components/AdvertAddition/AdvertAdditionForm";
+import UserSignUp from "./components/UserManagement/UserSignUp";
 
 export const routes = [
   { name: "welcomePage", path: "", component: WelcomePage },
@@ -19,5 +20,6 @@ export const routes = [
     name: "advertAddition",
     path: "/add",
     component: AdvertAdditionForm
-  }
+  },
+  { name: "userSignUp", path: "/signup", component: UserSignUp }
 ];

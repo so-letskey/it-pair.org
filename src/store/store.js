@@ -6,11 +6,15 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    adverts: []
+    adverts: [],
+    signedUp: false
   },
   mutations: {
     addNewAdvert: (state, payload) => {
       state.adverts.push(payload);
+    },
+    signUp: state => {
+      state.signedUp = true;
     }
   },
   actions: {
@@ -32,6 +36,13 @@ export const store = new Vuex.Store({
           }
           context.state.adverts = advertsArray;
         });
+    },
+    signUp: ({ commit }, userData) => {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(userData.email, userData.password)
+        .then(data => commit("signUp"))
+        .catch(err => alert(err));
     }
   }
 });
