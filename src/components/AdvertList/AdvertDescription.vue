@@ -11,19 +11,32 @@
         similique esse dolore fuga autem! Commodi, quia dolorem ullam cupiditate
         voluptatibus itaque iste!
       </p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Kontakt</a>
+      <a
+        v-if="isAdvertOwner"
+        class="btn btn-primary btn-lg"
+        href="#"
+        role="button"
+        >Edit</a
+      >
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data: function() {
+  data() {
     return {
       activeAdvert: this.$store.state.advertsModule.adverts.find(
         advert => advert.id == this.$route.params.id
       )
     };
+  },
+  computed: {
+    isAdvertOwner() {
+      return this.$store.state.userDataModule.activeUser.registeredAdverts.includes(
+        this.activeAdvert.id
+      );
+    }
   }
 };
 </script>

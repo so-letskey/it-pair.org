@@ -18,7 +18,7 @@ const actions = {
       .then(data => {
         let newUser = {
           id: data.user.uid,
-          registeredAdverts: []
+          registeredAdverts: ["-LhPqljbaGAFRpIB8Ehu"]
         };
         commit("setUser", newUser);
       })
