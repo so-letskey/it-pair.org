@@ -27,7 +27,7 @@
             >Search</router-link
           >
         </li>
-        <li v-if="!this.$store.state.signedUp" class="nav-item">
+        <li v-if="!this.$store.state.userDataModule.signedUp" class="nav-item">
           <router-link
             :to="{ name: 'advertAddition' }"
             tag="a"
@@ -35,14 +35,19 @@
             >Add disabled</router-link
           >
         </li>
-        <li v-if="this.$store.state.signedUp" class="nav-item">
+        <li v-if="this.$store.state.userDataModule.signedUp" class="nav-item">
           <router-link :to="{ name: 'advertAddition' }" tag="a" class="nav-link"
             >Add ok</router-link
           >
         </li>
         <li class="nav-item">
+          <router-link :to="{ name: 'userSignIn' }" tag="a" class="nav-link"
+            >SignIn</router-link
+          >
+        </li>
+        <li class="nav-item">
           <router-link :to="{ name: 'userSignUp' }" tag="a" class="nav-link"
-            >Account</router-link
+            >SignUp</router-link
           >
         </li>
       </ul>

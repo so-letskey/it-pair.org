@@ -20,7 +20,7 @@
 export default {
   data: function() {
     return {
-      activeAdvert: this.$store.state.adverts.find(
+      activeAdvert: this.$store.state.advertsModule.adverts.find(
         advert => advert.id == this.$route.params.id
       )
     };

@@ -1,6 +1,6 @@
 <template>
   <div id="addition-form" class="container">
-    <h1>Sign Up Form</h1>
+    <h1>Sign In Form</h1>
     <form action="" class="needs-validation" novalidate>
       <div class="row">
         <div class="col-sm-12 col-md-6">
@@ -27,20 +27,9 @@
           />
           <div class="invalid-feedback">Well, duck you</div>
         </div>
-        <div class="col-sm-12 col-md-6">
-          <label for="repeatedPassword">Repeat the password</label>
-          <input
-            id="repeatedPassword"
-            v-model="repeatedPassword"
-            type="text"
-            name="repeatedPassword"
-            class="form-control"
-          />
-          <div class="invalid-feedback">Well, duck you</div>
-        </div>
       </div>
-      <button class="btn btn-primary" @click.prevent="signUp">
-        Sign Up
+      <button class="btn btn-primary" @click.prevent="signIn">
+        Sign In
       </button>
     </form>
   </div>
@@ -51,8 +40,7 @@ export default {
   data() {
     return {
       email: "",
-      password: "",
-      repeatedPassword: ""
+      password: ""
     };
   },
   computed: {
@@ -68,12 +56,12 @@ export default {
     }
   },
   methods: {
-    signUp() {
+    signIn() {
       let userData = {
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch("signUp", userData);
+      this.$store.dispatch("signIn", userData);
     }
   }
 };

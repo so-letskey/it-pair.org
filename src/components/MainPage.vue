@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <SingleCard
-      v-for="(advert, index) in this.$store.state.adverts"
+      v-for="(advert, index) in this.$store.state.advertsModule.adverts"
       :key="'Advert: ' + index"
       :advert="advert"
     />

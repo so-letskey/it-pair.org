@@ -3,6 +3,7 @@ import MainPage from "./components/MainPage";
 import AdvertDescription from "./components/AdvertList/AdvertDescription";
 import AdvertAdditionForm from "./components/AdvertAddition/AdvertAdditionForm";
 import UserSignUp from "./components/UserManagement/UserSignUp";
+import UserSignIn from "./components/UserManagement/UserSignIn";
 
 export const routes = [
   { name: "welcomePage", path: "", component: WelcomePage },
@@ -21,5 +22,6 @@ export const routes = [
     path: "/add",
     component: AdvertAdditionForm
   },
-  { name: "userSignUp", path: "/signup", component: UserSignUp }
+  { name: "userSignUp", path: "/signup", component: UserSignUp },
+  { name: "userSignIn", path: "/signin", component: UserSignIn }
 ];
