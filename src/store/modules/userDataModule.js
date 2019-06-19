@@ -7,6 +7,11 @@ const state = {
 const mutations = {
   setUser: (state, payload) => {
     state.activeUser = payload;
+  },
+  addAdvertReferenceToCreatorInStore: (state, payload) => {
+    let registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
+    registeredAdvertsUpdate.push(payload);
+    state.activeUser.registeredAdverts = registeredAdvertsUpdate;
   }
 };
 
@@ -16,32 +21,50 @@ const actions = {
       .auth()
       .createUserWithEmailAndPassword(userData.email, userData.password)
       .then(data => {
+        let newUserId = data.user.uid;
         let newUser = {
-          id: data.user.uid,
-          registeredAdverts: ["-LhPqljbaGAFRpIB8Ehu"]
+          id: newUserId,
+          registeredAdverts: []
         };
-        commit("setUser", newUser);
+        firebase
+          .database()
+          .ref("users")
+          .child(newUserId)
+          .set(newUser)
+          .then(function() {
+            commit("setUser", newUser);
+          })
+          .catch(err => alert("inside firebase2 signUp" + err));
       })
-      .catch(err => alert(err));
+      .catch(err => alert("inside user dataModule: " + err));
   },
   signIn: ({ commit }, userData) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(userData.email, userData.password)
       .then(data => {
-        let newUser = {
-          id: data.user.uid,
-          registeredAdverts: []
-        };
-        commit("setUser", newUser);
-      })
-      .catch(err => alert(err));
+        firebase
+          .database()
+          .ref("/users/" + data.user.uid)
+          .once("value")
+          .then(res => {
+            commit("setUser", res.val());
+          })
+          .catch(err => alert(err));
+      });
   }
 };
 
 const getters = {
-  activeUser(state) {
-    return state.activeUser;
+  activeUserRegisteredAdverts: state => {
+    if (state.activeUser !== null) {
+      if (state.activeUser.registeredAdverts)
+        return state.activeUser.registeredAdverts;
+      else return [];
+    }
+  },
+  activeUserId: state => {
+    if (state.activeUser !== null) return state.activeUser.id;
   }
 };
 

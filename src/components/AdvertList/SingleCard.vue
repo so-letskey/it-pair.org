@@ -7,7 +7,10 @@
         With supporting text below as a natural lead-in to additional content.
       </p>
       <router-link
-        :to="{ name: 'advertDescription', params: { id: advert.id } }"
+        :to="{
+          name: 'advertDescription',
+          params: { id: advert.id }
+        }"
         >Read More</router-link
       >
     </div>

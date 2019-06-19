@@ -27,27 +27,17 @@
             >Search</router-link
           >
         </li>
-        <li v-if="!this.$store.state.userDataModule.signedUp" class="nav-item">
-          <router-link
-            :to="{ name: 'advertAddition' }"
-            tag="a"
-            class="nav-link disabled"
-            >Add disabled</router-link
-          >
-        </li>
-        <li v-if="this.$store.state.userDataModule.signedUp" class="nav-item">
+        <li v-if="this.$store.state.userDataModule.activeUser" class="nav-item">
           <router-link :to="{ name: 'advertAddition' }" tag="a" class="nav-link"
-            >Add ok</router-link
+            >Add Advert</router-link
           >
         </li>
-        <li class="nav-item">
+        <li
+          v-if="!this.$store.state.userDataModule.activeUser"
+          class="nav-item"
+        >
           <router-link :to="{ name: 'userSignIn' }" tag="a" class="nav-link"
-            >SignIn</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'userSignUp' }" tag="a" class="nav-link"
-            >SignUp</router-link
+            >Sign In</router-link
           >
         </li>
       </ul>

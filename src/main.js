@@ -36,6 +36,12 @@ new Vue({
       storageBucket: "it-pair.appspot.com",
       appId: "1:113512295049:web:9439a28aa30fbd5c"
     });
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+
+    //     // this.$store.dispatch("autoSignIn", user);
+    //   }
+    // });
   },
   mounted() {
     this.$store.dispatch("loadAdverts");

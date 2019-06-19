@@ -63,7 +63,6 @@
           Add an advert
         </button></router-link
       >
-      <button @click="consoleLogStore">log</button>
     </form>
     <div>
       <!-- <pre class="language-json"><code>{{ value  }}</code></pre> -->
@@ -73,7 +72,6 @@
 
 <script>
 import Multiselect from "vue-multiselect";
-import * as firebase from "firebase";
 
 export default {
   components: {
@@ -122,21 +120,10 @@ export default {
     submitAdvert() {
       let advert = {
         title: this.title,
-        description: this.description
+        description: this.description,
+        creatorsId: this.$store.getters.activeUserId
       };
-
-      firebase
-        .database()
-        .ref("adverts")
-        .push(advert)
-        .then(response => {
-          advert.id = response.key;
-          this.$store.dispatch("addNewAdvert", advert);
-        })
-        .catch(err => alert(err));
-    },
-    consoleLogStore() {
-      console.log(this.$store.state.adverts);
+      this.$store.dispatch("addNewAdvert", advert);
     }
   }
 };

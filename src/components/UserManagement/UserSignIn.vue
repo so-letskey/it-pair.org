@@ -32,6 +32,13 @@
         Sign In
       </button>
     </form>
+    <br />
+    <p>You don't have an account yet?</p>
+    <router-link :to="{ name: 'userSignUp' }"
+      ><button class="btn btn-primary">
+        Sign Up
+      </button>
+    </router-link>
   </div>
 </template>
 
@@ -45,7 +52,7 @@ export default {
   },
   computed: {
     activeUser() {
-      return this.$store.getters.activeUser;
+      return this.$store.state.userDataModule.activeUser;
     }
   },
   watch: {

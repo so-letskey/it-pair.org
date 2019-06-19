@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     activeUser() {
-      return this.$store.getters.activeUser;
+      return this.$store.state.userDataModule.activeUser;
     }
   },
   watch: {

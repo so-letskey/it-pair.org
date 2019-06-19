@@ -11,8 +11,29 @@ const mutations = {
 };
 
 const actions = {
-  addNewAdvert: (context, payload) => {
-    context.commit("addNewAdvert", payload);
+  addNewAdvert: ({ commit, getters }, advert) => {
+    // add advert to database
+    firebase
+      .database()
+      .ref("adverts")
+      .push(advert)
+      .then(response => {
+        let id = response.key;
+        advert.id = id;
+        // add advert reference in creator object in database
+        firebase
+          .database()
+          .ref("/users/" + advert.creatorsId)
+          .update({
+            registeredAdverts: [
+              ...getters.activeUserRegisteredAdverts,
+              response.key
+            ]
+          });
+        commit("addAdvertReferenceToCreatorInStore", id);
+        commit("addNewAdvert", advert);
+      })
+      .catch(err => alert(err));
   },
   loadAdverts: context => {
     firebase
