@@ -12,6 +12,9 @@ const mutations = {
     let registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
     registeredAdvertsUpdate.push(payload);
     state.activeUser.registeredAdverts = registeredAdvertsUpdate;
+  },
+  logOut: state => {
+    state.activeUser = null;
   }
 };
 
@@ -34,9 +37,9 @@ const actions = {
           .then(function() {
             commit("setUser", newUser);
           })
-          .catch(err => alert("inside firebase2 signUp" + err));
+          .catch(err => alert(err));
       })
-      .catch(err => alert("inside user dataModule: " + err));
+      .catch(err => alert(err));
   },
   signIn: ({ commit }, userData) => {
     firebase
@@ -52,6 +55,25 @@ const actions = {
           })
           .catch(err => alert(err));
       });
+  },
+  autoSignIn({ commit }, payload) {
+    firebase
+      .database()
+      .ref("/users/" + payload.uid)
+      .once("value")
+      .then(response => {
+        let user = response.val();
+        commit("setUser", user);
+      });
+  },
+  logOut({ commit }) {
+    firebase
+      .auth()
+      .signOut()
+      .then(function() {
+        commit("logOut");
+      })
+      .catch(err => alert(err));
   }
 };
 

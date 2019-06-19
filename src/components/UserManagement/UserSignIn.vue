@@ -33,7 +33,7 @@
       </button>
     </form>
     <br />
-    <p>You don't have an account yet?</p>
+    Don't have an account yet?
     <router-link :to="{ name: 'userSignUp' }"
       ><button class="btn btn-primary">
         Sign Up

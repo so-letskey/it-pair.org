@@ -1,3 +1,5 @@
+// This document needs small refactoring
+
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <router-link class="navbar-brand" :to="{ name: 'welcomePage' }" tag="a"
@@ -40,7 +42,28 @@
             >Sign In</router-link
           >
         </li>
+        <li v-if="this.$store.state.userDataModule.activeUser" class="nav-item">
+          <a class="nav-link" @click="dispatchLogOut"
+            ><span class="pointer">Log Out</span></a
+          >
+        </li>
       </ul>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  methods: {
+    dispatchLogOut() {
+      this.$store.dispatch("logOut");
+    }
+  }
+};
+</script>
+
+<style scoped>
+.pointer {
+  cursor: pointer !important;
+}
+</style>

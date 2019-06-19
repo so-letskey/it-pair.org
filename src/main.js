@@ -3,7 +3,7 @@ import App from "./App.vue";
 
 // Router
 import VueRouter from "vue-router";
-import { routes } from "./routes";
+import { routes } from "./router/routes";
 
 // Store setup
 import { store } from "./store/store";
@@ -36,12 +36,11 @@ new Vue({
       storageBucket: "it-pair.appspot.com",
       appId: "1:113512295049:web:9439a28aa30fbd5c"
     });
-    // firebase.auth().onAuthStateChanged(user => {
-    //   if (user) {
-
-    //     // this.$store.dispatch("autoSignIn", user);
-    //   }
-    // });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch("autoSignIn", user);
+      }
+    });
   },
   mounted() {
     this.$store.dispatch("loadAdverts");
