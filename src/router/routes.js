@@ -1,7 +1,8 @@
 import WelcomePage from "../components/WelcomePage.vue";
 import MainPage from "../components/MainPage";
-import AdvertDescription from "../components/AdvertList/AdvertDescription";
-import AdvertAdditionForm from "../components/AdvertAddition/AdvertAdditionForm";
+import AdvertDescription from "../components/Adverts/AdvertList/AdvertDescription";
+import AdvertAdditionForm from "../components/Adverts/AdvertOperations/AdvertAdditionForm";
+import AdvertModification from "../components/Adverts/AdvertOperations/AdvertModification";
 import UserSignUp from "../components/UserManagement/UserSignUp";
 import UserSignIn from "../components/UserManagement/UserSignIn";
 import AuthGuard from "./auth-guard";
@@ -23,6 +24,12 @@ export const routes = [
     path: "/add",
     component: AdvertAdditionForm,
     beforeEnter: AuthGuard
+  },
+  {
+    name: "advertModification",
+    path: "/adverts/modify",
+    component: AdvertModification,
+    props: true
   },
   { name: "userSignUp", path: "/signup", component: UserSignUp },
   { name: "userSignIn", path: "/signin", component: UserSignIn }

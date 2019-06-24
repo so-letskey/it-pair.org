@@ -7,6 +7,13 @@ const state = {
 const mutations = {
   addNewAdvert: (state, payload) => {
     state.adverts.push(payload);
+  },
+  updateAdvertsInStore: (state, payload) => {
+    let newAdvertList = state.adverts.filter(
+      advert => advert.id !== payload.id
+    );
+    newAdvertList.push(payload);
+    state.adverts = newAdvertList;
   }
 };
 
@@ -20,7 +27,7 @@ const actions = {
       .then(response => {
         let id = response.key;
         advert.id = id;
-        // add advert reference in creator object in database
+        // add advert reference in creator entry in database
         firebase
           .database()
           .ref("/users/" + advert.creatorsId)
@@ -34,6 +41,15 @@ const actions = {
         commit("addNewAdvert", advert);
       })
       .catch(err => alert(err));
+  },
+  editAdvert: ({ commit }, advert) => {
+    firebase
+      .database()
+      .ref("/adverts/" + advert.id)
+      .set(advert)
+      .then(function() {
+        commit("updateAdvertsInStore", advert);
+      });
   },
   loadAdverts: context => {
     firebase

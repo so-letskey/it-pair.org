@@ -9,7 +9,10 @@ const mutations = {
     state.activeUser = payload;
   },
   addAdvertReferenceToCreatorInStore: (state, payload) => {
-    let registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
+    let registeredAdvertsUpdate = [];
+    if (state.activeUser.registeredAdverts !== undefined) {
+      registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
+    }
     registeredAdvertsUpdate.push(payload);
     state.activeUser.registeredAdverts = registeredAdvertsUpdate;
   },
