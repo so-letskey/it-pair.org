@@ -1,4 +1,4 @@
-// This is the module which operates on user state, and user entry in database
+// This module operates on user state, user entry in database and user authentication.
 
 import * as firebase from "firebase";
 
@@ -28,25 +28,14 @@ const mutations = {
 };
 
 const actions = {
-  signUp: ({ commit }, userData) => {
+  signUp: ({ dispatch }, userData) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(userData.email, userData.password)
       .then(data => {
         let newUserId = data.user.uid;
-        let newUser = {
-          id: newUserId,
-          registeredAdverts: []
-        };
-        firebase
-          .database()
-          .ref("users")
-          .child(newUserId)
-          .set(newUser)
-          .then(function() {
-            commit("setUser", newUser);
-          })
-          .catch(err => alert(err));
+        dispatch("createUserEntry", newUserId);
+        dispatch("createUserDetailEntry", newUserId);
       })
       .catch(err => alert(err));
   },
@@ -81,6 +70,21 @@ const actions = {
       .signOut()
       .then(function() {
         commit("logOut");
+      })
+      .catch(err => alert(err));
+  },
+  createUserDetailEntry({ commit }, newUserId) {
+    let newUser = {
+      id: newUserId,
+      registeredAdverts: []
+    };
+    firebase
+      .database()
+      .ref("users")
+      .child(newUserId)
+      .set(newUser)
+      .then(function() {
+        commit("setUser", newUser);
       })
       .catch(err => alert(err));
   },

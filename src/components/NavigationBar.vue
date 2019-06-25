@@ -32,6 +32,17 @@
           >
         </li>
         <!-- Actionable nav-item: -->
+        <li v-if="this.$store.state.userDataModule.activeUser" class="nav-item">
+          <router-link
+            :to="{
+              name: 'profileDetails',
+              params: { id: this.$store.state.userDataModule.activeUser.id }
+            }"
+            tag="a"
+            class="nav-link"
+            >My Profile</router-link
+          >
+        </li>
         <li v-if="this.$store.getters.userIsSignedIn" class="nav-item">
           <a class="nav-link" @click="dispatchLogOut"
             ><span class="pointer">Log Out</span></a
@@ -48,10 +59,10 @@ export default {
     navElements() {
       let navElementsArray = [{ routeName: "advertsList", name: "Search" }];
       if (this.$store.getters.userIsSignedIn) {
-        navElementsArray.push(
-          { routeName: "advertAddition", name: "Add Advert" },
-          { routeName: "profileDetails", name: "My Profile" }
-        );
+        navElementsArray.push({
+          routeName: "advertAddition",
+          name: "Add Advert"
+        });
       } else
         navElementsArray.push({ routeName: "userSignIn", name: "Sign In" });
       return navElementsArray;
