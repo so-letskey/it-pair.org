@@ -110,6 +110,11 @@ const getters = {
   },
   activeUserId: state => {
     if (state.activeUser !== null) return state.activeUser.id;
+  },
+  userIsSignedIn: state => {
+    if (state.activeUser !== null) {
+      return true;
+    } else return false;
   }
 };
 
