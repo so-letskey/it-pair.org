@@ -1,3 +1,5 @@
+// This is the module which operates on user state, and user entry in database
+
 import * as firebase from "firebase";
 
 const state = {
@@ -10,6 +12,7 @@ const mutations = {
   },
   addAdvertReferenceToCreatorInStore: (state, payload) => {
     let registeredAdvertsUpdate = [];
+    //firebase does not allow empty arrays, hence condition below
     if (state.activeUser.registeredAdverts !== undefined) {
       registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
     }
@@ -18,6 +21,10 @@ const mutations = {
   },
   logOut: state => {
     state.activeUser = null;
+  },
+  deleteAdvertReferenceInUserInStore: (state, registeredAdvertsUpdate) => {
+    console.log(registeredAdvertsUpdate);
+    state.activeUser.registeredAdverts = registeredAdvertsUpdate;
   }
 };
 
@@ -77,6 +84,19 @@ const actions = {
         commit("logOut");
       })
       .catch(err => alert(err));
+  },
+  deleteAdvertReferenceInUser({ commit, state }, deletedAdvert) {
+    let registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
+    registeredAdvertsUpdate = registeredAdvertsUpdate.filter(
+      advertId => advertId !== deletedAdvert.id
+    );
+    firebase
+      .database()
+      .ref("/users/" + deletedAdvert.creatorsId)
+      .update({ registeredAdverts: registeredAdvertsUpdate })
+      .then(function() {
+        commit("deleteAdvertReferenceInUserInStore", registeredAdvertsUpdate);
+      });
   }
 };
 

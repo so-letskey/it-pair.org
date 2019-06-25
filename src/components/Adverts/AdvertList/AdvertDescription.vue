@@ -16,15 +16,25 @@
       </ul>
       <p>Difficulty: {{ activeAdvert.difficulty }}</p>
 
-      <router-link
-        v-if="isAdvertOwner"
-        class="btn btn-primary btn-lg"
-        :to="{
-          name: 'advertModification',
-          params: { id: activeAdvert.id }
-        }"
-        >Edit</router-link
-      >
+      <div v-if="isAdvertOwner" id="modification-buttons">
+        <router-link
+          class="btn btn-primary btn-lg"
+          :to="{
+            name: 'advertModification',
+            params: { id: activeAdvert.id }
+          }"
+          >Edit</router-link
+        >
+        <router-link
+          :to="{
+            name: 'advertsList'
+          }"
+        >
+          <button class="btn btn-danger btn-lg" @click="deleteAdvert">
+            Delete
+          </button></router-link
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +53,11 @@ export default {
           this.activeAdvert.id
         );
       } else return false;
+    }
+  },
+  methods: {
+    deleteAdvert() {
+      this.$store.dispatch("deleteAdvert", this.activeAdvert);
     }
   }
 };

@@ -1,3 +1,5 @@
+// This is a module responsible for operating on adverts state, and adverts entries in database
+
 import * as firebase from "firebase";
 
 const state = {
@@ -13,6 +15,12 @@ const mutations = {
       advert => advert.id !== payload.id
     );
     newAdvertList.push(payload);
+    state.adverts = newAdvertList;
+  },
+  deleteAdvertFromStore: (state, deletedAdvertId) => {
+    let newAdvertList = state.adverts.filter(
+      advert => advert.id !== deletedAdvertId
+    );
     state.adverts = newAdvertList;
   }
 };
@@ -49,7 +57,19 @@ const actions = {
       .set(advert)
       .then(function() {
         commit("updateAdvertsInStore", advert);
-      });
+      })
+      .catch(err => alert(err));
+  },
+  deleteAdvert: ({ commit, dispatch }, advert) => {
+    firebase
+      .database()
+      .ref("/adverts/" + advert.id)
+      .remove()
+      .then(function() {
+        commit("deleteAdvertFromStore", advert.id);
+        dispatch("deleteAdvertReferenceInUser", advert);
+      })
+      .catch(err => alert(err));
   },
   loadAdverts: context => {
     firebase
