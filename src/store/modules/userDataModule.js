@@ -10,7 +10,10 @@ const mutations = {
   setUser: (state, payload) => {
     state.activeUser = payload;
   },
-  addAdvertReferenceToCreatorInStore: (state, payload) => {
+  logOut: state => {
+    state.activeUser = null;
+  },
+  addAdvertReferenceToUserInStore: (state, payload) => {
     let registeredAdvertsUpdate = [];
     //firebase does not allow empty arrays, hence condition below
     if (state.activeUser.registeredAdverts !== undefined) {
@@ -19,11 +22,7 @@ const mutations = {
     registeredAdvertsUpdate.push(payload);
     state.activeUser.registeredAdverts = registeredAdvertsUpdate;
   },
-  logOut: state => {
-    state.activeUser = null;
-  },
-  deleteAdvertReferenceInUserInStore: (state, registeredAdvertsUpdate) => {
-    console.log(registeredAdvertsUpdate);
+  deleteAdvertReferenceFromUserInStore: (state, registeredAdvertsUpdate) => {
     state.activeUser.registeredAdverts = registeredAdvertsUpdate;
   }
 };
@@ -85,7 +84,7 @@ const actions = {
       })
       .catch(err => alert(err));
   },
-  deleteAdvertReferenceInUser({ commit, state }, deletedAdvert) {
+  deleteAdvertReferenceFromUser({ commit, state }, deletedAdvert) {
     let registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
     registeredAdvertsUpdate = registeredAdvertsUpdate.filter(
       advertId => advertId !== deletedAdvert.id
@@ -95,7 +94,7 @@ const actions = {
       .ref("/users/" + deletedAdvert.creatorsId)
       .update({ registeredAdverts: registeredAdvertsUpdate })
       .then(function() {
-        commit("deleteAdvertReferenceInUserInStore", registeredAdvertsUpdate);
+        commit("deleteAdvertReferenceFromUserInStore", registeredAdvertsUpdate);
       });
   }
 };

@@ -41,8 +41,15 @@
 
 <script>
 export default {
+  // props: {
+  //   id: {
+  //     type: String,
+  //     required: true
+  //   }
+  // },
   computed: {
     activeAdvert() {
+      // return this.$store.getters.activeAdvert;
       return this.$store.state.advertsModule.adverts.find(
         advert => advert.id == this.$route.params.id
       );
@@ -55,9 +62,16 @@ export default {
       } else return false;
     }
   },
+  created() {
+    this.$store.dispatch("setActiveAdvert", this.id);
+  },
+  destroyed() {
+    this.$store.dispatch("deactivateAdvert");
+  },
   methods: {
     deleteAdvert() {
-      this.$store.dispatch("deleteAdvert", this.activeAdvert);
+      this.$store.dispatch("setViewedProfile", this.activeAdvert.creatorsId);
+      // this.$store.dispatch("deleteAdvert", this.activeAdvert);
     }
   }
 };

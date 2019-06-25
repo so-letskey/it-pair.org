@@ -3,7 +3,8 @@
 import * as firebase from "firebase";
 
 const state = {
-  adverts: []
+  adverts: [],
+  activeAdvert: null
 };
 
 const mutations = {
@@ -22,6 +23,12 @@ const mutations = {
       advert => advert.id !== deletedAdvertId
     );
     state.adverts = newAdvertList;
+  },
+  setActiveAdvert: (state, advert) => {
+    state.activeAdvert = advert;
+  },
+  deactivateAdvert: state => {
+    state.activeAdvert = null;
   }
 };
 
@@ -45,7 +52,7 @@ const actions = {
               response.key
             ]
           });
-        commit("addAdvertReferenceToCreatorInStore", id);
+        commit("addAdvertReferenceToUserInStore", id);
         commit("addNewAdvert", advert);
       })
       .catch(err => alert(err));
@@ -67,7 +74,7 @@ const actions = {
       .remove()
       .then(function() {
         commit("deleteAdvertFromStore", advert.id);
-        dispatch("deleteAdvertReferenceInUser", advert);
+        dispatch("deleteAdvertReferenceFromUser", advert);
       })
       .catch(err => alert(err));
   },
@@ -86,7 +93,24 @@ const actions = {
         }
         context.state.adverts = advertsArray;
       });
+  },
+  setActiveAdvert: ({ commit }, advertId) => {
+    firebase
+      .database()
+      .ref("/adverts/" + advertId)
+      .once("value")
+      .then(advert => commit("setActiveAdvert", advert.val()));
+  },
+  deactivateAdvert: ({ commit }) => {
+    commit("deactivateAdvert");
   }
 };
 
-export default { state, mutations, actions };
+const getters = {
+  activeAdvert: state => {
+    if (state.activeAdvert === null) return {};
+    else return state.activeAdvert;
+  }
+};
+
+export default { state, mutations, actions, getters };

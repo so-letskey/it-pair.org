@@ -5,6 +5,7 @@ import AdvertAdditionForm from "../components/Adverts/AdvertOperations/AdvertAdd
 import AdvertModification from "../components/Adverts/AdvertOperations/AdvertModification";
 import UserSignUp from "../components/UserManagement/UserSignUp";
 import UserSignIn from "../components/UserManagement/UserSignIn";
+import ProfileDetails from "../components/UserManagement/ProfileDetails";
 import AuthGuard from "./auth-guard";
 
 export const routes = [
@@ -31,6 +32,7 @@ export const routes = [
     component: AdvertModification,
     props: true
   },
+  { name: "profileDetails", path: "/profile/:id", component: ProfileDetails },
   { name: "userSignUp", path: "/signup", component: UserSignUp },
   { name: "userSignIn", path: "/signin", component: UserSignIn }
 ];
