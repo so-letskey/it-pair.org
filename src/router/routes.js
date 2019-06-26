@@ -6,6 +6,7 @@ import AdvertModification from "../components/Adverts/AdvertOperations/AdvertMod
 import UserSignUp from "../components/UserManagement/UserSignUp";
 import UserSignIn from "../components/UserManagement/UserSignIn";
 import ProfileDetails from "../components/UserManagement/ProfileDetails";
+import ProfileModification from "../components/UserManagement/ProfileModification";
 import AuthGuard from "./auth-guard";
 
 export const routes = [
@@ -33,6 +34,12 @@ export const routes = [
     props: true
   },
   { name: "profileDetails", path: "/profile/:id", component: ProfileDetails },
+  {
+    name: "profileModification",
+    path: "/profile/edit",
+    component: ProfileModification,
+    props: true
+  },
   { name: "userSignUp", path: "/signup", component: UserSignUp },
   { name: "userSignIn", path: "/signin", component: UserSignIn }
 ];

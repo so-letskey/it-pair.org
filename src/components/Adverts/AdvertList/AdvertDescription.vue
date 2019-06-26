@@ -35,6 +35,16 @@
           </button></router-link
         >
       </div>
+      <router-link
+        :to="{
+          name: 'profileDetails',
+          params: { id: activeAdvert.creatorsId }
+        }"
+      >
+        <button class="btn btn-info btn-lg" @click="deleteAdvert">
+          Show Profile
+        </button></router-link
+      >
     </div>
   </div>
 </template>
@@ -62,7 +72,7 @@ export default {
       } else return false;
     }
   },
-  created() {
+  beforeCreate() {
     this.$store.dispatch("setActiveAdvert", this.id);
   },
   destroyed() {
@@ -70,7 +80,7 @@ export default {
   },
   methods: {
     deleteAdvert() {
-      this.$store.dispatch("setViewedProfile", this.activeAdvert.creatorsId);
+      // this.$store.dispatch("setViewedProfile", this.activeAdvert.creatorsId);
       // this.$store.dispatch("deleteAdvert", this.activeAdvert);
     }
   }

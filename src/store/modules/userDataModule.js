@@ -73,7 +73,7 @@ const actions = {
       })
       .catch(err => alert(err));
   },
-  createUserDetailEntry({ commit }, newUserId) {
+  createUserEntry({ commit }, newUserId) {
     let newUser = {
       id: newUserId,
       registeredAdverts: []

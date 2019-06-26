@@ -23,7 +23,7 @@ const actions = {
     let newUserDetail = {
       id: newUserId,
       language: "undefined_language",
-      localisation: "undefined_localisation",
+      // localisation: "undefined_localisation",
       technologies: [],
       username: "undefined_username",
       description: "undefined_description"
@@ -40,7 +40,7 @@ const actions = {
     // hence they both have to be combined in the next operation, so that viewedProfile object
     // will contain all necessary data to be shown in the ProfileDetails.vue component.
     try {
-      let userDataArray = await Promise.all([
+      let [userBasic, userDetails] = await Promise.all([
         firebase
           .database()
           .ref("/users/" + userId)
@@ -50,7 +50,7 @@ const actions = {
           .ref("/userDetails/" + userId)
           .once("value")
       ]);
-      let userData = { ...userDataArray[0].val(), ...userDataArray[1].val() };
+      let userData = { ...userBasic.val(), ...userDetails.val() };
       commit("setViewedProfile", userData);
     } catch (err) {
       alert(err);
@@ -58,7 +58,25 @@ const actions = {
   },
   resetViewedProfile({ commit }) {
     commit("resetViewedProfile");
+  },
+  async editProfile(context, profileDetails) {
+    try {
+      await firebase
+        .database()
+        .ref("/userDetails/" + profileDetails.id)
+        .set(profileDetails);
+    } catch (err) {
+      alert(err);
+    }
   }
 };
 
-export default { state, actions, mutations };
+const getters = {
+  viewedProfile: state => {
+    if (state.viewedProfile !== null) {
+      return state.viewedProfile;
+    } else return {};
+  }
+};
+
+export default { state, actions, mutations, getters };

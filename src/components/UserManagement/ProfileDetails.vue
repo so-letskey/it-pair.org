@@ -35,7 +35,7 @@
 export default {
   computed: {
     viewedProfile() {
-      return this.$store.state.profileDetailModule.viewedProfile;
+      return this.$store.getters.viewedProfile;
     },
     isProfileOwner() {
       if (this.$store.state.userDataModule.activeUser !== null) {
