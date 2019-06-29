@@ -81,7 +81,7 @@ export default {
   methods: {
     deleteAdvert() {
       // this.$store.dispatch("setViewedProfile", this.activeAdvert.creatorsId);
-      // this.$store.dispatch("deleteAdvert", this.activeAdvert);
+      this.$store.dispatch("deleteAdvert", this.activeAdvert);
     }
   }
 };

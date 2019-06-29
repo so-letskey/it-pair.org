@@ -15,6 +15,8 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as firebase from "firebase";
 
+import db from "./firebase/firebaseInit";
+
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
@@ -28,13 +30,16 @@ new Vue({
   router,
   store,
   created() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyB34MLUkLm7ujthyCLAXKXRvzV_jpjhvr4",
-      authDomain: "it-pair.firebaseapp.com",
-      databaseURL: "https://it-pair.firebaseio.com",
-      projectId: "it-pair",
-      storageBucket: "it-pair.appspot.com",
-      appId: "1:113512295049:web:9439a28aa30fbd5c"
+    // firebase.initializeApp({
+    //   apiKey: "AIzaSyB34MLUkLm7ujthyCLAXKXRvzV_jpjhvr4",
+    //   authDomain: "it-pair.firebaseapp.com",
+    //   databaseURL: "https://it-pair.firebaseio.com",
+    //   projectId: "it-pair",
+    //   storageBucket: "it-pair.appspot.com",
+    //   appId: "1:113512295049:web:9439a28aa30fbd5c"
+    // });
+    db.collection("witek2").add({
+      name: "Witold"
     });
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
