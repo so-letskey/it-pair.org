@@ -3,7 +3,7 @@
 
 // This module uses the async/await functionality both for training, and optimalization purposes
 
-import * as firebase from "firebase";
+import db from "../../firebase/firebaseInit";
 
 const state = {
   viewedProfile: null
@@ -28,10 +28,8 @@ const actions = {
       username: "undefined_username",
       description: "undefined_description"
     };
-    firebase
-      .database()
-      .ref("userDetails")
-      .child(newUserId)
+    db.collection("userDetails")
+      .doc(newUserId)
       .set(newUserDetail)
       .catch(err => alert(err));
   },
@@ -41,16 +39,16 @@ const actions = {
     // will contain all necessary data to be shown in the ProfileDetails.vue component.
     try {
       let [userBasic, userDetails] = await Promise.all([
-        firebase
-          .database()
-          .ref("/users/" + userId)
-          .once("value"),
-        firebase
-          .database()
-          .ref("/userDetails/" + userId)
-          .once("value")
+        db
+          .collection("users")
+          .doc(userId)
+          .get(),
+        db
+          .collection("userDetails")
+          .doc(userId)
+          .get()
       ]);
-      let userData = { ...userBasic.val(), ...userDetails.val() };
+      let userData = { ...userBasic.data(), ...userDetails.data() };
       commit("setViewedProfile", userData);
     } catch (err) {
       alert(err);
@@ -61,9 +59,9 @@ const actions = {
   },
   async editProfile(context, profileDetails) {
     try {
-      await firebase
-        .database()
-        .ref("/userDetails/" + profileDetails.id)
+      await db
+        .collection("userDetails")
+        .doc(profileDetails.id)
         .set(profileDetails);
     } catch (err) {
       alert(err);

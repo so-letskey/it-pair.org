@@ -1,6 +1,7 @@
 // This module operates on user state, user entry in database and user authentication.
 
 import * as firebase from "firebase";
+import db from "../../firebase/firebaseInit";
 
 const state = {
   activeUser: null
@@ -44,25 +45,22 @@ const actions = {
       .auth()
       .signInWithEmailAndPassword(userData.email, userData.password)
       .then(data => {
-        firebase
-          .database()
-          .ref("/users/" + data.user.uid)
-          .once("value")
-          .then(res => {
-            commit("setUser", res.val());
-          })
+        db.collection("users")
+          .doc(data.user.uid)
+          .get()
+          .then(res => commit("setUser", res.data()))
           .catch(err => alert(err));
       });
   },
   autoSignIn({ commit }, payload) {
-    firebase
-      .database()
-      .ref("/users/" + payload.uid)
-      .once("value")
-      .then(response => {
-        let user = response.val();
+    db.collection("users")
+      .doc(payload.uid)
+      .get()
+      .then(res => {
+        let user = res.data();
         commit("setUser", user);
-      });
+      })
+      .catch(err => alert(err));
   },
   logOut({ commit }) {
     firebase
@@ -73,29 +71,25 @@ const actions = {
       })
       .catch(err => alert(err));
   },
-  createUserEntry({ commit }, newUserId) {
+  async createUserEntry({ commit }, newUserId) {
     let newUser = {
       id: newUserId,
       registeredAdverts: []
     };
-    firebase
-      .database()
-      .ref("users")
-      .child(newUserId)
-      .set(newUser)
-      .then(function() {
-        commit("setUser", newUser);
-      })
-      .catch(err => alert(err));
+    await db
+      .collection("users")
+      .doc(newUserId)
+      .set(newUser);
+
+    commit("setUser", newUser);
   },
   deleteAdvertReferenceFromUser({ commit, state }, deletedAdvert) {
     let registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
     registeredAdvertsUpdate = registeredAdvertsUpdate.filter(
       advertId => advertId !== deletedAdvert.id
     );
-    firebase
-      .database()
-      .ref("/users/" + deletedAdvert.creatorsId)
+    db.collection("users")
+      .doc(deletedAdvert.creatorsId)
       .update({ registeredAdverts: registeredAdvertsUpdate })
       .then(function() {
         commit("deleteAdvertReferenceFromUserInStore", registeredAdvertsUpdate);

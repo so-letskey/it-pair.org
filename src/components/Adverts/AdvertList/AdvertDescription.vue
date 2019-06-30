@@ -73,7 +73,7 @@ export default {
     }
   },
   beforeCreate() {
-    this.$store.dispatch("setActiveAdvert", this.id);
+    this.$store.dispatch("setActiveAdvert", this.$route.params.id);
   },
   destroyed() {
     this.$store.dispatch("deactivateAdvert");

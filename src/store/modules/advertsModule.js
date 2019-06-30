@@ -1,6 +1,7 @@
 // This is a module responsible for operating on adverts state, and adverts entries in database
 
 import * as firebase from "firebase";
+import db from "../../firebase/firebaseInit";
 
 const state = {
   adverts: [],
@@ -33,34 +34,33 @@ const mutations = {
 };
 
 const actions = {
-  addNewAdvert: ({ commit, getters }, advert) => {
+  addNewAdvert: ({ commit }, advert) => {
     // add advert to database
-    firebase
-      .database()
-      .ref("adverts")
-      .push(advert)
+    db.collection("adverts")
+      .add(advert)
       .then(response => {
-        let id = response.key;
+        let id = response.id;
         advert.id = id;
-        // add advert reference in creator entry in database
-        firebase
-          .database()
-          .ref("/users/" + advert.creatorsId)
+        //add easily accessible id entry
+        db.collection("adverts")
+          .doc(id)
+          .update({ id: id })
+          .catch(err => alert(err));
+        // add advert reference in creator entry in db
+        db.collection("users")
+          .doc(advert.creatorsId)
           .update({
-            registeredAdverts: [
-              ...getters.activeUserRegisteredAdverts,
-              response.key
-            ]
-          });
+            registeredAdverts: firebase.firestore.FieldValue.arrayUnion(id)
+          })
+          .catch(err => console.log(err));
+
         commit("addAdvertReferenceToUserInStore", id);
         commit("addNewAdvert", advert);
-      })
-      .catch(err => alert(err));
+      });
   },
   editAdvert: ({ commit }, advert) => {
-    firebase
-      .database()
-      .ref("/adverts/" + advert.id)
+    db.collection("adverts")
+      .doc(advert.id)
       .set(advert)
       .then(function() {
         commit("updateAdvertsInStore", advert);
@@ -68,10 +68,9 @@ const actions = {
       .catch(err => alert(err));
   },
   deleteAdvert: ({ commit, dispatch }, advert) => {
-    firebase
-      .database()
-      .ref("/adverts/" + advert.id)
-      .remove()
+    db.collection("adverts")
+      .doc(advert.id)
+      .delete()
       .then(function() {
         commit("deleteAdvertFromStore", advert.id);
         dispatch("deleteAdvertReferenceFromUser", advert);
@@ -79,27 +78,21 @@ const actions = {
       .catch(err => alert(err));
   },
   loadAdverts: context => {
-    firebase
-      .database()
-      .ref("adverts")
-      .once("value")
-      .then(data => {
+    db.collection("adverts")
+      .get()
+      .then(querySnapshot => {
         let advertsArray = [];
-        let tempData = data.val();
-        for (let key in tempData) {
-          let tempObj = tempData[key];
-          tempObj.id = key;
-          advertsArray.push(tempObj);
-        }
+        querySnapshot.forEach(advert => {
+          advertsArray.push(advert.data());
+        });
         context.state.adverts = advertsArray;
       });
   },
   setActiveAdvert: ({ commit }, advertId) => {
-    firebase
-      .database()
-      .ref("/adverts/" + advertId)
-      .once("value")
-      .then(advert => commit("setActiveAdvert", advert.val()));
+    db.collection("adverts")
+      .doc(advertId)
+      .get()
+      .then(advert => commit("setActiveAdvert", advert.data()));
   },
   deactivateAdvert: ({ commit }) => {
     commit("deactivateAdvert");

@@ -4,7 +4,7 @@
     <div class="card-body">
       <h5 class="card-title">{{ advert.description }}</h5>
       <p class="card-text">
-        With supporting text below as a natural lead-in to additional content.
+        With supporting texts below as a natural lead-in to additional content.
       </p>
       <router-link
         :to="{

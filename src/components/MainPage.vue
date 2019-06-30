@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import SingleCard from "./AdvertList/SingleCard.vue";
+import SingleCard from "./Adverts/AdvertList/SingleCard.vue";
 
 export default {
   components: {
