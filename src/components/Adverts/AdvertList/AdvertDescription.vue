@@ -41,7 +41,7 @@
           params: { id: activeAdvert.creatorsId }
         }"
       >
-        <button class="btn btn-info btn-lg" @click="deleteAdvert">
+        <button class="btn btn-info btn-lg">
           Show Profile
         </button></router-link
       >
@@ -51,12 +51,6 @@
 
 <script>
 export default {
-  // props: {
-  //   id: {
-  //     type: String,
-  //     required: true
-  //   }
-  // },
   computed: {
     activeAdvert() {
       // return this.$store.getters.activeAdvert;
@@ -80,7 +74,6 @@ export default {
   },
   methods: {
     deleteAdvert() {
-      // this.$store.dispatch("setViewedProfile", this.activeAdvert.creatorsId);
       this.$store.dispatch("deleteAdvert", this.activeAdvert);
     }
   }

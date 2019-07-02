@@ -15,8 +15,6 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as firebase from "firebase";
 
-import db from "./firebase/firebaseInit";
-
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
