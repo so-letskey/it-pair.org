@@ -69,9 +69,12 @@ export default {
   components: { Multiselect },
   data() {
     return {
-      difficulty: "",
-      technologies: []
+      difficulty: this.$store.state.filteringEngine.difficulty,
+      technologies: this.$store.state.filteringEngine.technologies
     };
+  },
+  created() {
+    console.log(this.$store.state.filteringEngine.difficulty);
   },
   methods: {
     dispatchSearchQuery() {
@@ -79,7 +82,7 @@ export default {
         difficulty: this.difficulty,
         technologies: this.technologies
       };
-      console.log(searchParameters);
+      this.$store.dispatch("setParameters", searchParameters);
       this.$store.dispatch("loadAdverts", searchParameters);
     }
   }

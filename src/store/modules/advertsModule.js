@@ -77,6 +77,15 @@ const actions = {
       })
       .catch(err => alert(err));
   },
+  setActiveAdvert: ({ commit }, advertId) => {
+    db.collection("adverts")
+      .doc(advertId)
+      .get()
+      .then(advert => commit("setActiveAdvert", advert.data()));
+  },
+  deactivateAdvert: ({ commit }) => {
+    commit("deactivateAdvert");
+  },
   loadAdverts: (context, searchParameters) => {
     db.collection("adverts")
       .where(
@@ -93,15 +102,6 @@ const actions = {
         });
         context.state.adverts = advertsArray;
       });
-  },
-  setActiveAdvert: ({ commit }, advertId) => {
-    db.collection("adverts")
-      .doc(advertId)
-      .get()
-      .then(advert => commit("setActiveAdvert", advert.data()));
-  },
-  deactivateAdvert: ({ commit }) => {
-    commit("deactivateAdvert");
   }
 };
 
