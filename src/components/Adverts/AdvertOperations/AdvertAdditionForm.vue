@@ -53,7 +53,7 @@
           id="technology-choice"
           v-model="technologies"
           class="multiselect"
-          :options="this.$store.state.advertOptions.technologies"
+          :options="this.$store.state.advertOptions.technologiesGrouped"
           :multiple="true"
           group-values="libs"
           group-label="language"
@@ -80,12 +80,15 @@
 </template>
 
 <script>
+import { queryModifications } from "./AdvertOperationsMixin";
+
 import Multiselect from "vue-multiselect";
 
 export default {
   components: {
     Multiselect
   },
+  mixins: [queryModifications],
   data() {
     return {
       title: "",
@@ -107,12 +110,20 @@ export default {
   },
   methods: {
     submitAdvert() {
+      //The Firestore query is incompatible with the multiselect formatting,
+      //hence two 'technologies' entries are necessary - one works with multiselect, the other
+      //with search query
+      let technologiesForQuery = this.createTechnologiesEntryForSearchQuery(
+        this.technologies
+      );
       let advert = {
         title: this.title,
         description: this.description,
         difficulty: this.difficulty,
         technologies: this.technologies,
-        creatorsId: this.$store.getters.activeUserId
+        technologiesForQuery: technologiesForQuery,
+        creatorsId: this.$store.getters.activeUserId,
+        erej: ["1", "2"]
       };
       this.$store.dispatch("addNewAdvert", advert);
     }

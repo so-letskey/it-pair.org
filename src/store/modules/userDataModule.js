@@ -35,6 +35,8 @@ const actions = {
       .createUserWithEmailAndPassword(userData.email, userData.password)
       .then(data => {
         let newUserId = data.user.uid;
+        // This distinction is for efficiency purposes
+        // - not always do you need the details
         dispatch("createUserEntry", newUserId);
         dispatch("createUserDetailEntry", newUserId);
       })

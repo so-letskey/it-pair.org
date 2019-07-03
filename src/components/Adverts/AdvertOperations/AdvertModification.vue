@@ -53,7 +53,7 @@
           id="technology-choice"
           v-model="technologies"
           class="multiselect"
-          :options="this.$store.state.advertOptions.technologies"
+          :options="this.$store.state.advertOptions.technologiesGrouped"
           :multiple="true"
           group-values="libs"
           group-label="language"
@@ -81,12 +81,15 @@
 </template>
 
 <script>
+import { queryModifications } from "./AdvertOperationsMixin";
+
 import Multiselect from "vue-multiselect";
 
 export default {
   components: {
     Multiselect
   },
+  mixins: [queryModifications],
   props: {
     id: {
       type: String,
@@ -112,13 +115,18 @@ export default {
   },
   methods: {
     editAdvert() {
+      let technologiesForQuery = this.createTechnologiesEntryForSearchQuery(
+        this.technologies
+      );
       let advert = {
         title: this.title,
         description: this.description,
         difficulty: this.difficulty,
         technologies: this.technologies,
+        technologiesForQuery: technologiesForQuery,
         creatorsId: this.$store.getters.activeUserId,
-        id: this.id
+        id: this.id,
+        erej: ["1", "2"]
       };
       this.$store.dispatch("editAdvert", advert);
     }

@@ -1,5 +1,5 @@
 const state = {
-  technologies: [
+  technologiesGrouped: [
     {
       language: "Javascript",
       libs: [{ name: "Vue.js" }, { name: "Adonis" }]
@@ -18,6 +18,14 @@ const state = {
         { name: "Phoenix", category: "Backend" }
       ]
     }
+  ],
+  technologiesSingle: [
+    { name: "Vue.js" },
+    { name: "Adonis" },
+    { name: "Rails", category: "Backend" },
+    { name: "Sinatra", category: "Backend" },
+    { name: "Laravel", category: "Backend" },
+    { name: "Phoenix", category: "Backend" }
   ],
   difficultyLevels: ["beginner", "medium", "advanced"]
 };

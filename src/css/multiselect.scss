@@ -1,11 +1,14 @@
-.multiselect__option--highlight {
-    background: orange !important;
-  }
-  
-  .multiselect__option--selected {
-    background: rgb(255, 255, 0) !important;
-  }
+/* If you had a problem with finding the names of the classes in multiselect, let me know, and
+I can tell you how to find them */
 
-  .multiselect__tag {
-      background: blue !important;
-  }
+.multiselect__option--highlight {
+  background: orange !important;
+}
+
+.multiselect__option--selected {
+  background: rgb(255, 255, 0) !important;
+}
+
+.multiselect__tag {
+    background: blue !important;
+}

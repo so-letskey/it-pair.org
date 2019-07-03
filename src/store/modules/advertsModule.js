@@ -79,6 +79,8 @@ const actions = {
   },
   loadAdverts: context => {
     db.collection("adverts")
+      // .where("technologiesForQuery", "array-contains", "Vue.js")
+      // .where("difficulty", "==", "medium")
       .get()
       .then(querySnapshot => {
         let advertsArray = [];
