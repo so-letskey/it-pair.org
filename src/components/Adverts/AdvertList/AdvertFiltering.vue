@@ -13,7 +13,9 @@
           Filters
         </button>
         <router-link :to="{ name: 'advertsList' }"
-          ><button class="btn btn-primary">Search</button></router-link
+          ><button class="btn btn-primary" @click="dispatchSearchQuery">
+            Search
+          </button></router-link
         >
       </div>
 
@@ -67,12 +69,19 @@ export default {
   components: { Multiselect },
   data() {
     return {
-      title: "",
-      description: "",
       difficulty: "",
-      checkBox: true,
       technologies: []
     };
+  },
+  methods: {
+    dispatchSearchQuery() {
+      let searchParameters = {
+        difficulty: this.difficulty,
+        technologies: this.technologies
+      };
+      console.log(searchParameters);
+      this.$store.dispatch("loadAdverts", searchParameters);
+    }
   }
 };
 </script>

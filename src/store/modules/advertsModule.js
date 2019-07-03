@@ -77,10 +77,14 @@ const actions = {
       })
       .catch(err => alert(err));
   },
-  loadAdverts: context => {
+  loadAdverts: (context, searchParameters) => {
     db.collection("adverts")
-      // .where("technologiesForQuery", "array-contains", "Vue.js")
-      // .where("difficulty", "==", "medium")
+      .where(
+        "technologiesForQuery",
+        "array-contains",
+        searchParameters.technologies.name
+      )
+      .where("difficulty", "==", searchParameters.difficulty)
       .get()
       .then(querySnapshot => {
         let advertsArray = [];

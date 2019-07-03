@@ -17,9 +17,6 @@ export default {
   components: {
     AdvertFiltering,
     SingleCard
-  },
-  beforeCreate() {
-    this.$store.dispatch("loadAdverts");
   }
 };
 </script>

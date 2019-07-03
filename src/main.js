@@ -34,8 +34,5 @@ new Vue({
       }
     });
   },
-  mounted() {
-    // this.$store.dispatch("loadAdverts");
-  },
   render: h => h(App)
 });
