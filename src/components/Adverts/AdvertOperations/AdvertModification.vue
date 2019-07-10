@@ -29,22 +29,39 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="difficulty">Difficulty</label>
-        <select
-          id="difficulty"
+      <div>
+        <label class="typo__label">Level</label>
+        <Multiselect
           v-model="difficulty"
-          name="difficulty"
-          class="form-control"
-        >
-          <option
-            v-for="(difficultyLevel, index) in this.$store.state.advertOptions
-              .difficultyLevels"
-            :key="'difficultyLevelKey: ' + index"
-            :value="difficultyLevel"
-            >{{ difficultyLevel }}
-          </option>
-        </select>
+          :options="this.$store.state.advertOptions.difficultyLevels"
+          placeholder="Choose a difficulty level"
+          label="name"
+          track-by="name"
+          :searchable="false"
+        ></Multiselect>
+      </div>
+      <div>
+        <label class="typo__label">Language</label>
+        <Multiselect
+          v-model="language"
+          :options="this.$store.state.advertOptions.languages"
+          placeholder="Type to search"
+          label="name"
+          track-by="name"
+          :max-height="150"
+        ></Multiselect>
+      </div>
+      <div>
+        <label class="typo__label">Country</label>
+        <Multiselect
+          v-model="country"
+          :options="this.$store.state.advertOptions.countries"
+          placeholder="Type to search"
+          label="name"
+          track-by="name"
+          :max-height="200"
+          open-direction="above"
+        ></Multiselect>
       </div>
 
       <div class="form-group">
@@ -103,8 +120,10 @@ export default {
       ),
       title: "",
       description: "",
-      difficulty: "",
-      technologies: []
+      difficulty: [],
+      technologies: [],
+      country: [],
+      language: []
     };
   },
   created() {
@@ -112,6 +131,8 @@ export default {
     this.description = this.activeAdvert.description;
     this.difficulty = this.activeAdvert.difficulty;
     this.technologies = this.activeAdvert.technologies;
+    this.country = this.activeAdvert.country;
+    this.language = this.activeAdvert.language;
   },
   methods: {
     editAdvert() {
@@ -121,12 +142,13 @@ export default {
       let advert = {
         title: this.title,
         description: this.description,
-        difficulty: this.difficulty,
+        difficulty: this.difficulty.name,
         technologies: this.technologies,
         technologiesForQuery: technologiesForQuery,
+        language: this.language.name,
+        country: this.country.name,
         creatorsId: this.$store.getters.activeUserId,
-        id: this.id,
-        erej: ["1", "2"]
+        id: this.id
       };
       this.$store.dispatch("editAdvert", advert);
     }

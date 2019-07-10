@@ -66,9 +66,11 @@
               <Multiselect
                 v-model="difficulty"
                 :options="this.$store.state.advertOptions.difficultyLevels"
-                placeholder="Type to search"
+                placeholder="Choose a difficulty level"
                 label="name"
                 track-by="name"
+                open-direction="above"
+                :searchable="false"
               ></Multiselect>
             </div>
           </form>
@@ -90,9 +92,6 @@ export default {
       language: this.$store.state.filteringEngine.language,
       country: this.$store.state.filteringEngine.country
     };
-  },
-  created() {
-    console.log(this.$store.state.filteringEngine.difficulty);
   },
   methods: {
     dispatchSearchQuery() {

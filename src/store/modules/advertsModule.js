@@ -30,6 +30,9 @@ const mutations = {
   },
   deactivateAdvert: state => {
     state.activeAdvert = null;
+  },
+  loadAdverts: (state, adverts) => {
+    state.adverts = adverts;
   }
 };
 
@@ -85,23 +88,6 @@ const actions = {
   },
   deactivateAdvert: ({ commit }) => {
     commit("deactivateAdvert");
-  },
-  loadAdverts: (context, searchParameters) => {
-    db.collection("adverts")
-      .where(
-        "technologiesForQuery",
-        "array-contains",
-        searchParameters.technologies.name
-      )
-      .where("difficulty", "==", searchParameters.difficulty.name)
-      .get()
-      .then(querySnapshot => {
-        let advertsArray = [];
-        querySnapshot.forEach(advert => {
-          advertsArray.push(advert.data());
-        });
-        context.state.adverts = advertsArray;
-      });
   }
 };
 
