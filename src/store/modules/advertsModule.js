@@ -93,7 +93,7 @@ const actions = {
         "array-contains",
         searchParameters.technologies.name
       )
-      .where("difficulty", "==", searchParameters.difficulty)
+      .where("difficulty", "==", searchParameters.difficulty.name)
       .get()
       .then(querySnapshot => {
         let advertsArray = [];

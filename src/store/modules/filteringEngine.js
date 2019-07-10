@@ -2,7 +2,9 @@ import db from "../../firebase/firebaseInit";
 
 const state = {
   technologies: [],
-  difficulty: ""
+  difficulty: "",
+  country: [],
+  language: []
 };
 
 const mutations = {

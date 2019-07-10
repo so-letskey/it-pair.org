@@ -22,12 +22,25 @@ const state = {
   technologiesSingle: [
     { name: "Vue.js" },
     { name: "Adonis" },
-    { name: "Rails", category: "Backend" },
-    { name: "Sinatra", category: "Backend" },
-    { name: "Laravel", category: "Backend" },
-    { name: "Phoenix", category: "Backend" }
+    { name: "Rails" },
+    { name: "Sinatra" },
+    { name: "Laravel" },
+    { name: "Phoenix" }
   ],
-  difficultyLevels: ["beginner", "medium", "advanced"]
+  countries: [
+    { name: "Poland" },
+    { name: "England" },
+    { name: "Germany" },
+    { name: "Italy" },
+    { name: "France" },
+    { name: "Paraguay" }
+  ],
+  languages: [{ name: "english" }, { name: "polish" }, { name: "german" }],
+  difficultyLevels: [
+    { name: "beginner" },
+    { name: "medium" },
+    { name: "advanced" }
+  ]
 };
 
 export default { state };

@@ -28,32 +28,48 @@
         <div class="card-body">
           <form action="" class="needs-validation" novalidate>
             <div>
-              <label class="typo__label">Choose a technology</label>
+              <label class="typo__label">Technology</label>
               <Multiselect
                 v-model="technologies"
                 :options="this.$store.state.advertOptions.technologiesSingle"
                 placeholder="Type to search"
                 label="name"
                 track-by="name"
-                :max-height="100"
+                :max-height="200"
               ></Multiselect>
             </div>
-            <div class="form-group">
-              <label for="difficulty">Difficulty</label>
-              <select
-                id="difficulty"
+            <div>
+              <label class="typo__label">Language</label>
+              <Multiselect
+                v-model="language"
+                :options="this.$store.state.advertOptions.languages"
+                placeholder="Type to search"
+                label="name"
+                track-by="name"
+                :max-height="150"
+              ></Multiselect>
+            </div>
+            <div>
+              <label class="typo__label">Country</label>
+              <Multiselect
+                v-model="country"
+                :options="this.$store.state.advertOptions.countries"
+                placeholder="Type to search"
+                label="name"
+                track-by="name"
+                :max-height="200"
+                open-direction="above"
+              ></Multiselect>
+            </div>
+            <div>
+              <label class="typo__label">Level</label>
+              <Multiselect
                 v-model="difficulty"
-                name="difficulty"
-                class="form-control"
-              >
-                <option
-                  v-for="(difficultyLevel, index) in this.$store.state
-                    .advertOptions.difficultyLevels"
-                  :key="'difficultyLevelKey: ' + index"
-                  :value="difficultyLevel"
-                  >{{ difficultyLevel }}</option
-                >
-              </select>
+                :options="this.$store.state.advertOptions.difficultyLevels"
+                placeholder="Type to search"
+                label="name"
+                track-by="name"
+              ></Multiselect>
             </div>
           </form>
         </div>
@@ -70,7 +86,9 @@ export default {
   data() {
     return {
       difficulty: this.$store.state.filteringEngine.difficulty,
-      technologies: this.$store.state.filteringEngine.technologies
+      technologies: this.$store.state.filteringEngine.technologies,
+      language: this.$store.state.filteringEngine.language,
+      country: this.$store.state.filteringEngine.country
     };
   },
   created() {
@@ -80,7 +98,9 @@ export default {
     dispatchSearchQuery() {
       let searchParameters = {
         difficulty: this.difficulty,
-        technologies: this.technologies
+        technologies: this.technologies,
+        language: this.language,
+        country: this.country
       };
       this.$store.dispatch("setParameters", searchParameters);
       this.$store.dispatch("loadAdverts", searchParameters);
