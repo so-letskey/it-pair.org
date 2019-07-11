@@ -1,10 +1,10 @@
 import db from "../../firebase/firebaseInit";
 
 const state = {
-  technologies: [],
-  difficulty: [],
-  country: [],
-  language: []
+  technologies: null,
+  difficulty: null,
+  country: null,
+  language: null
 };
 
 const mutations = {
@@ -15,10 +15,10 @@ const mutations = {
     state.language = parameters.language;
   },
   resetParameters: state => {
-    state.technologies = [];
-    state.difficulty = [];
-    state.country = [];
-    state.language = [];
+    state.technologies = null;
+    state.difficulty = null;
+    state.country = null;
+    state.language = null;
   }
 };
 
@@ -45,9 +45,7 @@ const actions = {
     let paramDatabaseEntryNames = [];
 
     for (let key in searchParameters) {
-      console.log(key);
-      if (searchParameters[key].length !== 0) {
-        // (length !== 0) means that the user chose a value to filter for
+      if (searchParameters[key] !== null) {
         paramCounter++;
         if (key !== "technologies") {
           paramValues.push(searchParameters[key].name);
@@ -65,7 +63,7 @@ const actions = {
           });
           context.commit("loadAdverts", advertsArray);
         });
-    } else if (searchParameters.technologies.length === 0) {
+    } else if (searchParameters.technologies === null) {
       if (paramCounter === 1) {
         db.collection("adverts")
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])

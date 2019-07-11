@@ -4,7 +4,10 @@
     <div class="card-body">
       <h5 class="card-title">{{ advert.description }}</h5>
       <p class="card-text">
-        With supporting texts below as a natural lead-in to additional content.
+        {{ advert.technologies }} <br />
+        {{ advert.language }} <br />
+        {{ advert.country }} <br />
+        <strong>{{ advert.difficulty }}</strong>
       </p>
       <router-link
         :to="{

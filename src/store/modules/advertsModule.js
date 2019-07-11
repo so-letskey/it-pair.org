@@ -55,7 +55,7 @@ const actions = {
           .update({
             registeredAdverts: firebase.firestore.FieldValue.arrayUnion(id)
           })
-          .catch(err => console.log(err));
+          .catch(err => alert(err));
 
         commit("addAdvertReferenceToUserInStore", id);
         commit("addNewAdvert", advert);
