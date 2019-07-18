@@ -99,6 +99,7 @@
 
 <script>
 import { queryModifications } from "./AdvertOperationsMixin";
+import * as firebase from "firebase";
 
 import Multiselect from "vue-multiselect";
 
@@ -127,12 +128,18 @@ export default {
     };
   },
   created() {
+    // The unexpected object formatting used here in a few entries is necessary, because
+    // of the difference between the notation multiselect uses => { name: 'Poland' }
+    // and the formatting of the entry in database => 'Poland'
+    // (from which this.activeAdvert takes its data)
+    // It is difficult to standardize this formatting due to the fact, that multiselect is an
+    // outside component, and firestore needs simple formatting for a search query.
     this.title = this.activeAdvert.title;
     this.description = this.activeAdvert.description;
-    this.difficulty = this.activeAdvert.difficulty;
+    this.difficulty = { name: this.activeAdvert.difficulty };
     this.technologies = this.activeAdvert.technologies;
-    this.country = this.activeAdvert.country;
-    this.language = this.activeAdvert.language;
+    this.country = { name: this.activeAdvert.country };
+    this.language = { name: this.activeAdvert.language };
   },
   methods: {
     editAdvert() {
@@ -147,7 +154,7 @@ export default {
         technologiesForQuery: technologiesForQuery,
         language: this.language.name,
         country: this.country.name,
-        creatorsId: this.$store.getters.activeUserId,
+        modificationDate: firebase.firestore.FieldValue.serverTimestamp(),
         id: this.id
       };
       this.$store.dispatch("editAdvert", advert);

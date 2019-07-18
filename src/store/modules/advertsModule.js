@@ -61,10 +61,10 @@ const actions = {
   editAdvert: ({ commit }, advert) => {
     db.collection("adverts")
       .doc(advert.id)
-      .set(advert)
-      .then(function() {
-        commit("updateAdvertsInStore", advert);
-      })
+      .update(advert)
+      // .then(function() {
+      //   commit("updateAdvertsInStore", advert);
+      // })
       .catch(err => alert(err));
   },
   deleteAdvert: ({ commit, dispatch }, advert) => {

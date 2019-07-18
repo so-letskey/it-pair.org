@@ -112,7 +112,6 @@ export default {
       title: "",
       description: "",
       difficulty: [],
-      checkBox: true,
       technologies: [],
       language: [],
       country: []
@@ -145,7 +144,8 @@ export default {
         language: this.language.name,
         country: this.country.name,
         creatorsId: this.$store.getters.activeUserId,
-        date: firebase.firestore.FieldValue.serverTimestamp()
+        creationDate: firebase.firestore.FieldValue.serverTimestamp(),
+        modificationDate: firebase.firestore.FieldValue.serverTimestamp()
       };
       this.$store.dispatch("addNewAdvert", advert);
     }
