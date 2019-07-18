@@ -33,7 +33,7 @@
         <Multiselect
           v-model="difficulty"
           :options="this.$store.state.advertOptions.difficultyLevels"
-          placeholder="Choose a difficulty level"
+          placeholder="Choose the complexity level"
           label="name"
           track-by="name"
           :searchable="false"
@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import * as firebase from "firebase";
 import { queryModifications } from "./AdvertOperationsMixin";
 
 import Multiselect from "vue-multiselect";
@@ -130,7 +131,7 @@ export default {
   methods: {
     submitAdvert() {
       //The Firestore query is incompatible with the multiselect formatting,
-      //hence two 'technologies' entries are necessary - one works with multiselect, the other
+      //hence two 'technologies' entries are used - one works with multiselect, the other
       //with search query
       let technologiesForQuery = this.createTechnologiesEntryForSearchQuery(
         this.technologies
@@ -143,7 +144,8 @@ export default {
         technologiesForQuery: technologiesForQuery,
         language: this.language.name,
         country: this.country.name,
-        creatorsId: this.$store.getters.activeUserId
+        creatorsId: this.$store.getters.activeUserId,
+        date: firebase.firestore.FieldValue.serverTimestamp()
       };
       this.$store.dispatch("addNewAdvert", advert);
     }

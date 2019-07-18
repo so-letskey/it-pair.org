@@ -15,6 +15,7 @@
         </li>
       </ul>
       <p>Difficulty: {{ activeAdvert.difficulty }}</p>
+      <p>Date: {{ activeAdvert.date.toDate() }}</p>
 
       <div v-if="isAdvertOwner" id="modification-buttons">
         <router-link

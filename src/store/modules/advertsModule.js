@@ -9,9 +9,6 @@ const state = {
 };
 
 const mutations = {
-  addNewAdvert: (state, payload) => {
-    state.adverts.push(payload);
-  },
   updateAdvertsInStore: (state, payload) => {
     let newAdvertList = state.adverts.filter(
       advert => advert.id !== payload.id
@@ -43,11 +40,12 @@ const actions = {
       .add(advert)
       .then(response => {
         let id = response.id;
-        advert.id = id;
         //add easily accessible id entry
         db.collection("adverts")
           .doc(id)
-          .update({ id: id })
+          .update({
+            id: id
+          })
           .catch(err => alert(err));
         // add advert reference in creator entry in db
         db.collection("users")
@@ -58,7 +56,6 @@ const actions = {
           .catch(err => alert(err));
 
         commit("addAdvertReferenceToUserInStore", id);
-        commit("addNewAdvert", advert);
       });
   },
   editAdvert: ({ commit }, advert) => {
