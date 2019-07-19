@@ -1,8 +1,8 @@
-import WelcomePage from "../components/WelcomePage.vue";
-import MainPage from "../components/MainPage";
+import MainPage from "../components/MainPage.vue";
+import ResultPage from "../components/ResultPage";
 import AdvertDescription from "../components/Adverts/AdvertList/AdvertDescription";
-import AdvertAdditionForm from "../components/Adverts/AdvertOperations/AdvertAdditionForm";
-import AdvertModification from "../components/Adverts/AdvertOperations/AdvertModification";
+import AdvertAdditionForm from "../components/Adverts/SingleAdvertOperations/AdvertAdditionForm";
+import AdvertModification from "../components/Adverts/SingleAdvertOperations/AdvertModification";
 import AdvertFiltering from "../components/Adverts/AdvertList/AdvertFiltering";
 import UserSignUp from "../components/UserManagement/UserSignUp";
 import UserSignIn from "../components/UserManagement/UserSignIn";
@@ -11,7 +11,7 @@ import ProfileModification from "../components/UserManagement/ProfileModificatio
 import AuthGuard from "./auth-guard";
 
 export const routes = [
-  { name: "welcomePage", path: "", component: WelcomePage },
+  { name: "mainPage", path: "", component: MainPage },
   {
     name: "advertFiltering",
     path: "/filtering",
@@ -20,7 +20,7 @@ export const routes = [
   {
     name: "advertsList",
     path: "/adverts",
-    component: MainPage
+    component: ResultPage
   },
   {
     name: "advertDescription",

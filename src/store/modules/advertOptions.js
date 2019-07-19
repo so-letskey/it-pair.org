@@ -39,7 +39,8 @@ const state = {
   difficultyLevels: [
     { name: "beginner" },
     { name: "medium" },
-    { name: "advanced" }
+    { name: "advanced" },
+    { name: "expert" }
   ]
 };
 

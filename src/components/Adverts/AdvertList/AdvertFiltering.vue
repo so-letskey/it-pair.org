@@ -36,6 +36,7 @@
                 label="name"
                 track-by="name"
                 :max-height="200"
+                open-direction="below"
               ></Multiselect>
             </div>
             <div>
@@ -101,7 +102,8 @@ export default {
         language: this.language,
         country: this.country
       };
-      this.$store.dispatch("setParameters", searchParameters);
+      this.$store.dispatch("resetAdverts");
+      this.$store.dispatch("saveParametersInStore", searchParameters);
       this.$store.dispatch("loadAdverts", searchParameters);
     }
   }

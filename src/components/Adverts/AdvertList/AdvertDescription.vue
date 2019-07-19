@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <div class="jumbotron">
+    <div v-if="activeAdvert === null" class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div v-else class="jumbotron">
       <h1 class="display-4">{{ activeAdvert.title }}</h1>
       <p class="lead">
         {{ activeAdvert.description }}
@@ -55,10 +60,7 @@
 export default {
   computed: {
     activeAdvert() {
-      // return this.$store.getters.activeAdvert;
-      return this.$store.state.advertsModule.adverts.find(
-        advert => advert.id == this.$route.params.id
-      );
+      return this.$store.state.advertsModule.activeAdvert;
     },
     isAdvertOwner() {
       if (this.$store.state.userDataModule.activeUser !== null) {

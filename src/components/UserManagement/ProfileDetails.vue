@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <div class="jumbotron">
+    <div v-if="viewedProfile === null" class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div v-else class="jumbotron">
       <h1 class="display-4">{{ viewedProfile.username }}</h1>
       <p class="lead">
         {{ viewedProfile.description }}
@@ -35,7 +40,7 @@
 export default {
   computed: {
     viewedProfile() {
-      return this.$store.getters.viewedProfile;
+      return this.$store.state.profileDetailModule.viewedProfile;
     },
     isProfileOwner() {
       if (this.$store.state.userDataModule.activeUser !== null) {

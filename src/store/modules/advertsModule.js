@@ -1,4 +1,4 @@
-// This is a module responsible for operating on adverts state, and adverts entries in database
+// This module is responsible for operating on adverts state, and adverts entries in database
 
 import * as firebase from "firebase";
 import db from "../../firebase/firebaseInit";
@@ -30,6 +30,9 @@ const mutations = {
   },
   loadAdverts: (state, adverts) => {
     state.adverts = adverts;
+  },
+  resetAdverts: state => {
+    state.adverts = [];
   }
 };
 
@@ -58,13 +61,10 @@ const actions = {
         commit("addAdvertReferenceToUserInStore", id);
       });
   },
-  editAdvert: ({ commit }, advert) => {
+  editAdvert: (context, advert) => {
     db.collection("adverts")
       .doc(advert.id)
       .update(advert)
-      // .then(function() {
-      //   commit("updateAdvertsInStore", advert);
-      // })
       .catch(err => alert(err));
   },
   deleteAdvert: ({ commit, dispatch }, advert) => {
@@ -85,6 +85,9 @@ const actions = {
   },
   deactivateAdvert: ({ commit }) => {
     commit("deactivateAdvert");
+  },
+  resetAdverts: ({ commit }) => {
+    commit("resetAdverts");
   }
 };
 

@@ -14,7 +14,9 @@
           name: 'advertDescription',
           params: { id: advert.id }
         }"
-        >Read More</router-link
+        ><button class="btn btn-primary btn-sm">
+          Read More
+        </button></router-link
       >
     </div>
   </div>

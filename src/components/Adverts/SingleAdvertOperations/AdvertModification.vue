@@ -116,9 +116,7 @@ export default {
   },
   data() {
     return {
-      activeAdvert: this.$store.state.advertsModule.adverts.find(
-        advert => advert.id == this.id
-      ),
+      activeAdvert: this.$store.state.advertsModule.activeAdvert,
       title: "",
       description: "",
       difficulty: [],
@@ -130,9 +128,9 @@ export default {
   created() {
     // The unexpected object formatting used here in a few entries is necessary, because
     // of the difference between the notation multiselect uses => { name: 'Poland' }
-    // and the formatting of the entry in database => 'Poland'
-    // (from which this.activeAdvert takes its data)
-    // It is difficult to standardize this formatting due to the fact, that multiselect is an
+    // and the formatting of the entry in database => 'Poland' (from which this.activeAdvert
+    // takes its data)
+    // It is difficult to standardize this formatting because multiselect is an
     // outside component, and firestore needs simple formatting for a search query.
     this.title = this.activeAdvert.title;
     this.description = this.activeAdvert.description;

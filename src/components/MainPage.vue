@@ -1,35 +1,33 @@
 <template>
   <div id="main">
+    <div class="jumbotron">
+      <h1 class="display-4"><strong>IT</strong>Pair.org</h1>
+      <p class="lead">
+        Nie myślałem jeszcze nad tym co dokładnie miałoby się tutuj pojawić, to
+        jest do przemyślenia.
+      </p>
+      <hr class="my-4" />
+      <p>
+        It uses utility classes for typography and spacing to space content out
+        within the larger container.
+      </p>
+    </div>
     <AdvertFiltering />
-    <SingleCard
-      v-for="(advert, index) in this.$store.state.advertsModule.adverts"
-      :key="'Advert: ' + index"
-      :advert="advert"
-    />
   </div>
 </template>
 
 <script>
-import SingleCard from "./Adverts/AdvertList/SingleCard.vue";
 import AdvertFiltering from "./Adverts/AdvertList/AdvertFiltering.vue";
 
 export default {
   components: {
-    AdvertFiltering,
-    SingleCard
+    AdvertFiltering
   }
 };
 </script>
 
 <style scoped>
-.card {
-  min-width: 800px;
-  margin: 30px 50px;
-}
-
-#main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.btn {
+  color: white !important;
 }
 </style>

@@ -1,6 +1,7 @@
 import db from "../../firebase/firebaseInit";
 
 const state = {
+  loading: false,
   technologies: null,
   difficulty: null,
   country: null,
@@ -8,7 +9,7 @@ const state = {
 };
 
 const mutations = {
-  setParameters: (state, parameters) => {
+  saveParametersInStore: (state, parameters) => {
     state.technologies = parameters.technologies;
     state.difficulty = parameters.difficulty;
     state.country = parameters.country;
@@ -19,12 +20,18 @@ const mutations = {
     state.difficulty = null;
     state.country = null;
     state.language = null;
+  },
+  loadingStarted: state => {
+    state.loading = true;
+  },
+  loadingFinished: state => {
+    state.loading = false;
   }
 };
 
 const actions = {
-  setParameters: ({ commit }, parameters) => {
-    commit("setParameters", parameters);
+  saveParametersInStore: ({ commit }, parameters) => {
+    commit("saveParametersInStore", parameters);
   },
   resetParameters: ({ commit }) => {
     commit("resetParameters");
@@ -34,6 +41,7 @@ const actions = {
     // (name of entry in database) and paramValue (value we are filtering for).
     // As we have to dinamically populate each request, we do so with the use of
     // the databaseEntryNames object and a for loop
+    context.commit("loadingStarted");
     let databaseEntryNames = {
       difficulty: "difficulty",
       technologies: "technologiesForQuery",
@@ -61,7 +69,7 @@ const actions = {
           querySnapshot.forEach(advert => {
             advertsArray.push(advert.data());
           });
-          context.commit("loadAdverts", advertsArray);
+          context.dispatch("finishFiltering", advertsArray);
         });
     } else if (searchParameters.technologies === null) {
       if (paramCounter === 1) {
@@ -73,7 +81,7 @@ const actions = {
             querySnapshot.forEach(advert => {
               advertsArray.push(advert.data());
             });
-            context.commit("loadAdverts", advertsArray);
+            context.dispatch("finishFiltering", advertsArray);
           });
       } else if (paramCounter === 2) {
         db.collection("adverts")
@@ -85,7 +93,7 @@ const actions = {
             querySnapshot.forEach(advert => {
               advertsArray.push(advert.data());
             });
-            context.commit("loadAdverts", advertsArray);
+            context.dispatch("finishFiltering", advertsArray);
           });
       } else if (paramCounter === 3) {
         db.collection("adverts")
@@ -98,7 +106,7 @@ const actions = {
             querySnapshot.forEach(advert => {
               advertsArray.push(advert.data());
             });
-            context.commit("loadAdverts", advertsArray);
+            context.dispatch("finishFiltering", advertsArray);
           });
       }
     } else {
@@ -115,7 +123,7 @@ const actions = {
             querySnapshot.forEach(advert => {
               advertsArray.push(advert.data());
             });
-            context.commit("loadAdverts", advertsArray);
+            context.dispatch("finishFiltering", advertsArray);
           });
       } else if (paramCounter === 2) {
         db.collection("adverts")
@@ -126,7 +134,7 @@ const actions = {
             querySnapshot.forEach(advert => {
               advertsArray.push(advert.data());
             });
-            context.commit("loadAdverts", advertsArray);
+            context.dispatch("finishFiltering", advertsArray);
           });
       } else if (paramCounter === 3) {
         db.collection("adverts")
@@ -143,7 +151,7 @@ const actions = {
             querySnapshot.forEach(advert => {
               advertsArray.push(advert.data());
             });
-            context.commit("loadAdverts", advertsArray);
+            context.dispatch("finishFiltering", advertsArray);
           });
       } else if (paramCounter === 4) {
         db.collection("adverts")
@@ -161,10 +169,14 @@ const actions = {
             querySnapshot.forEach(advert => {
               advertsArray.push(advert.data());
             });
-            context.commit("loadAdverts", advertsArray);
+            context.dispatch("finishFiltering", advertsArray);
           });
       }
     }
+  },
+  finishFiltering: (context, advertsArray) => {
+    context.commit("loadingFinished");
+    context.commit("loadAdverts", advertsArray);
   }
 };
 

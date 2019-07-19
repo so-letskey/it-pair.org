@@ -2,7 +2,7 @@
 
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <router-link class="navbar-brand" :to="{ name: 'welcomePage' }" tag="a"
+    <router-link class="navbar-brand" :to="{ name: 'mainPage' }" tag="a"
       ><strong>IT</strong>Pair.org</router-link
     >
     <button

@@ -34,7 +34,7 @@ const actions = {
       .catch(err => alert(err));
   },
   async setViewedProfile({ commit }, userId) {
-    // The registeredAdverts entry is stored in a different entry than detailed information, (users/userDetails)
+    // The registeredAdverts entry is stored in a different entry than detailed information, (users / userDetails)
     // hence they both have to be combined in the next operation, so that viewedProfile object
     // will contain all necessary data to be shown in the ProfileDetails.vue component.
     try {
@@ -69,12 +69,4 @@ const actions = {
   }
 };
 
-const getters = {
-  viewedProfile: state => {
-    if (state.viewedProfile !== null) {
-      return state.viewedProfile;
-    } else return {};
-  }
-};
-
-export default { state, actions, mutations, getters };
+export default { state, actions, mutations };
