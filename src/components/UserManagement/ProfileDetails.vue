@@ -11,14 +11,42 @@
         {{ viewedProfile.description }}
       </p>
       <hr class="my-4" />
+      <div v-if="viewedProfile.gitHubUsername">
+        <p>
+          <strong>GitHub username:</strong> {{ viewedProfile.gitHubUsername }}
+        </p>
+      </div>
+      <div v-if="viewedProfile.portfolioLink">
+        <p>
+          <strong>Link to the portfolio:</strong>
+          {{ viewedProfile.portfolioLink }}
+        </p>
+      </div>
+      <div v-if="viewedProfile.country">
+        <p><strong>Country:</strong> {{ viewedProfile.country.name }}</p>
+      </div>
+      <div v-if="viewedProfile.city">
+        <p><strong>City:</strong> {{ viewedProfile.city.name }}</p>
+      </div>
       <div v-if="viewedProfile.technologies" id="technologies">
-        <p>Favorite technologies:</p>
+        <p><strong>Tech Stack:</strong></p>
         <ul>
           <li
             v-for="(technology, index) in viewedProfile.technologies"
             :key="'index: ' + index"
           >
             {{ technology.name }}
+          </li>
+        </ul>
+      </div>
+      <div v-if="viewedProfile.language" id="technologies">
+        <p><strong>Communicative languages:</strong></p>
+        <ul>
+          <li
+            v-for="(language, index) in viewedProfile.language"
+            :key="'index: ' + index"
+          >
+            {{ language.name }}
           </li>
         </ul>
       </div>

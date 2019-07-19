@@ -13,7 +13,6 @@
             class="form-control"
             required
           />
-          <div class="valid-feedback">It works</div>
         </div>
 
         <div class="col-sm-12 col-md-6">
@@ -28,32 +27,54 @@
           <div class="invalid-feedback">Well, duck you</div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="gitHubUsername">GitHub username</label>
+          <input
+            id="gitHubUsername"
+            v-model="gitHubUsername"
+            type="text"
+            name="gitUsername"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
 
-      <div class="form-group">
-        <label for="language">Language</label>
-        <select
-          id="language"
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="portfolioLink">Portfolio link</label>
+          <input
+            id="portfolioLink"
+            v-model="portfolioLink"
+            type="text"
+            name="portfolioLink"
+            class="form-control"
+            required
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="typo__label">Language (communication)</label>
+        <Multiselect
           v-model="language"
-          name="language"
-          class="form-control"
-        >
-          <option
-            v-for="(languageEntry, index) in this.$store.state.profileOptions
-              .languages"
-            :key="'languageKey: ' + index"
-            :value="languageEntry"
-            >{{ languageEntry }}
-          </option>
-        </select>
+          :options="this.$store.state.advertOptions.languages"
+          placeholder="Choose language(s)"
+          label="name"
+          track-by="name"
+          :multiple="true"
+          :max-height="150"
+        ></Multiselect>
       </div>
 
       <div class="form-group">
-        <label for="technology-choice">Preffered technologies</label>
+        <label for="technology-choice">Technology Stack</label>
         <Multiselect
           id="technology-choice"
           v-model="technologies"
           class="multiselect"
-          :options="this.$store.state.advertOptions.technologies"
+          :options="this.$store.state.advertOptions.technologiesGrouped"
           :multiple="true"
           group-values="libs"
           group-label="language"
@@ -65,6 +86,31 @@
             >No elements found. Consider changing the search query.</span
           ></Multiselect
         >
+      </div>
+
+      <div>
+        <label class="typo__label">Country</label>
+        <Multiselect
+          v-model="country"
+          :options="this.$store.state.advertOptions.countries"
+          placeholder="Type to search"
+          label="name"
+          track-by="name"
+          :max-height="200"
+          open-direction="above"
+        ></Multiselect>
+      </div>
+      <div>
+        <label class="typo__label">City</label>
+        <Multiselect
+          v-model="city"
+          :options="this.$store.state.advertOptions.countries"
+          placeholder="Type to search"
+          label="name"
+          track-by="name"
+          :max-height="200"
+          open-direction="above"
+        ></Multiselect>
       </div>
 
       <router-link
@@ -97,8 +143,12 @@ export default {
     return {
       username: "",
       description: "",
-      language: "",
-      technologies: []
+      gitHubUsername: "",
+      portfolioLink: "",
+      language: [],
+      technologies: [],
+      country: [],
+      city: []
     };
   },
   computed: {
@@ -109,18 +159,26 @@ export default {
   created() {
     this.username = this.viewedProfile.username;
     this.description = this.viewedProfile.description;
+    this.gitHubUsername = this.viewedProfile.gitHubUsername;
+    this.portfolioLink = this.viewedProfile.portfolioLink;
     this.language = this.viewedProfile.language;
     this.technologies = this.viewedProfile.technologies
       ? this.viewedProfile.technologies
       : [];
+    this.country = this.viewedProfile.country;
+    this.city = this.viewedProfile.city;
   },
   methods: {
     editProfile() {
       let profileDetails = {
         username: this.username,
         description: this.description,
+        gitHubUsername: this.gitHubUsername,
+        portfolioLink: this.portfolioLink,
         language: this.language,
         technologies: this.technologies,
+        country: this.country,
+        city: this.city,
         id: this.id
       };
       this.$store.dispatch("editProfile", profileDetails);

@@ -3,12 +3,16 @@
     <h5 class="card-header">{{ advert.title }}</h5>
     <div class="card-body">
       <h5 class="card-title">{{ advert.description }}</h5>
-      <p class="card-text">
-        {{ advert.technologies }} <br />
+      <div class="card-text">
+        <ul>
+          <li v-for="(technology, index) in advert.technologies" :key="index">
+            {{ technology.name }}
+          </li>
+        </ul>
         {{ advert.language }} <br />
         {{ advert.country }} <br />
         <strong>{{ advert.difficulty }}</strong>
-      </p>
+      </div>
       <router-link
         :to="{
           name: 'advertDescription',
@@ -37,3 +41,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.btn {
+  margin-top: 10px;
+}
+</style>

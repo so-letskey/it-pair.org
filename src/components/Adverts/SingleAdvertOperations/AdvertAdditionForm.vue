@@ -62,9 +62,21 @@
           open-direction="above"
         ></Multiselect>
       </div>
+      <div>
+        <label class="typo__label">City</label>
+        <Multiselect
+          v-model="city"
+          :options="this.$store.state.advertOptions.countries"
+          placeholder="Type to search"
+          label="name"
+          track-by="name"
+          :max-height="200"
+          open-direction="above"
+        ></Multiselect>
+      </div>
       <div class="form-group">
         <label for="technology-choice"
-          >Choose the technologies you plan to use</label
+          >Define the tech stack (technologies you plan to use)</label
         >
         <Multiselect
           id="technology-choice"
@@ -90,9 +102,6 @@
         </button></router-link
       >
     </form>
-    <div>
-      <!-- <pre class="language-json"><code>{{ value  }}</code></pre> -->
-    </div>
   </div>
 </template>
 
@@ -114,7 +123,8 @@ export default {
       difficulty: [],
       technologies: [],
       language: [],
-      country: []
+      country: [],
+      city: []
     };
   },
   mounted() {
@@ -143,6 +153,7 @@ export default {
         technologiesForQuery: technologiesForQuery,
         language: this.language.name,
         country: this.country.name,
+        city: this.city.name,
         creatorsId: this.$store.getters.activeUserId,
         creationDate: firebase.firestore.FieldValue.serverTimestamp(),
         modificationDate: firebase.firestore.FieldValue.serverTimestamp()

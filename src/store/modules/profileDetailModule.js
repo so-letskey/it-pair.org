@@ -22,8 +22,6 @@ const actions = {
   createUserDetailEntry(context, newUserId) {
     let newUserDetail = {
       id: newUserId,
-      language: "undefined_language",
-      // localisation: "undefined_localisation",
       technologies: [],
       username: "undefined_username",
       description: "undefined_description"
@@ -62,7 +60,7 @@ const actions = {
       await db
         .collection("userDetails")
         .doc(profileDetails.id)
-        .set(profileDetails);
+        .update(profileDetails);
     } catch (err) {
       alert(err);
     }
