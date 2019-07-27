@@ -3,6 +3,7 @@ import ResultPage from "../components/ResultPage";
 import AdvertDescription from "../components/Adverts/AdvertList/AdvertDescription";
 import AdvertAdditionForm from "../components/Adverts/SingleAdvertOperations/AdvertAdditionForm";
 import AdvertModification from "../components/Adverts/SingleAdvertOperations/AdvertModification";
+import VuelidateTests from "../components/Adverts/SingleAdvertOperations/VuelidateTests";
 import AdvertFiltering from "../components/Adverts/AdvertList/AdvertFiltering";
 import UserSignUp from "../components/UserManagement/UserSignUp";
 import UserSignIn from "../components/UserManagement/UserSignIn";
@@ -16,6 +17,11 @@ export const routes = [
     name: "advertFiltering",
     path: "/filtering",
     component: AdvertFiltering
+  },
+  {
+    name: "vuelidateTests",
+    path: "/test",
+    component: VuelidateTests
   },
   {
     name: "advertsList",

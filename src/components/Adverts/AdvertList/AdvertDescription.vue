@@ -7,9 +7,7 @@
     </div>
     <div v-else class="jumbotron">
       <h1 class="display-4">{{ activeAdvert.title }}</h1>
-      <p class="lead">
-        {{ activeAdvert.description }}
-      </p>
+      <p class="lead">{{ activeAdvert.description }}</p>
       <hr class="my-4" />
       <ul>
         <li
@@ -87,5 +85,9 @@ export default {
 <style scoped>
 .container {
   margin-top: 100px !important;
+}
+
+.lead {
+  white-space: pre-wrap;
 }
 </style>

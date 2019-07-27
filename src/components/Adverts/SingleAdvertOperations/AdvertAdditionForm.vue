@@ -1,9 +1,9 @@
 <template>
   <div id="addition-form" class="container">
     <h1>Add your own advert</h1>
-    <form action="" class="needs-validation" novalidate>
+    <form action="" novalidate @submit.prevent>
       <div class="row">
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-12">
           <label for="title">Title</label>
           <input
             id="title"
@@ -16,9 +16,9 @@
           <div class="valid-feedback">It works</div>
         </div>
 
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-md-12">
           <label for="description">Description</label>
-          <input
+          <textarea
             id="description"
             v-model="description"
             type="text"

@@ -18,7 +18,7 @@
 
         <div class="col-sm-12 col-md-6">
           <label for="description">Description</label>
-          <input
+          <textarea
             id="description"
             v-model="description"
             type="text"

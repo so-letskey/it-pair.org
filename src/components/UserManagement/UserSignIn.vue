@@ -1,31 +1,34 @@
 <template>
   <div id="addition-form" class="container">
     <h1>Sign In Form</h1>
-    <form action="" class="needs-validation" novalidate>
+    <form action="" @submit.prevent>
       <div class="row">
         <div class="col-sm-12 col-md-6">
           <label for="title">Email</label>
           <input
             id="email"
-            v-model="email"
+            v-model.trim.lazy="$v.email.$model"
+            :class="{ 'is-invalid': $v.email.$error }"
             type="text"
             name="email"
             class="form-control"
             required
           />
           <div class="valid-feedback">It works</div>
+          <div class="invalid-feedback">Enter a valid email adress</div>
         </div>
 
         <div class="col-sm-12 col-md-6">
           <label for="password">Password</label>
           <input
             id="password"
-            v-model="password"
-            type="text"
+            v-model.trim="$v.password.$model"
+            :class="{ 'is-invalid': $v.password.$error }"
+            type="password"
             name="password"
             class="form-control"
           />
-          <div class="invalid-feedback">Well, duck you</div>
+          <div class="invalid-feedback">Enter your password</div>
         </div>
       </div>
       <button class="btn btn-primary" @click.prevent="signIn">
@@ -43,12 +46,23 @@
 </template>
 
 <script>
+import { required, email } from "vuelidate/lib/validators";
+
 export default {
   data() {
     return {
       email: "",
       password: ""
     };
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required
+    }
   },
   computed: {
     activeUser() {
@@ -64,11 +78,14 @@ export default {
   },
   methods: {
     signIn() {
-      let userData = {
-        email: this.email,
-        password: this.password
-      };
-      this.$store.dispatch("signIn", userData);
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        let userData = {
+          email: this.email,
+          password: this.password
+        };
+        this.$store.dispatch("signIn", userData);
+      }
     }
   }
 };
@@ -84,5 +101,9 @@ export default {
 
 .form-group {
   margin-bottom: 15px;
+}
+
+.form-input--error {
+  color: red;
 }
 </style>
