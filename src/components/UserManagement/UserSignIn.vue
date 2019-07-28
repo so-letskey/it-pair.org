@@ -12,7 +12,6 @@
             type="text"
             name="email"
             class="form-control"
-            required
           />
           <div class="valid-feedback">It works</div>
           <div class="invalid-feedback">Enter a valid email adress</div>
