@@ -14,7 +14,7 @@
             class="form-control"
             required
           />
-          <div v-if="$v.title.$error" class="invalid-feedbackz">
+          <div v-if="$v.title.$error" class="invalid-message">
             Enter a valid title
           </div>
         </div>
@@ -29,7 +29,7 @@
             name="description"
             class="form-control"
           />
-          <div v-if="$v.description.$error" class="invalid-feedbackz">
+          <div v-if="$v.description.$error" class="invalid-message">
             Enter a valid description
           </div>
         </div>
@@ -45,7 +45,7 @@
           track-by="name"
           :searchable="false"
         ></Multiselect>
-        <div v-if="$v.difficulty.$error" class="invalid-feedbackz">
+        <div v-if="$v.difficulty.$error" class="invalid-message">
           Select difficulty
         </div>
       </div>
@@ -60,7 +60,7 @@
           track-by="name"
           :max-height="150"
         ></Multiselect>
-        <div v-if="$v.language.$error" class="invalid-feedbackz">
+        <div v-if="$v.language.$error" class="invalid-message">
           Select language of communication
         </div>
       </div>
@@ -76,7 +76,7 @@
           :max-height="200"
           open-direction="above"
         ></Multiselect>
-        <div v-if="$v.country.$error" class="invalid-feedbackz">
+        <div v-if="$v.country.$error" class="invalid-message">
           Select the country of your stay
         </div>
       </div>
@@ -92,7 +92,7 @@
           :max-height="200"
           open-direction="above"
         ></Multiselect>
-        <div v-if="$v.country.$error" class="invalid-feedbackz">
+        <div v-if="$v.city.$error" class="invalid-message">
           Select the city of your stay
         </div>
       </div>
@@ -117,7 +117,7 @@
             >No elements found. Consider changing the search query.</span
           ></Multiselect
         >
-        <div v-if="$v.technologies.$error" class="invalid-feedbackz">
+        <div v-if="$v.technologies.$error" class="invalid-message">
           Choose at least one technology you plan to use
         </div>
       </div>
@@ -224,7 +224,7 @@ export default {
   margin-bottom: 15px;
 }
 
-.invalid-feedbackz {
+.invalid-message {
   margin-top: 2px;
   font-size: 12px;
   color: red;
