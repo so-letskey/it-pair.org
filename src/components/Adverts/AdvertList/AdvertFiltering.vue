@@ -75,6 +75,9 @@
               ></Multiselect>
             </div>
           </form>
+          <button class="btn btn-primary resetBtn" @click="resetParameters">
+            Reset
+          </button>
         </div>
       </div>
     </div>
@@ -103,8 +106,15 @@ export default {
         country: this.country
       };
       this.$store.dispatch("resetAdverts");
-      this.$store.dispatch("saveParametersInStore", searchParameters);
+      this.$store.dispatch("saveParameters", searchParameters);
       this.$store.dispatch("loadAdverts", searchParameters);
+    },
+    resetParameters() {
+      this.difficulty = null;
+      this.technologies = null;
+      this.language = null;
+      this.country = null;
+      this.$store.dispatch("resetParameters");
     }
   }
 };
@@ -126,5 +136,9 @@ export default {
 .card-header {
   display: flex;
   justify-content: space-around;
+}
+
+.resetBtn {
+  margin-top: 10px;
 }
 </style>

@@ -9,7 +9,7 @@ const state = {
 };
 
 const mutations = {
-  saveParametersInStore: (state, parameters) => {
+  saveParameters: (state, parameters) => {
     state.technologies = parameters.technologies;
     state.difficulty = parameters.difficulty;
     state.country = parameters.country;
@@ -30,8 +30,8 @@ const mutations = {
 };
 
 const actions = {
-  saveParametersInStore: ({ commit }, parameters) => {
-    commit("saveParametersInStore", parameters);
+  saveParameters: ({ commit }, parameters) => {
+    commit("saveParameters", parameters);
   },
   resetParameters: ({ commit }) => {
     commit("resetParameters");
