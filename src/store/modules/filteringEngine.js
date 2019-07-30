@@ -42,12 +42,15 @@ const actions = {
     // As we have to dinamically populate each request, we do so with the use of
     // the databaseEntryNames object and a for loop
     context.commit("loadingStarted");
+    //Static variables
+    const pageLimit = 10;
     let databaseEntryNames = {
       difficulty: "difficulty",
       technologies: "technologiesForQuery",
       language: "language",
       country: "country"
     };
+    //Dynamic variables
     let paramCounter = 0;
     let paramValues = [];
     let paramDatabaseEntryNames = [];
@@ -63,6 +66,8 @@ const actions = {
     }
     if (paramCounter === 0) {
       db.collection("adverts")
+        .orderBy("creationDate", "desc")
+        .limit(pageLimit)
         .get()
         .then(querySnapshot => {
           let advertsArray = [];
@@ -75,6 +80,8 @@ const actions = {
       if (paramCounter === 1) {
         db.collection("adverts")
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
+          .orderBy("creationDate", "desc")
+          .limit(pageLimit)
           .get()
           .then(querySnapshot => {
             let advertsArray = [];
@@ -87,6 +94,8 @@ const actions = {
         db.collection("adverts")
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
           .where(paramDatabaseEntryNames[1], "==", paramValues[1])
+          .orderBy("creationDate", "desc")
+          .limit(pageLimit)
           .get()
           .then(querySnapshot => {
             let advertsArray = [];
@@ -100,6 +109,8 @@ const actions = {
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
           .where(paramDatabaseEntryNames[1], "==", paramValues[1])
           .where(paramDatabaseEntryNames[2], "==", paramValues[2])
+          .orderBy("creationDate", "desc")
+          .limit(pageLimit)
           .get()
           .then(querySnapshot => {
             let advertsArray = [];
@@ -117,6 +128,8 @@ const actions = {
             "array-contains",
             searchParameters.technologies.name
           )
+          .orderBy("creationDate", "desc")
+          .limit(pageLimit)
           .get()
           .then(querySnapshot => {
             let advertsArray = [];
@@ -128,6 +141,8 @@ const actions = {
       } else if (paramCounter === 2) {
         db.collection("adverts")
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
+          .orderBy("creationDate", "desc")
+          .limit(pageLimit)
           .get()
           .then(querySnapshot => {
             let advertsArray = [];
@@ -145,6 +160,8 @@ const actions = {
           )
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
           .where(paramDatabaseEntryNames[1], "==", paramValues[1])
+          .orderBy("creationDate", "desc")
+          .limit(pageLimit)
           .get()
           .then(querySnapshot => {
             let advertsArray = [];
@@ -163,6 +180,8 @@ const actions = {
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
           .where(paramDatabaseEntryNames[1], "==", paramValues[1])
           .where(paramDatabaseEntryNames[2], "==", paramValues[2])
+          .orderBy("creationDate", "desc")
+          .limit(pageLimit)
           .get()
           .then(querySnapshot => {
             let advertsArray = [];
