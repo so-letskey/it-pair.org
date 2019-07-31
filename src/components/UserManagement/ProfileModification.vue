@@ -14,7 +14,28 @@
             required
           />
         </div>
-
+        <div class="col-sm-12 col-md-6">
+          <label for="username">Name</label>
+          <input
+            id="name"
+            v-model="name"
+            type="text"
+            name="name"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="username">Surname</label>
+          <input
+            id="surname"
+            v-model="surname"
+            type="text"
+            name="surname"
+            class="form-control"
+            required
+          />
+        </div>
         <div class="col-sm-12 col-md-6">
           <label for="description">Description</label>
           <input
@@ -142,6 +163,8 @@ export default {
   data() {
     return {
       username: "",
+      name: "",
+      surname: "",
       description: "",
       gitHubUsername: "",
       portfolioLink: "",
@@ -158,6 +181,8 @@ export default {
   },
   created() {
     this.username = this.viewedProfile.username;
+    this.name = this.viewedProfile.name;
+    this.surname = this.viewedProfile.surname;
     this.description = this.viewedProfile.description;
     this.gitHubUsername = this.viewedProfile.gitHubUsername;
     this.portfolioLink = this.viewedProfile.portfolioLink;
@@ -172,6 +197,8 @@ export default {
     editProfile() {
       let profileDetails = {
         username: this.username,
+        name: this.name,
+        surname: this.surname,
         description: this.description,
         gitHubUsername: this.gitHubUsername,
         portfolioLink: this.portfolioLink,

@@ -16,6 +16,12 @@
           <strong>GitHub username:</strong> {{ viewedProfile.gitHubUsername }}
         </p>
       </div>
+      <div v-if="viewedProfile.name && viewedProfile.surname">
+        <p>
+          <strong>Name:</strong>
+          {{ viewedProfile.name + " " + viewedProfile.surname }}
+        </p>
+      </div>
       <div v-if="viewedProfile.portfolioLink">
         <p>
           <strong>Link to the portfolio:</strong>
