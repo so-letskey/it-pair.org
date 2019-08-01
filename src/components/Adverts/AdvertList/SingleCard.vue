@@ -4,14 +4,24 @@
     <div class="card-body">
       <h5 class="card-title">{{ advert.description }}</h5>
       <div class="card-text">
+        <strong>Date of creation: </strong>
+        {{
+          advert.creationDate.toDate().getDate() +
+            "." +
+            (advert.creationDate.toDate().getMonth() + 1) +
+            "." +
+            advert.creationDate.toDate().getFullYear()
+        }}
+        <br />
+        <strong>Tech stack</strong>
         <ul>
           <li v-for="(technology, index) in advert.technologies" :key="index">
             {{ technology.name }}
           </li>
         </ul>
-        {{ advert.language }} <br />
-        {{ advert.country }} <br />
-        <strong>{{ advert.difficulty }}</strong>
+        <strong>Language: </strong> {{ advert.language }} <br />
+        <strong>Country: </strong>{{ advert.country }} <br />
+        <strong>Level: </strong>{{ advert.difficulty }}
       </div>
       <router-link
         :to="{

@@ -18,7 +18,16 @@
         </li>
       </ul>
       <p>Difficulty: {{ activeAdvert.difficulty }}</p>
-      <p>Date: {{ activeAdvert.creationDate.toDate() }}</p>
+      <p>
+        Date:
+        {{
+          activeAdvert.creationDate.toDate().getDate() +
+            "." +
+            (activeAdvert.creationDate.toDate().getMonth() + 1) +
+            "." +
+            activeAdvert.creationDate.toDate().getFullYear()
+        }}
+      </p>
       <p>Language: {{ activeAdvert.language }}</p>
 
       <div v-if="isAdvertOwner" id="modification-buttons">
