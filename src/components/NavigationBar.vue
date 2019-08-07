@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="mniam navbar navbar-expand-lg navbar-light bg-light">
     <router-link class="navbar-brand" :to="{ name: 'mainPage' }" tag="a"
       ><strong>IT</strong>Pair.org</router-link
     >
@@ -77,5 +77,10 @@ export default {
 <style scoped>
 .pointer {
   cursor: pointer !important;
+}
+
+.mniam {
+  background-color: #5cdb95 !important;
+  color: #05386b !important;
 }
 </style>
