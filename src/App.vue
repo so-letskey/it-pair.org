@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss">
 @import "./css/main.scss";
-* {
+body {
   background-color: #eae7dc;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="searchBar" class="accordion">
     <div class="card">
-      <div id="headingOne" class="card-header">
+      <!-- <div id="headingOne" class="card-header">
         <button
           class="btn btn-primary collapsed"
           type="button"
@@ -17,62 +17,79 @@
             Search
           </button></router-link
         >
-      </div>
+      </div> -->
 
       <div
         id="collapseOne"
-        class="collapse"
         aria-labelledby="headingOne"
         data-parent="#searchBar"
       >
         <div class="card-body">
           <form action="" class="needs-validation" novalidate>
-            <div>
-              <label class="typo__label">Technology</label>
-              <Multiselect
-                v-model="technologies"
-                :options="this.$store.state.advertOptions.technologiesSingle"
-                placeholder="Type to search"
-                label="name"
-                track-by="name"
-                :max-height="200"
-                open-direction="below"
-              ></Multiselect>
+            <div class="row">
+              <div class="col-sm-12 col-md-12">
+                <label class="typo__label">TECHNOLOGY</label>
+                <Multiselect
+                  v-model="technologies"
+                  :options="this.$store.state.advertOptions.technologiesSingle"
+                  placeholder="Type to search technology"
+                  label="name"
+                  track-by="name"
+                  :max-height="200"
+                  open-direction="below"
+                ></Multiselect>
+              </div>
             </div>
-            <div>
-              <label class="typo__label">Language</label>
-              <Multiselect
-                v-model="language"
-                :options="this.$store.state.advertOptions.languages"
-                placeholder="Type to search"
-                label="name"
-                track-by="name"
-                :max-height="150"
-              ></Multiselect>
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <label class="typo__label">COUNTRY</label>
+                <Multiselect
+                  v-model="country"
+                  :options="this.$store.state.advertOptions.countries"
+                  placeholder="Type to search a country"
+                  label="name"
+                  track-by="name"
+                  :max-height="200"
+                  open-direction="above"
+                ></Multiselect>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <label class="typo__label">CITY</label>
+                <Multiselect
+                  v-model="country"
+                  :options="this.$store.state.advertOptions.countries"
+                  placeholder="Type to search a city"
+                  label="name"
+                  track-by="name"
+                  :max-height="200"
+                  open-direction="above"
+                ></Multiselect>
+              </div>
             </div>
-            <div>
-              <label class="typo__label">Country</label>
-              <Multiselect
-                v-model="country"
-                :options="this.$store.state.advertOptions.countries"
-                placeholder="Type to search"
-                label="name"
-                track-by="name"
-                :max-height="200"
-                open-direction="above"
-              ></Multiselect>
-            </div>
-            <div>
-              <label class="typo__label">Level</label>
-              <Multiselect
-                v-model="difficulty"
-                :options="this.$store.state.advertOptions.difficultyLevels"
-                placeholder="Choose a difficulty level"
-                label="name"
-                track-by="name"
-                open-direction="above"
-                :searchable="false"
-              ></Multiselect>
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <label class="typo__label">LEVEL</label>
+                <Multiselect
+                  v-model="difficulty"
+                  :options="this.$store.state.advertOptions.difficultyLevels"
+                  placeholder="Choose the difficulty level"
+                  label="name"
+                  track-by="name"
+                  open-direction="above"
+                  :searchable="false"
+                ></Multiselect>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <label class="typo__label">LANGUAGE</label>
+                <Multiselect
+                  v-model="language"
+                  :options="this.$store.state.advertOptions.languages"
+                  placeholder="Type to search communication language"
+                  label="name"
+                  track-by="name"
+                  :max-height="150"
+                ></Multiselect>
+              </div>
             </div>
           </form>
           <button class="btn btn-primary resetBtn" @click="resetParameters">
@@ -125,17 +142,25 @@ export default {
 <style scoped>
 .card {
   margin-bottom: 0px;
-  border-bottom: 0.5px rgb(175, 175, 175) solid !important;
+  border: 1px #8e8d8a solid !important;
+  background-color: #eae7dc;
 }
 
 #searchBar {
-  width: 400px;
+  width: 900px;
   margin: 40px auto;
 }
 
 .card-header {
   display: flex;
   justify-content: space-around;
+}
+
+.typo__label {
+  color: #e85a4f;
+  margin-bottom: 0px;
+  margin-left: 2px;
+  font-size: 13px;
 }
 
 .resetBtn {
