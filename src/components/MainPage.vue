@@ -2,42 +2,36 @@
   <div id="main" class="main-page">
     <h1 class="main-title display-1"><strong>IT</strong>Pair.org</h1>
     <div class="buttons">
-      <button type="button" class="btn btn-outline-dark btn-lg btn-big">
-        Look for someone to practice with
-      </button>
+      <router-link :to="{ name: 'advertsList' }"
+        ><button type="button" class="btn btn-outline-dark btn-lg btn-big">
+          Look for someone to practice with
+        </button></router-link
+      >
       <!-- <AdvertFiltering /> -->
       <p class="my-4">or</p>
-      <button type="button" class="btn btn-outline-secondary btn-small">
-        Add your own advert
-      </button>
+      <router-link :to="{ name: 'advertAddition' }">
+        <button type="button" class="btn btn-outline-secondary btn-small">
+          Add your own advert
+        </button></router-link
+      >
     </div>
     <p class="my-5 whycare">
-      Why should I even <span style="color: #05386b"> care?</span>
+      Why should I even care?
     </p>
   </div>
 </template>
-
-<script>
-import AdvertFiltering from "./Adverts/AdvertList/AdvertFiltering.vue";
-
-export default {
-  components: {
-    AdvertFiltering
-  }
-};
-</script>
 
 <style scoped>
 /* .btn {
   color: white !important;
 } */
 #main {
-  background-color: #5cdb95;
+  background-color: #eae7dc;
 }
 
 .main-title {
   font-size: 7rem;
-  color: #05386b;
+  color: black;
 }
 
 .main-page {
@@ -57,18 +51,20 @@ export default {
 
 .btn-small {
   padding: 10px 25px;
-  color: #edf5e1;
-  background-color: #05386b;
+  border-color: #8e8d8a;
+  color: black;
+  background-color: #eae7dc;
 }
 
 .btn-big {
   padding: 10px 25px;
   font-size: 1.3rem;
-  color: #edf5e1;
-  background-color: #05386b;
+  border-color: #8e8d8a;
+  color: black;
+  background-color: #eae7dc;
 }
 
 .whycare {
-  color: #edf5e1;
+  color: #e85a4f;
 }
 </style>

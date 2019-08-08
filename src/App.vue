@@ -21,6 +21,6 @@ export default {
 <style lang="scss">
 @import "./css/main.scss";
 * {
-  background-color: #5cdb95;
+  background-color: #eae7dc;
 }
 </style>

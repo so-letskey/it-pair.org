@@ -1,7 +1,7 @@
 <template>
   <nav class="mniam navbar navbar-expand-lg navbar-light bg-light">
-    <router-link class="navbar-brand" :to="{ name: 'mainPage' }" tag="a"
-      ><strong>IT</strong>Pair.org</router-link
+    <router-link class="navbar-brand" :to="{ name: 'mainPage' }" tag="a">
+      <strong>IT</strong>Pair.org</router-link
     >
     <button
       class="navbar-toggler"
@@ -26,7 +26,7 @@
             :to="{ name: navElement.routeName }"
             tag="a"
             class="nav-link"
-            >{{ navElement.name }}</router-link
+            ><span class="nav-itemz"> {{ navElement.name }}</span></router-link
           >
         </li>
         <!-- Actionable nav-item: -->
@@ -80,7 +80,10 @@ export default {
 }
 
 .mniam {
-  background-color: #5cdb95 !important;
-  color: #05386b !important;
+  background-color: #eae7dc !important;
+}
+
+.nav-itemz {
+  color: #8e8d8a !important;
 }
 </style>
