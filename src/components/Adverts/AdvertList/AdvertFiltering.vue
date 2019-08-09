@@ -92,9 +92,14 @@
               </div>
             </div>
           </form>
-          <button class="btn btn-primary resetBtn" @click="resetParameters">
-            Reset
-          </button>
+          <div class="buttons">
+            <button class="myBtn" @click="resetParameters">
+              RESET
+            </button>
+            <button class="myBtn" @click="dispatchSearchQuery">
+              SEARCH
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -143,6 +148,7 @@ export default {
 .card {
   margin-bottom: 0px;
   border: 1px #8e8d8a solid !important;
+  border-radius: 5px !important;
   background-color: #eae7dc;
 }
 
@@ -163,7 +169,29 @@ export default {
   font-size: 13px;
 }
 
-.resetBtn {
-  margin-top: 10px;
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0px;
+}
+
+.myBtn {
+  border: 1px solid #8e8d8a;
+  border-radius: 5px;
+  background: white;
+  margin-top: 18px;
+  transition: all 100ms linear;
+  margin-left: 10px;
+  font-size: 14px;
+  height: 38px;
+  width: 90px;
+  color: #8e8d8a;
+  border: 1px solid #5f5f5d;
+  color: #4b4b48;
+}
+
+.myBtn:hover {
+  border: 1px solid #4b4b48;
+  color: #4b4b48;
 }
 </style>

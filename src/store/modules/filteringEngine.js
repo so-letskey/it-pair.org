@@ -58,6 +58,8 @@ const actions = {
     for (let key in searchParameters) {
       if (searchParameters[key] !== null) {
         paramCounter++;
+        //We separate paramValues from technologies, as later on they use different firestore
+        //query methods ('array-contains' and '==')
         if (key !== "technologies") {
           paramValues.push(searchParameters[key].name);
           paramDatabaseEntryNames.push(databaseEntryNames[key]);
@@ -140,6 +142,11 @@ const actions = {
           });
       } else if (paramCounter === 2) {
         db.collection("adverts")
+          .where(
+            "technologiesForQuery",
+            "array-contains",
+            searchParameters.technologies.name
+          )
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
           .orderBy("creationDate", "desc")
           .limit(pageLimit)

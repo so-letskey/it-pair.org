@@ -1,14 +1,30 @@
 /* If you had a problem with finding the names of the classes in multiselect, let me know, and
 I can tell you how to find them */
 
-// .multiselect__option--highlight {
-//   background: orange !important;
-// }
+.multiselect__select {
+    color: red !important;
+}
 
-// .multiselect__option--selected {
-//   background: rgb(255, 255, 0) !important;
-// }
+.multiselect__placeholder {
+    color: #8e8d8a !important;
+}
 
-// .multiselect__tag {
-//     background: blue !important;
-// }
+.multiselect__option--selected {
+    background: white !important;
+    color: black !important;
+}
+
+.multiselect__option--highlight {
+    background: #e98074 !important;
+}
+
+.multiselect__option--highlight::after {
+    background: #e98074 !important;
+}
+
+.multiselect__tags {
+    border: 1px solid #8e8d8a !important;
+}
+
+
+
