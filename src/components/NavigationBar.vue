@@ -82,8 +82,4 @@ export default {
 .mniam {
   background-color: #eae7dc !important;
 }
-
-.nav-itemz {
-  color: #8e8d8a !important;
-}
 </style>
