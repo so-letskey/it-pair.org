@@ -1,5 +1,5 @@
 <template>
-  <nav class="mniam navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="mniam navbar navbar-expand-sm navbar-light bg-light">
     <router-link class="navbar-brand" :to="{ name: 'mainPage' }" tag="a">
       <strong>IT</strong>Pair.org</router-link
     >

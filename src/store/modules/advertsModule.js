@@ -31,6 +31,10 @@ const mutations = {
   loadAdverts: (state, adverts) => {
     state.adverts = adverts;
   },
+  appendAdverts: (state, adverts) => {
+    let newList = [...state.adverts, ...adverts];
+    state.adverts = newList;
+  },
   resetAdverts: state => {
     state.adverts = [];
   }

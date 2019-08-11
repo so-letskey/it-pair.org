@@ -1,6 +1,11 @@
 <template>
   <div id="main">
     <AdvertFiltering />
+    <SingleCard
+      v-for="(advert, index) in this.$store.state.advertsModule.adverts"
+      :key="'Advert: ' + index"
+      :advert="advert"
+    />
     <div
       v-if="this.$store.state.filteringEngine.loading"
       class="d-flex justify-content-center"
@@ -9,12 +14,6 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <SingleCard
-      v-for="(advert, index) in this.$store.state.advertsModule.adverts"
-      v-else
-      :key="'Advert: ' + index"
-      :advert="advert"
-    />
   </div>
 </template>
 
@@ -27,8 +26,32 @@ export default {
     AdvertFiltering,
     SingleCard
   },
+  mounted() {
+    this.resultUpdateOnScroll();
+  },
   destroyed() {
-    this.$store.dispatch("resetAdverts");
+    this.$store.dispatch("resetSearch");
+  },
+  methods: {
+    //Adding results
+    resultUpdateOnScroll() {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          window.innerHeight + window.pageYOffset >=
+          document.body.offsetHeight - 2;
+        // document.documentElement.scrollTop + window.innerHeight ===
+        // document.documentElement.offsetHeight;
+
+        if (
+          bottomOfWindow &&
+          !this.$store.state.filteringEngine.InitialSearch &&
+          !this.$store.state.filteringEngine.loading
+        ) {
+          let searchParameters = this.$store.getters.searchParameters;
+          this.$store.dispatch("loadAdverts", searchParameters);
+        }
+      };
+    }
   }
 };
 </script>
