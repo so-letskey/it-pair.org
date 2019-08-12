@@ -9,7 +9,8 @@ const state = {
   language: null,
   //Paginating
   initialSearch: true,
-  lastVisibleResult: undefined
+  lastVisibleResult: undefined,
+  noResultsLeftToShow: false
 };
 
 const getters = {
@@ -53,6 +54,10 @@ const mutations = {
   resetSearchStatus: state => {
     state.lastVisibleResult = undefined;
     state.initialSearch = true;
+    state.noResultsLeftToShow = false;
+  },
+  displayInfoToTheUser: state => {
+    state.noResultsLeftToShow = true;
   }
 };
 
@@ -181,7 +186,7 @@ const actions = {
           context.dispatch("manageSearchResults", querySnapshot);
         });
     } else {
-      context.dispatch("finishFiltering");
+      context.dispatch("finishSearch");
     }
   },
   manageSearchResults: (context, querySnapshot) => {
@@ -191,20 +196,23 @@ const actions = {
     });
     let lastVisibleResult = querySnapshot.docs[querySnapshot.docs.length - 1];
     context.dispatch("setLastVisibleResult", lastVisibleResult);
-    context.dispatch("finishFiltering", advertsArray);
+    context.dispatch("finishSearch", advertsArray);
   },
   setLastVisibleResult: (context, lastVisibleResult) => {
     context.commit("setLastVisibleResult", lastVisibleResult);
   },
-  finishFiltering: (context, advertsArray) => {
+  finishSearch: (context, advertsArray) => {
     context.commit("loadingFinished");
-    //checks if any data was passed. If not, simply finishes search
+    //Checks if any data was passed. If not, dispatches a command to display info for the user.
     if (advertsArray) {
       if (context.state.initialSearch) {
         context.commit("loadAdverts", advertsArray);
       } else {
         context.commit("appendAdverts", advertsArray);
       }
+    } else {
+      //No results left to show
+      context.commit("displayInfoToTheUser");
     }
   },
   resetSearch: context => {

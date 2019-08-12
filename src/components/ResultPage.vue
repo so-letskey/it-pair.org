@@ -14,6 +14,15 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
+    <div v-if="this.$store.state.filteringEngine.noResultsLeftToShow">
+      <p class="noMoreResultsInfo">
+        Didn't find what you were looking for?<br />
+        Don't worry, you can always
+        <router-link :to="{ name: 'advertAddition' }">
+          <span class="whycare">add your own advert.</span></router-link
+        >
+      </p>
+    </div>
   </div>
 </template>
 
@@ -64,5 +73,18 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.whycare {
+  color: #e85a4f;
+}
+
+.noMoreResultsInfo {
+  text-align: center;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
 }
 </style>
