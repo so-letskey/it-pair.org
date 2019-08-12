@@ -1,24 +1,6 @@
 <template>
   <div id="searchBar" class="accordion">
     <div class="card">
-      <!-- <div id="headingOne" class="card-header">
-        <button
-          class="btn btn-primary collapsed"
-          type="button"
-          data-toggle="collapse"
-          data-target="#collapseOne"
-          aria-expanded="false"
-          aria-controls="collapseOne"
-        >
-          Filters
-        </button>
-        <router-link :to="{ name: 'advertsList' }"
-          ><button class="btn btn-primary" @click="dispatchSearchQuery">
-            Search
-          </button></router-link
-        >
-      </div> -->
-
       <div
         id="collapseOne"
         aria-labelledby="headingOne"
@@ -127,7 +109,7 @@ export default {
         language: this.language,
         country: this.country
       };
-      this.$store.dispatch("resetAdverts");
+      this.$store.dispatch("resetSearch");
       this.$store.dispatch("saveParameters", searchParameters);
       this.$store.dispatch("loadAdverts", searchParameters);
     },

@@ -70,7 +70,6 @@ const actions = {
     // the databaseEntryNames object and a for loop
     context.commit("loadingStarted");
     //Static variables
-    const pageLimit = 2;
     let databaseEntryNames = {
       difficulty: "difficulty",
       technologies: "technologiesForQuery",
@@ -93,284 +92,106 @@ const actions = {
         }
       }
     }
+    if (paramCounter === 0) {
+      let searchQuery = db.collection("adverts");
+      context.dispatch("manageSearchQuery", searchQuery);
+    } else if (searchParameters.technologies === null) {
+      if (paramCounter === 1) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(paramDatabaseEntryNames[0], "==", paramValues[0]);
+        context.dispatch("manageSearchQuery", searchQuery);
+      } else if (paramCounter === 2) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(paramDatabaseEntryNames[0], "==", paramValues[0])
+          .where(paramDatabaseEntryNames[1], "==", paramValues[1]);
+        context.dispatch("manageSearchQuery", searchQuery);
+      } else if (paramCounter === 3) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(paramDatabaseEntryNames[0], "==", paramValues[0])
+          .where(paramDatabaseEntryNames[1], "==", paramValues[1])
+          .where(paramDatabaseEntryNames[2], "==", paramValues[2]);
+        context.dispatch("manageSearchQuery", searchQuery);
+      }
+    } else {
+      if (paramCounter === 1) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(
+            "technologiesForQuery",
+            "array-contains",
+            searchParameters.technologies.name
+          );
+        context.dispatch("manageSearchQuery", searchQuery);
+      } else if (paramCounter === 2) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(
+            "technologiesForQuery",
+            "array-contains",
+            searchParameters.technologies.name
+          )
+          .where(paramDatabaseEntryNames[0], "==", paramValues[0]);
+        context.dispatch("manageSearchQuery", searchQuery);
+      } else if (paramCounter === 3) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(
+            "technologiesForQuery",
+            "array-contains",
+            searchParameters.technologies.name
+          )
+          .where(paramDatabaseEntryNames[0], "==", paramValues[0])
+          .where(paramDatabaseEntryNames[1], "==", paramValues[1]);
+        context.dispatch("manageSearchQuery", searchQuery);
+      } else if (paramCounter === 4) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(
+            "technologiesForQuery",
+            "array-contains",
+            searchParameters.technologies.name
+          )
+          .where(paramDatabaseEntryNames[0], "==", paramValues[0])
+          .where(paramDatabaseEntryNames[1], "==", paramValues[1])
+          .where(paramDatabaseEntryNames[2], "==", paramValues[2]);
+        context.dispatch("manageSearchQuery", searchQuery);
+      }
+    }
+  },
+  manageSearchQuery: (context, searchQuery) => {
+    let paginationLimit = 2;
     if (context.state.initialSearch) {
-      if (paramCounter === 0) {
-        db.collection("adverts")
-          .orderBy("creationDate", "desc")
-          .limit(pageLimit)
-          .get()
-          .then(querySnapshot => {
-            let advertsArray = [];
-            querySnapshot.forEach(advert => {
-              advertsArray.push(advert.data());
-            });
-            let lastVisibleResult =
-              querySnapshot.docs[querySnapshot.docs.length - 1];
-            context.dispatch("setLastVisibleResult", lastVisibleResult);
-            context.dispatch("finishFiltering", advertsArray);
-          });
-      } else if (searchParameters.technologies === null) {
-        if (paramCounter === 1) {
-          db.collection("adverts")
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 2) {
-          db.collection("adverts")
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .where(paramDatabaseEntryNames[1], "==", paramValues[1])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 3) {
-          db.collection("adverts")
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .where(paramDatabaseEntryNames[1], "==", paramValues[1])
-            .where(paramDatabaseEntryNames[2], "==", paramValues[2])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        }
-      } else {
-        if (paramCounter === 1) {
-          db.collection("adverts")
-            .where(
-              "technologiesForQuery",
-              "array-contains",
-              searchParameters.technologies.name
-            )
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 2) {
-          db.collection("adverts")
-            .where(
-              "technologiesForQuery",
-              "array-contains",
-              searchParameters.technologies.name
-            )
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 3) {
-          db.collection("adverts")
-            .where(
-              "technologiesForQuery",
-              "array-contains",
-              searchParameters.technologies.name
-            )
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .where(paramDatabaseEntryNames[1], "==", paramValues[1])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 4) {
-          db.collection("adverts")
-            .where(
-              "technologiesForQuery",
-              "array-contains",
-              searchParameters.technologies.name
-            )
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .where(paramDatabaseEntryNames[1], "==", paramValues[1])
-            .where(paramDatabaseEntryNames[2], "==", paramValues[2])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        }
-      }
+      searchQuery
+        .orderBy("creationDate", "desc")
+        .limit(paginationLimit)
+        .get()
+        .then(querySnapshot => {
+          context.dispatch("manageSearchResults", querySnapshot);
+        });
     } else if (context.state.lastVisibleResult) {
-      if (paramCounter === 0) {
-        db.collection("adverts")
-          .orderBy("creationDate", "desc")
-          .startAfter(context.state.lastVisibleResult)
-          .limit(pageLimit)
-          .get()
-          .then(querySnapshot => {
-            let advertsArray = [];
-            querySnapshot.forEach(advert => {
-              advertsArray.push(advert.data());
-            });
-            let lastVisibleResult =
-              querySnapshot.docs[querySnapshot.docs.length - 1];
-            context.dispatch("setLastVisibleResult", lastVisibleResult);
-            context.dispatch("finishFiltering", advertsArray);
-          });
-      } else if (searchParameters.technologies === null) {
-        if (paramCounter === 1) {
-          db.collection("adverts")
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 2) {
-          db.collection("adverts")
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .where(paramDatabaseEntryNames[1], "==", paramValues[1])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 3) {
-          db.collection("adverts")
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .where(paramDatabaseEntryNames[1], "==", paramValues[1])
-            .where(paramDatabaseEntryNames[2], "==", paramValues[2])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        }
-      } else {
-        if (paramCounter === 1) {
-          db.collection("adverts")
-            .where(
-              "technologiesForQuery",
-              "array-contains",
-              searchParameters.technologies.name
-            )
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 2) {
-          db.collection("adverts")
-            .where(
-              "technologiesForQuery",
-              "array-contains",
-              searchParameters.technologies.name
-            )
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 3) {
-          db.collection("adverts")
-            .where(
-              "technologiesForQuery",
-              "array-contains",
-              searchParameters.technologies.name
-            )
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .where(paramDatabaseEntryNames[1], "==", paramValues[1])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        } else if (paramCounter === 4) {
-          db.collection("adverts")
-            .where(
-              "technologiesForQuery",
-              "array-contains",
-              searchParameters.technologies.name
-            )
-            .where(paramDatabaseEntryNames[0], "==", paramValues[0])
-            .where(paramDatabaseEntryNames[1], "==", paramValues[1])
-            .where(paramDatabaseEntryNames[2], "==", paramValues[2])
-            .orderBy("creationDate", "desc")
-            .limit(pageLimit)
-            .get()
-            .then(querySnapshot => {
-              let advertsArray = [];
-              querySnapshot.forEach(advert => {
-                advertsArray.push(advert.data());
-              });
-              context.dispatch("finishFiltering", advertsArray);
-            });
-        }
-      }
+      searchQuery
+        .orderBy("creationDate", "desc")
+        .startAfter(context.state.lastVisibleResult)
+        .limit(paginationLimit)
+        .get()
+        .then(querySnapshot => {
+          context.dispatch("manageSearchResults", querySnapshot);
+        });
     } else {
       context.dispatch("finishFiltering");
     }
+  },
+  manageSearchResults: (context, querySnapshot) => {
+    let advertsArray = [];
+    querySnapshot.forEach(advert => {
+      advertsArray.push(advert.data());
+    });
+    let lastVisibleResult = querySnapshot.docs[querySnapshot.docs.length - 1];
+    context.dispatch("setLastVisibleResult", lastVisibleResult);
+    context.dispatch("finishFiltering", advertsArray);
   },
   setLastVisibleResult: (context, lastVisibleResult) => {
     context.commit("setLastVisibleResult", lastVisibleResult);

@@ -39,8 +39,6 @@ export default {
         let bottomOfWindow =
           window.innerHeight + window.pageYOffset >=
           document.body.offsetHeight - 2;
-        // document.documentElement.scrollTop + window.innerHeight ===
-        // document.documentElement.offsetHeight;
 
         if (
           bottomOfWindow &&
