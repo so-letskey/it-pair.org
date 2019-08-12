@@ -31,8 +31,8 @@
                   placeholder="Type to search a country"
                   label="name"
                   track-by="name"
-                  :max-height="200"
-                  open-direction="above"
+                  :max-height="130"
+                  open-direction="below"
                 ></Multiselect>
               </div>
               <div class="col-sm-12 col-md-6">
@@ -43,8 +43,8 @@
                   placeholder="Type to search a city"
                   label="name"
                   track-by="name"
-                  :max-height="200"
-                  open-direction="above"
+                  :max-height="130"
+                  open-direction="below"
                 ></Multiselect>
               </div>
             </div>
@@ -70,6 +70,7 @@
                   label="name"
                   track-by="name"
                   :max-height="150"
+                  open-direction="above"
                 ></Multiselect>
               </div>
             </div>

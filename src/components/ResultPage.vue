@@ -14,7 +14,12 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div v-if="this.$store.state.filteringEngine.noResultsLeftToShow">
+    <div
+      v-if="
+        this.$store.state.filteringEngine.noResultsLeftToDisplay ||
+          this.$store.state.filteringEngine.noResultsToDisplay
+      "
+    >
       <p class="noMoreResultsInfo">
         Didn't find what you were looking for?<br />
         Don't worry, you can always

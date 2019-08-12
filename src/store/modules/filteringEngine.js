@@ -10,7 +10,10 @@ const state = {
   //Paginating
   initialSearch: true,
   lastVisibleResult: undefined,
-  noResultsLeftToShow: false
+  //One of these is shown in case of no Results AT ALL to display,
+  //the other when there is nothing more to append while scrolling the page
+  noResultsToDisplay: false,
+  noResultsLeftToDisplay: false
 };
 
 const getters = {
@@ -54,10 +57,14 @@ const mutations = {
   resetSearchStatus: state => {
     state.lastVisibleResult = undefined;
     state.initialSearch = true;
-    state.noResultsLeftToShow = false;
+    state.noResultsToDisplay = false;
+    state.noResultsLeftToDisplay = false;
   },
-  displayInfoToTheUser: state => {
-    state.noResultsLeftToShow = true;
+  noResultsToDisplay: state => {
+    state.noResultsToDisplay = true;
+  },
+  noResultsLeftToDisplay: state => {
+    state.noResultsLeftToDisplay = true;
   }
 };
 
@@ -174,7 +181,12 @@ const actions = {
         .limit(paginationLimit)
         .get()
         .then(querySnapshot => {
-          context.dispatch("manageSearchResults", querySnapshot);
+          if (querySnapshot.size === 0) {
+            context.commit("noResultsToDisplay");
+            context.commit("loadingFinished");
+          } else {
+            context.dispatch("manageSearchResults", querySnapshot);
+          }
         });
     } else if (context.state.lastVisibleResult) {
       searchQuery
@@ -212,7 +224,7 @@ const actions = {
       }
     } else {
       //No results left to show
-      context.commit("displayInfoToTheUser");
+      context.commit("noResultsLeftToDisplay");
     }
   },
   resetSearch: context => {
