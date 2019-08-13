@@ -57,7 +57,9 @@ export default {
         if (
           bottomOfWindow &&
           !this.$store.state.filteringEngine.InitialSearch &&
-          !this.$store.state.filteringEngine.loading
+          !this.$store.state.filteringEngine.loading &&
+          !this.$store.state.filteringEngine.noResultsLeftToDisplay &&
+          !this.$store.state.filteringEngine.noResultsToDisplay
         ) {
           let searchParameters = this.$store.getters.searchParameters;
           this.$store.dispatch("loadAdverts", searchParameters);

@@ -186,6 +186,9 @@ const actions = {
             context.commit("loadingFinished");
           } else {
             context.dispatch("manageSearchResults", querySnapshot);
+            if (querySnapshot.size < paginationLimit) {
+              context.commit("noResultsLeftToDisplay");
+            }
           }
         });
     } else if (context.state.lastVisibleResult) {
@@ -196,6 +199,9 @@ const actions = {
         .get()
         .then(querySnapshot => {
           context.dispatch("manageSearchResults", querySnapshot);
+          if (querySnapshot.size < paginationLimit) {
+            context.commit("noResultsLeftToDisplay");
+          }
         });
     } else {
       context.dispatch("finishSearch");
