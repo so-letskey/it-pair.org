@@ -10,9 +10,36 @@
       <div id="description-grid">
         <div id="main-text-column">
           <p class="lead">{{ activeAdvert.description }}</p>
+          <!-- <ProfilePreview :creators-id="activeAdvert.creatorsId" /> -->
+        </div>
+        <div id="profile-preview-column">
+          <div id="profile-preview">
+            <img
+              class="profile-pic"
+              src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              alt="Italian Trulli"
+            />
+            <div id="profile-name">Witold.S</div>
+            <br />
+            <!-- {{ viewedProfile.description }} -->
+            <router-link
+              :to="{
+                name: 'profileDetails'
+              }"
+            >
+              <button class="myBtn">
+                SHOW PROFILE
+              </button></router-link
+            >
+            <div id="contact-button-container">
+              <button class="myBtn">
+                CONTACT
+              </button>
+            </div>
+          </div>
         </div>
         <div id="key-info-column">
-          <div class="side-info">
+          <div id="side-info">
             <div id="side-info-container">
               <span id="tech-stack"
                 ><strong>Tech stack </strong>
@@ -29,16 +56,16 @@
               <strong>Country: </strong>{{ activeAdvert.country }} <br />
               <strong>City: </strong>{{ activeAdvert.city }} <br />
               <strong>Level: </strong>{{ activeAdvert.difficulty }} <br />
-              <div id="contact-button-container">
+              <!-- <div id="contact-button-container">
                 <button class="myBtn">
                   CONTACT
                 </button>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
       </div>
-      <div v-if="isAdvertOwner" id="modification-buttons">
+      <!-- <div v-if="isAdvertOwner" id="modification-buttons">
         <router-link
           class="btn btn-primary btn-lg"
           :to="{
@@ -56,23 +83,18 @@
             Delete
           </button></router-link
         >
-      </div>
-      <router-link
-        :to="{
-          name: 'profileDetails',
-          params: { id: activeAdvert.creatorsId }
-        }"
-      >
-        <button class="btn btn-info btn-lg">
-          Show Profile
-        </button></router-link
-      >
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import ProfilePreview from "../../UserManagement/ProfilePreview";
+
 export default {
+  components: {
+    ProfilePreview
+  },
   computed: {
     activeAdvert() {
       return this.$store.state.advertsModule.activeAdvert;
@@ -108,7 +130,7 @@ export default {
 #description-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr 1fr 1fr;
 }
 
 #main-text-column {
@@ -119,9 +141,42 @@ export default {
   margin-top: 30px;
 }
 
+.lead {
+  white-space: pre-wrap;
+}
+
+#profile-preview-column {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  padding: 30px;
+  /* margin-top: 24px; */
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #5f5f5d;
+  border-radius: 50%;
+}
+
+#profile-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0px;
+  border-top: 1px solid #5f5f5d;
+  border-bottom: 1px solid #5f5f5d;
+  width: 140px;
+}
+
+#profile-name {
+  margin-top: 20px;
+}
+
 #key-info-column {
   grid-column-start: 2;
   grid-column-end: 3;
+  grid-row-start: 1;
   display: flex;
   flex-direction: column;
   padding-left: 0px;
@@ -135,14 +190,10 @@ export default {
   font-size: 2rem;
 }
 
-.side-info {
+#side-info {
   border-left: 1px solid #e85a4f;
   margin-top: 6px;
   padding-left: 30px;
-}
-
-.side-info-line {
-  background: #5f5f5d;
 }
 
 #side-info-container {
@@ -172,7 +223,7 @@ ul {
   transition: all 100ms linear;
   font-size: 14px;
   height: 40px;
-  width: 110px;
+  width: 120px;
   color: #8e8d8a;
   background-color: #eae7dc;
   border: 1px solid #5f5f5d;
@@ -183,10 +234,6 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-.lead {
-  white-space: pre-wrap;
 }
 
 .redline {
