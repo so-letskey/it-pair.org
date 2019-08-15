@@ -58,8 +58,12 @@ export default {
 <style scoped>
 .card {
   width: 800px;
-  border: 1px #8e8d8a solid !important;
-  border-radius: 5px !important;
+  border-top: 1px #8e8d8a solid !important;
+  border-bottom: 1px solid #838d8a !important;
+  border-left: 0px solid !important;
+  border-right: 0px solid !important;
+  border-radius: 0px !important;
+  background-color: #eae7dc;
 }
 
 .card-body {

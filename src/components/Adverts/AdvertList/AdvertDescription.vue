@@ -10,7 +10,6 @@
       <div id="description-grid">
         <div id="main-text-column">
           <p class="lead">{{ activeAdvert.description }}</p>
-          <!-- <ProfilePreview :creators-id="activeAdvert.creatorsId" /> -->
         </div>
         <div id="profile-preview-column">
           <div id="profile-preview">
@@ -21,10 +20,10 @@
             />
             <div id="profile-name">Witold.S</div>
             <br />
-            <!-- {{ viewedProfile.description }} -->
             <router-link
               :to="{
-                name: 'profileDetails'
+                name: 'profileDetails',
+                params: { id: activeAdvert.creatorsId }
               }"
             >
               <button class="myBtn">
@@ -56,11 +55,6 @@
               <strong>Country: </strong>{{ activeAdvert.country }} <br />
               <strong>City: </strong>{{ activeAdvert.city }} <br />
               <strong>Level: </strong>{{ activeAdvert.difficulty }} <br />
-              <!-- <div id="contact-button-container">
-                <button class="myBtn">
-                  CONTACT
-                </button>
-              </div> -->
             </div>
           </div>
         </div>
@@ -89,12 +83,7 @@
 </template>
 
 <script>
-import ProfilePreview from "../../UserManagement/ProfilePreview";
-
 export default {
-  components: {
-    ProfilePreview
-  },
   computed: {
     activeAdvert() {
       return this.$store.state.advertsModule.activeAdvert;
@@ -123,7 +112,6 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 100px !important;
   padding: 30px;
 }
 
@@ -149,7 +137,6 @@ export default {
   grid-column-start: 3;
   grid-column-end: 4;
   padding: 30px;
-  /* margin-top: 24px; */
 }
 
 .profile-pic {
