@@ -1,0 +1,32 @@
+@import "_variables.scss";
+
+#filtering-container {
+    border: 1px $base-color--strong-grey solid !important;
+    border-radius: 5px !important;
+    background-color: #eae7dc;
+    width: 900px;
+    margin: 40px auto;
+}
+
+.filter-label {
+    color: #e85a4f;
+    margin-bottom: 0px;
+    margin-left: 2px;
+    font-size: 13px;
+}
+
+.advert-filtering-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0px;
+}
+
+.advert-filtering-button {
+    margin-top: 18px;
+    transition: all 100ms linear;
+    margin-left: 10px;
+    font-size: 14px;
+    height: 38px;
+    width: 90px;
+    color: #4b4b48;
+}

@@ -1,0 +1,13 @@
+@import "_variables.scss";
+
+#result-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#no-more-results-to-show-info {
+    text-align: center;
+    text-decoration: none;
+}
+

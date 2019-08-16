@@ -1,7 +1,7 @@
 <template>
-  <div id="main">
+  <div id="result-page-container">
     <AdvertFiltering />
-    <SingleCard
+    <SingleSearchResult
       v-for="(advert, index) in this.$store.state.advertsModule.adverts"
       :key="'Advert: ' + index"
       :advert="advert"
@@ -20,11 +20,11 @@
           this.$store.state.filteringEngine.noResultsToDisplay
       "
     >
-      <p class="noMoreResultsInfo">
+      <p id="no-more-results-to-show-info">
         Didn't find what you were looking for?<br />
         Don't worry, you can always
         <router-link :to="{ name: 'advertAddition' }">
-          <span class="whycare">add your own advert.</span></router-link
+          <span class="red-text link">add your own advert.</span></router-link
         >
       </p>
     </div>
@@ -32,13 +32,13 @@
 </template>
 
 <script>
-import SingleCard from "./Adverts/AdvertList/SingleCard.vue";
+import SingleSearchResult from "./Adverts/AdvertList/SingleSearchResult.vue";
 import AdvertFiltering from "./Adverts/AdvertList/AdvertFiltering.vue";
 
 export default {
   components: {
     AdvertFiltering,
-    SingleCard
+    SingleSearchResult
   },
   mounted() {
     this.resultUpdateOnScroll();
@@ -69,29 +69,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.card {
-  min-width: 800px;
-  margin: 30px 50px;
-}
-
-#main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.whycare {
-  color: #e85a4f;
-}
-
-.noMoreResultsInfo {
-  text-align: center;
-  text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-}
-</style>

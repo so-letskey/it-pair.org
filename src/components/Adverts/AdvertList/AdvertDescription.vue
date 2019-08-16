@@ -1,24 +1,24 @@
 <template>
-  <div class="container">
+  <div class="container advert-description-container">
     <div v-if="activeAdvert === null" class="d-flex justify-content-center">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div v-else class="content">
+    <div v-else id="advert-description">
       <h1 class="display-4">{{ activeAdvert.title }}</h1>
-      <div id="description-grid">
-        <div id="main-text-column">
+      <div id="advert-description-grid">
+        <div id="description-column">
           <p class="lead">{{ activeAdvert.description }}</p>
         </div>
         <div id="profile-preview-column">
           <div id="profile-preview">
             <img
-              class="profile-pic"
+              class="profile-picture--small"
               src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
               alt="Italian Trulli"
             />
-            <div id="profile-name">Witold.S</div>
+            <div id="profile-preview__name">Witold.S</div>
             <br />
             <router-link
               :to="{
@@ -26,21 +26,20 @@
                 params: { id: activeAdvert.creatorsId }
               }"
             >
-              <button class="myBtn">
+              <button class="button advert-description-button">
                 SHOW PROFILE
               </button></router-link
             >
-            <div id="contact-button-container">
-              <button class="myBtn">
-                CONTACT
-              </button>
-            </div>
+            <button class="button advert-description-button">
+              CONTACT
+            </button>
           </div>
         </div>
         <div id="key-info-column">
-          <div id="side-info">
-            <div id="side-info-container">
-              <span id="tech-stack"
+          <!-- This additional div is necessary for the correct display of the red line -->
+          <div id="key-info">
+            <div id="key-info-container">
+              <span id="key-info__tech-stack"
                 ><strong>Tech stack </strong>
                 <ul>
                   <li
@@ -109,121 +108,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.container {
-  padding: 30px;
-}
-
-#description-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
-}
-
-#main-text-column {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  border-top: 1px solid #e85a4f;
-  padding-top: 30px;
-  margin-top: 30px;
-}
-
-.lead {
-  white-space: pre-wrap;
-}
-
-#profile-preview-column {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  padding: 30px;
-}
-
-.profile-pic {
-  width: 100px;
-  height: 100px;
-  border: 1px solid #5f5f5d;
-  border-radius: 50%;
-}
-
-#profile-preview {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0px;
-  border-top: 1px solid #5f5f5d;
-  border-bottom: 1px solid #5f5f5d;
-  width: 140px;
-}
-
-#profile-name {
-  margin-top: 20px;
-}
-
-#key-info-column {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  display: flex;
-  flex-direction: column;
-  padding-left: 0px;
-  margin-top: 24px;
-  font-weight: 300;
-  line-height: 2.5rem;
-  font-size: 1rem;
-}
-
-#key-info-title {
-  font-size: 2rem;
-}
-
-#side-info {
-  border-left: 1px solid #e85a4f;
-  margin-top: 6px;
-  padding-left: 30px;
-}
-
-#side-info-container {
-  padding: 20px 0px;
-  border-top: 1px solid #5f5f5d;
-  border-bottom: 1px solid #5f5f5d;
-  width: 140px;
-}
-
-#contact-button-container {
-  display: flex;
-  justify-content: center;
-}
-
-#tech-stack {
-  line-height: 1rem;
-}
-
-ul {
-  margin-bottom: 8px;
-}
-
-.myBtn {
-  border: 1px solid #8e8d8a;
-  border-radius: 5px;
-  margin-top: 18px;
-  transition: all 100ms linear;
-  font-size: 14px;
-  height: 40px;
-  width: 120px;
-  color: #8e8d8a;
-  background-color: #eae7dc;
-  border: 1px solid #5f5f5d;
-  color: #4b4b48;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.redline {
-  background: #e85a4f !important;
-}
-</style>

@@ -1,1 +1,21 @@
-@import "multiselect.scss";
+@import "_variables.scss";
+
+#main {
+    background-color: $base-color--background;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.button {
+    border: 1px solid $base-color--strong-grey;
+    border-radius: 5px;
+    background: $base-color--background;
+}
+
+@import "main-page.scss";
+@import "result-page.scss";
+@import "advert-filtering.scss";
+@import "single-search-result.scss";
+@import "advert-description";

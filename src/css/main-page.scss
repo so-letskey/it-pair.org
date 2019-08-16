@@ -1,0 +1,48 @@
+@import "_variables.scss";
+
+.main-title {
+    font-size: 7rem;
+    color: black;
+}
+
+.main-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 130px;
+}
+
+.buttons-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.button {
+    border: 1px solid $base-color--strong-grey;
+    border-radius: 5px;
+}
+  
+.main-page-button {
+    color: black;
+}
+
+.main-page-button--big {
+    margin-top: 18px;
+    font-size: 16px;
+    height: 55px;
+    width: 300px;
+}
+  
+.main-page-button--small {
+    margin-top: 6px;
+    font-size: 14px;
+    height: 45px;
+    width: 200px;
+}
+
+.red-text {
+    color: $base-color--strong-red;
+}
