@@ -12,28 +12,7 @@
           <p class="lead">{{ activeAdvert.description }}</p>
         </div>
         <div id="profile-preview-column">
-          <div id="profile-preview">
-            <img
-              class="profile-picture--small"
-              src="https://firebasestorage.googleapis.com/v0/b/it-pair.appspot.com/o/users%2FD4IvKsKZaDPUGvGShVT4a6Eafor2..jpg?alt=media&token=a8dd7b52-c07d-4bf6-b635-5de94cb52e9d"
-              alt="Italian Trulli"
-            />
-            <div id="profile-preview__name">Witold.S</div>
-            <br />
-            <router-link
-              :to="{
-                name: 'profileDetails',
-                params: { id: activeAdvert.creatorsId }
-              }"
-            >
-              <button class="button advert-description-button">
-                SHOW PROFILE
-              </button></router-link
-            >
-            <button class="button advert-description-button">
-              CONTACT
-            </button>
-          </div>
+          <ProfilePreview :id="activeAdvert.creatorsId" />
         </div>
         <div id="key-info-column">
           <!-- This additional div is necessary for the correct display of the red line -->
@@ -82,7 +61,12 @@
 </template>
 
 <script>
+import ProfilePreview from "./ProfilePreview.vue";
+
 export default {
+  components: {
+    ProfilePreview
+  },
   computed: {
     activeAdvert() {
       return this.$store.state.advertsModule.activeAdvert;

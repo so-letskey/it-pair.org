@@ -221,8 +221,13 @@ export default {
         city: this.city,
         id: this.id
       };
+      let profilePreview = {
+        username: this.username,
+        id: this.id
+      };
       let payload = {
         profileDetails,
+        profilePreview,
         image: this.image
       };
       this.$store.dispatch("editProfile", payload);

@@ -19,26 +19,18 @@ const mutations = {
 };
 
 const actions = {
-  createUserDetailEntry(context, newUserId) {
-    let newUserDetail = {
-      id: newUserId,
-      technologies: [],
-      username: "undefined_username",
-      description: "undefined_description"
-    };
-    db.collection("userDetails")
-      .doc(newUserId)
-      .set(newUserDetail)
-      .catch(err => alert(err));
-  },
   async setViewedProfile({ commit }, userId) {
     // The registeredAdverts entry is stored in a different entry than detailed information, (users / userDetails)
     // hence they both have to be combined in the next operation, so that viewedProfile object
     // will contain all necessary data to be shown in the ProfileDetails.vue component.
     try {
-      let [userBasic, userDetails] = await Promise.all([
+      let [userBasic, userPreview, userDetails] = await Promise.all([
         db
           .collection("users")
+          .doc(userId)
+          .get(),
+        db
+          .collection("userPreview")
           .doc(userId)
           .get(),
         db
@@ -46,7 +38,11 @@ const actions = {
           .doc(userId)
           .get()
       ]);
-      let userData = { ...userBasic.data(), ...userDetails.data() };
+      let userData = {
+        ...userBasic.data(),
+        ...userPreview.data(),
+        ...userDetails.data()
+      };
       commit("setViewedProfile", userData);
     } catch (err) {
       alert(err);
@@ -56,6 +52,7 @@ const actions = {
     commit("resetViewedProfile");
   },
   editProfile(context, payload) {
+    let profilePreview = payload.profilePreview;
     let profileDetails = payload.profileDetails;
     //Image handling
     const filename = payload.image.name;
@@ -70,7 +67,13 @@ const actions = {
         return fileData.ref.getDownloadURL();
       })
       .then(downloadUrl => {
-        profileDetails.imageUrl = downloadUrl;
+        profilePreview.imageUrl = downloadUrl;
+        return db
+          .collection("userPreview")
+          .doc(profileDetails.id)
+          .update(profilePreview);
+      })
+      .then(function() {
         return db
           .collection("userDetails")
           .doc(profileDetails.id)

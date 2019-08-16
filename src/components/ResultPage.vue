@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import SingleSearchResult from "./Adverts/AdvertList/SingleSearchResult.vue";
-import AdvertFiltering from "./Adverts/AdvertList/AdvertFiltering.vue";
+import SingleSearchResult from "./Adverts/AdvertListing/SingleSearchResult.vue";
+import AdvertFiltering from "./Adverts/AdvertListing/AdvertFiltering.vue";
 
 export default {
   components: {

@@ -1,4 +1,7 @@
-// This module operates on user state, user entry in database and user authentication.
+// The state in this module (activeUser) is responsible for investigating what kinds
+// of actions are allowed for user to do (change the adverts, delete them, edit profile)
+// As this data is constantly used across the website, and does not need other details of the profile
+// the database entry for userBasic is separate from the rest
 
 import * as firebase from "firebase";
 import db from "../../firebase/firebaseInit";
@@ -35,10 +38,7 @@ const actions = {
       .createUserWithEmailAndPassword(userData.email, userData.password)
       .then(data => {
         let newUserId = data.user.uid;
-        // This distinction is for efficiency purposes
-        // - not always do you need the details
-        dispatch("createUserEntry", newUserId);
-        dispatch("createUserDetailEntry", newUserId);
+        dispatch("createNewUserEntries", newUserId);
       })
       .catch(err => alert(err));
   },
@@ -73,17 +73,40 @@ const actions = {
       })
       .catch(err => alert(err));
   },
-  async createUserEntry({ commit }, newUserId) {
-    let newUser = {
+  async createNewUserEntries({ commit }, newUserId) {
+    let newUserBasic = {
       id: newUserId,
       registeredAdverts: []
     };
-    await db
-      .collection("users")
-      .doc(newUserId)
-      .set(newUser);
-
-    commit("setUser", newUser);
+    let newUserPreview = {
+      imageUrl:
+        "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png",
+      username: "undefined"
+    };
+    let newUserDetail = {
+      id: newUserId,
+      technologies: [],
+      description: "undefined_description"
+    };
+    try {
+      await Promise.all([
+        db
+          .collection("users")
+          .doc(newUserId)
+          .set(newUserBasic),
+        db
+          .collection("userPreview")
+          .doc(newUserId)
+          .set(newUserPreview),
+        db
+          .collection("userDetails")
+          .doc(newUserId)
+          .set(newUserDetail)
+      ]);
+      commit("setUser", newUserBasic);
+    } catch (err) {
+      alert(err);
+    }
   },
   deleteAdvertReferenceFromUser({ commit, state }, deletedAdvert) {
     let registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
