@@ -134,6 +134,17 @@
         ></Multiselect>
       </div>
 
+      <div>
+        <button @click.prevent="onPickFile">Upload Image</button>
+        <input
+          ref="fileInput"
+          type="file"
+          style="display: none"
+          accept="image/*"
+          @change="onFilePicked"
+        />
+      </div>
+
       <router-link
         :to="{
           name: 'profileDetails',
@@ -171,7 +182,9 @@ export default {
       language: [],
       technologies: [],
       country: [],
-      city: []
+      city: [],
+      imageUrl: "",
+      image: null
     };
   },
   computed: {
@@ -208,7 +221,27 @@ export default {
         city: this.city,
         id: this.id
       };
-      this.$store.dispatch("editProfile", profileDetails);
+      let payload = {
+        profileDetails,
+        image: this.image
+      };
+      this.$store.dispatch("editProfile", payload);
+    },
+    onPickFile() {
+      this.$refs.fileInput.click();
+    },
+    onFilePicked(event) {
+      const files = event.target.files;
+      let filename = files[0].name;
+      if (filename.lastIndexOf(".") <= 0) {
+        return alert("Please add a valid file!");
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.imageUrl = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
     }
   }
 };

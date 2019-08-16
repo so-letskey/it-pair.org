@@ -15,7 +15,7 @@
           <div id="profile-preview">
             <img
               class="profile-picture--small"
-              src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              src="https://firebasestorage.googleapis.com/v0/b/it-pair.appspot.com/o/users%2FD4IvKsKZaDPUGvGShVT4a6Eafor2..jpg?alt=media&token=a8dd7b52-c07d-4bf6-b635-5de94cb52e9d"
               alt="Italian Trulli"
             />
             <div id="profile-preview__name">Witold.S</div>

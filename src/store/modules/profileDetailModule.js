@@ -2,7 +2,7 @@
 // It is split from the userDataModule for clarity purposes
 
 // This module uses the async/await functionality both for training, and optimalization purposes
-
+import * as firebase from "firebase";
 import db from "../../firebase/firebaseInit";
 
 const state = {
@@ -55,15 +55,28 @@ const actions = {
   resetViewedProfile({ commit }) {
     commit("resetViewedProfile");
   },
-  async editProfile(context, profileDetails) {
-    try {
-      await db
-        .collection("userDetails")
-        .doc(profileDetails.id)
-        .update(profileDetails);
-    } catch (err) {
-      alert(err);
-    }
+  editProfile(context, payload) {
+    let profileDetails = payload.profileDetails;
+    //Image handling
+    const filename = payload.image.name;
+    const ext = filename.slice(filename.lastIndexOf("."));
+    //First we upload the image, and then upload updated object
+    //profileDetails with imageUrl
+    firebase
+      .storage()
+      .ref("users/" + profileDetails.id + "." + ext)
+      .put(payload.image)
+      .then(fileData => {
+        return fileData.ref.getDownloadURL();
+      })
+      .then(downloadUrl => {
+        profileDetails.imageUrl = downloadUrl;
+        return db
+          .collection("userDetails")
+          .doc(profileDetails.id)
+          .update(profileDetails);
+      })
+      .catch(err => alert(err));
   }
 };
 
