@@ -37,18 +37,32 @@
 .profile-preview__picture {
     width: 100px;
     height: 100px;
+    overflow:hidden;
     border: 1px solid $base-color--strong-grey;
     border-radius: 50%;
+}
+
+.profile-preview__picture img {
+    width: auto;
+    height: 100px;
+  }
+
+#profile-preview-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px;
+    border-top: 1px solid $base-color--strong-grey;
+    border-bottom: 1px solid $base-color--strong-grey;
+    width: 140px;
+    min-height: 310px;
 }
 
 #profile-preview {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 0px;
-    border-top: 1px solid $base-color--strong-grey;
-    border-bottom: 1px solid $base-color--strong-grey;
-    width: 140px;
 }
 
 #profile-preview__name {

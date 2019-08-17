@@ -1,16 +1,14 @@
 <template>
-  <div id="profile-preview">
+  <div id="profile-preview-container">
     <div v-if="profilePreview === null" class="d-flex justify-content-center">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div v-else>
-      <img
-        class="profile-preview__picture"
-        :src="profilePreview.imageUrl"
-        alt="Italian Trulli"
-      />
+    <div v-else id="profile-preview">
+      <div class="profile-preview__picture">
+        <img :src="profilePreview.imageUrl" alt="Italian Trulli" />
+      </div>
       <div id="profile-preview__name">{{ profilePreview.username }}</div>
       <br />
       <router-link
