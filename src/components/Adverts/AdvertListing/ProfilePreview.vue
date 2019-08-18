@@ -6,8 +6,12 @@
       </div>
     </div>
     <div v-else id="profile-preview">
-      <div class="profile-preview__picture">
-        <img :src="profilePreview.imageUrl" alt="Italian Trulli" />
+      <div class="loading profile-preview__picture-container">
+        <img
+          id="profile-preview__profile-picture"
+          :src="profilePreview.imageUrl"
+          alt="Profile Picture"
+        />
       </div>
       <div id="profile-preview__name">{{ profilePreview.username }}</div>
       <br />

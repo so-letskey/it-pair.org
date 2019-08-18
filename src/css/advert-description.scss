@@ -34,18 +34,23 @@
     padding: 30px;
 }
 
-.profile-preview__picture {
+.profile-preview__picture-container {
     width: 100px;
     height: 100px;
-    overflow:hidden;
+    overflow: hidden;
     border: 1px solid $base-color--strong-grey;
     border-radius: 50%;
 }
 
-.profile-preview__picture img {
+.loading {
+    background: transparent url("../public/img/loading-gif-40-3.gif")
+      center no-repeat;
+}
+
+#profile-preview__profile-picture {
     width: auto;
     height: 100px;
-  }
+}
 
 #profile-preview-container {
     display: flex;
