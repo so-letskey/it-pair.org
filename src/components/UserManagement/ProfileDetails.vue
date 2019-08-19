@@ -1,61 +1,98 @@
 <template>
-  <div class="container">
+  <div id="profile-description__main-bootstrap-container" class="container">
     <div v-if="viewedProfile === null" class="d-flex justify-content-center">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <div v-else class="jumbotron">
-      <h1 class="display-4">{{ viewedProfile.username }}</h1>
-      <p class="lead">
-        {{ viewedProfile.description }}
-      </p>
-      <hr class="my-4" />
-      <div v-if="viewedProfile.gitHubUsername">
-        <p>
-          <strong>GitHub username:</strong> {{ viewedProfile.gitHubUsername }}
+    <div v-else id="profile-description__content-container">
+      <div id="profile-description__name">
+        <h1 class="display-4">{{ viewedProfile.username }}</h1>
+      </div>
+      <div id="profile-description__picture-container" class="loading">
+        <img
+          id="profile-description__profile-picture"
+          :src="viewedProfile.imageUrl"
+          alt="Profile Picture"
+        />
+      </div>
+      <div id="profile-description__description">
+        <u><strong>About Me</strong></u> <br />
+        <p class="lead">
+          {{ viewedProfile.description }}
         </p>
       </div>
-      <div v-if="viewedProfile.name && viewedProfile.surname">
-        <p>
+      <div id="profile-description__experience">
+        <u><strong>Skills & Experience</strong></u> <br />
+        <ul>
+          <li>
+            ITPair.org - fully functioning website created in Vue.js and
+            integrated with Firebase
+          </li>
+          <li>
+            Website created for a student organisation in Vanilla JS
+            (www.sknchak.p.lodz.pl)
+          </li>
+          <li>FreeCodeCamp 4/7 modules finished with projects</li>
+          <li>
+            Colt Steele's Advanced developers bootcamp finished with projects
+          </li>
+        </ul>
+        <span v-if="viewedProfile.gitHubUsername">
+          <u><strong>GitHub username:</strong></u>
+          {{ viewedProfile.gitHubUsername }}
+          <br />
+        </span>
+        <span v-if="viewedProfile.portfolioLink">
+          <u><strong>Link to the portfolio:</strong></u>
+          <a :href="viewedProfile.portfolioLink">{{
+            viewedProfile.portfolioLink
+          }}</a>
+          <br />
+        </span>
+      </div>
+      <div id="profile-description__side-info">
+        <div v-if="viewedProfile.technologies">
+          <p>
+            <u><strong>Tech Stack:</strong></u>
+          </p>
+          <ul>
+            <li
+              v-for="(technology, index) in viewedProfile.technologies"
+              :key="'index: ' + index"
+            >
+              {{ technology.name }}
+            </li>
+          </ul>
+        </div>
+        <div v-if="viewedProfile.language">
+          <p>
+            <u><strong>Communicative languages:</strong></u>
+          </p>
+          <ul>
+            <li
+              v-for="(language, index) in viewedProfile.language"
+              :key="'index: ' + index"
+            >
+              {{ language.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="profile-description__contact-info"></div>
+
+      <!-- <span v-if="viewedProfile.country">
+        <strong>Country:</strong> {{ viewedProfile.country.name }} <br />
+      </span>
+      <span v-if="viewedProfile.city">
+        <strong>City:</strong> {{ viewedProfile.city.name }} <br />
+      </span> -->
+
+      <!-- <p v-if="viewedProfile.name && viewedProfile.surname">
           <strong>Name:</strong>
           {{ viewedProfile.name + " " + viewedProfile.surname }}
-        </p>
-      </div>
-      <div v-if="viewedProfile.portfolioLink">
-        <p>
-          <strong>Link to the portfolio:</strong>
-          {{ viewedProfile.portfolioLink }}
-        </p>
-      </div>
-      <div v-if="viewedProfile.country">
-        <p><strong>Country:</strong> {{ viewedProfile.country.name }}</p>
-      </div>
-      <div v-if="viewedProfile.city">
-        <p><strong>City:</strong> {{ viewedProfile.city.name }}</p>
-      </div>
-      <div v-if="viewedProfile.technologies" id="technologies">
-        <p><strong>Tech Stack:</strong></p>
-        <ul>
-          <li
-            v-for="(technology, index) in viewedProfile.technologies"
-            :key="'index: ' + index"
-          >
-            {{ technology.name }}
-          </li>
-        </ul>
-      </div>
-      <div v-if="viewedProfile.language" id="technologies">
-        <p><strong>Communicative languages:</strong></p>
-        <ul>
-          <li
-            v-for="(language, index) in viewedProfile.language"
-            :key="'index: ' + index"
-          >
-            {{ language.name }}
-          </li>
-        </ul>
-      </div>
+        </p> -->
+
       <div v-if="isProfileOwner" id="modification-buttons">
         <router-link
           class="btn btn-primary btn-lg"
@@ -93,9 +130,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.container {
-  margin-top: 100px !important;
-}
-</style>

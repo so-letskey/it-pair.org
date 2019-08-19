@@ -7,7 +7,7 @@
           type="button"
           class="button main-page-button main-page-button--big"
         >
-          Look for someone to practice with
+          Look for someone to code with
         </button></router-link
       >
       <p class="my-4">or</p>
