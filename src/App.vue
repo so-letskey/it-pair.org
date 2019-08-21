@@ -2,7 +2,8 @@
   <div id="app">
     <NavigationBar />
     <main>
-      <router-view></router-view>
+      <!-- the :key attribute is responsible for refreshing the components on route change -->
+      <router-view :key="$route.fullPath"></router-view>
     </main>
   </div>
 </template>

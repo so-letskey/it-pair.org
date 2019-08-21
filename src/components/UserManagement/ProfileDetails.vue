@@ -5,56 +5,112 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
+
     <div v-else id="profile-description__content-container">
-      <div id="profile-description__name">
-        <h1 class="display-4">{{ viewedProfile.username }}</h1>
+      <div id="profile-description__upper-level">
+        <div id="profile-description__name">
+          <div>
+            <h1 class="display-4">
+              <!-- {{ viewedProfile.username }} -->
+              Witek S.
+            </h1>
+          </div>
+        </div>
+        <div id="profile-description__picture-container">
+          <div id="profile-description__picture-shape" class="loading">
+            <img
+              id="profile-description__profile-picture"
+              :src="viewedProfile.imageUrl"
+              alt="Profile Picture"
+            />
+          </div>
+        </div>
       </div>
-      <div id="profile-description__picture-container" class="loading">
-        <img
-          id="profile-description__profile-picture"
-          :src="viewedProfile.imageUrl"
-          alt="Profile Picture"
-        />
-      </div>
-      <div id="profile-description__description">
-        <u><strong>About Me</strong></u> <br />
-        <p class="lead">
-          {{ viewedProfile.description }}
+      <div
+        v-if="viewedProfile.description !== ''"
+        id="profile-description__description-level"
+      >
+        <span class="profile-description__detail-element-title">About Me</span>
+        <br />
+        <p id="profile-description__description">
+          <!-- {{ viewedProfile.description }} -->
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam unde
+          officiis, placeat repellat beatae labore magnam quos. Reprehenderit
+          dolore qui alias, vero corporis neque unde minima odio adipisci iste
+          ut! Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
+          dolorem quam fugit molestiae nostrum fuga facilis dignissimos harum
+          eaque earum!
         </p>
       </div>
-      <div id="profile-description__experience">
-        <u><strong>Skills & Experience</strong></u> <br />
-        <ul>
-          <li>
-            ITPair.org - fully functioning website created in Vue.js and
-            integrated with Firebase
-          </li>
-          <li>
-            Website created for a student organisation in Vanilla JS
-            (www.sknchak.p.lodz.pl)
-          </li>
-          <li>FreeCodeCamp 4/7 modules finished with projects</li>
-          <li>
-            Colt Steele's Advanced developers bootcamp finished with projects
-          </li>
-        </ul>
-        <span v-if="viewedProfile.gitHubUsername">
-          <u><strong>GitHub username:</strong></u>
+      <div id="profile-description__detail-level">
+        <div
+          id="profile-description__experience"
+          class="profile-description__detail-element-container"
+        >
+          <span class="profile-description__detail-element-title"
+            >Skills & Experience</span
+          >
+          <br />
+          <ul>
+            <li>
+              ITPair.org - fully functioning website created in Vue.js and
+              integrated with Firebase
+            </li>
+            <li>
+              Website created for a student organisation in Vanilla JS
+              (www.sknchak.p.lodz.pl)
+            </li>
+            <!-- <li>FreeCodeCamp 4/7 modules finished with projects</li>
+            <li>
+              Colt Steele's Advanced developers bootcamp finished with projects
+            </li>
+            <li>
+              Website created for a student organisation in Vanilla JS
+              (www.sknchak.p.lodz.pl)
+            </li>
+            <li>FreeCodeCamp 4/7 modules finished with projects</li>
+            <li>
+              Colt Steele's Advanced developers bootcamp finished with projects
+            </li> -->
+          </ul>
+        </div>
+        <div
+          v-if="
+            viewedProfile.gitHubUsername && viewedProfile.gitHubUsername !== ''
+          "
+          class="profile-description__detail-element-container"
+        >
+          <span class="profile-description__detail-element-title"
+            >GitHub username:</span
+          >
           {{ viewedProfile.gitHubUsername }}
           <br />
-        </span>
-        <span v-if="viewedProfile.portfolioLink">
-          <u><strong>Link to the portfolio:</strong></u>
+        </div>
+        <div
+          v-if="
+            viewedProfile.portfolioLink && viewedProfile.portfolioLink !== ''
+          "
+          class="profile-description__detail-element-container"
+        >
+          <span class="profile-description__detail-element-title"
+            >Link to the portfolio:</span
+          >
           <a :href="viewedProfile.portfolioLink">{{
             viewedProfile.portfolioLink
           }}</a>
           <br />
-        </span>
-      </div>
-      <div id="profile-description__side-info">
-        <div v-if="viewedProfile.technologies">
+        </div>
+        <div
+          v-if="
+            viewedProfile.technologies.length !== 0 &&
+              viewedProfile.technologies !== undefined
+          "
+          class="profile-description__detail-element-container"
+        >
           <p>
-            <u><strong>Tech Stack:</strong></u>
+            <span class="profile-description__detail-element-title"
+              >Tech Stack:</span
+            >
           </p>
           <ul>
             <li
@@ -65,9 +121,14 @@
             </li>
           </ul>
         </div>
-        <div v-if="viewedProfile.language">
+        <div
+          v-if="viewedProfile.language"
+          class="profile-description__detail-element-container"
+        >
           <p>
-            <u><strong>Communicative languages:</strong></u>
+            <span class="profile-description__detail-element-title"
+              >Communicative languages:</span
+            >
           </p>
           <ul>
             <li
@@ -78,31 +139,38 @@
             </li>
           </ul>
         </div>
-      </div>
-      <div id="profile-description__contact-info"></div>
-
-      <!-- <span v-if="viewedProfile.country">
-        <strong>Country:</strong> {{ viewedProfile.country.name }} <br />
-      </span>
-      <span v-if="viewedProfile.city">
-        <strong>City:</strong> {{ viewedProfile.city.name }} <br />
-      </span> -->
-
-      <!-- <p v-if="viewedProfile.name && viewedProfile.surname">
-          <strong>Name:</strong>
-          {{ viewedProfile.name + " " + viewedProfile.surname }}
-        </p> -->
-
-      <div v-if="isProfileOwner" id="modification-buttons">
-        <router-link
-          class="btn btn-primary btn-lg"
-          :to="{
-            name: 'profileModification',
-            params: { id: viewedProfile.id }
-          }"
-          >Edit</router-link
+        <div
+          v-if="viewedProfile.country"
+          class="profile-description__detail-element-container"
         >
+          <span class="profile-description__detail-element-title"
+            >Place of stay:</span
+          >
+          <span v-if="viewedProfile.city">{{ viewedProfile.city.name }}, </span>
+          {{ viewedProfile.country.name }}
+        </div>
       </div>
+    </div>
+
+    <!-- <div id="profile-description__contact-info"></div> -->
+
+    <!-- 
+
+      <p v-if="viewedProfile.name && viewedProfile.surname">
+        <u><strong>Name:</strong></u
+        >Witold S.
+        {{ viewedProfile.name + " " + viewedProfile.surname }}
+      </p> -->
+
+    <div v-if="isProfileOwner" id="modification-buttons">
+      <router-link
+        class="btn btn-primary btn-lg"
+        :to="{
+          name: 'profileModification',
+          params: { id: viewedProfile.id }
+        }"
+        >Edit</router-link
+      >
     </div>
   </div>
 </template>
@@ -126,6 +194,7 @@ export default {
     this.$store.dispatch("setViewedProfile", this.$route.params.id);
   },
   destroyed() {
+    console.log(this.viewedProfile.technologies);
     this.$store.dispatch("resetViewedProfile");
   }
 };
