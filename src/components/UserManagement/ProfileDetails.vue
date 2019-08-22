@@ -19,10 +19,41 @@
         <div id="profile-description__picture-container">
           <div id="profile-description__picture-shape" class="loading">
             <img
+              v-if="imageUrl === ''"
               id="profile-description__profile-picture"
               :src="viewedProfile.imageUrl"
               alt="Profile Picture"
             />
+            <img
+              v-else
+              id="profile-description__profile-picture"
+              :src="imageUrl"
+              alt="Profile Picture"
+            />
+          </div>
+          <div
+            v-if="isProfileOwner"
+            id="profile-description__picture-edit-button-container"
+          >
+            <button
+              class="button profile-description__picture-edit-button"
+              @click.prevent="onPickFile"
+            >
+              Upload
+            </button>
+            <input
+              ref="fileInput"
+              type="file"
+              style="display: none"
+              accept="image/*"
+              @change="onFilePicked"
+            />
+            <button
+              class="button profile-description__picture-edit-button"
+              @click.prevent="saveImage"
+            >
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -81,8 +112,8 @@
           class="profile-description__detail-element-container"
         >
           <span class="profile-description__detail-element-title"
-            >GitHub username:</span
-          >
+            >GitHub username</span
+          ><br />
           {{ viewedProfile.gitHubUsername }}
           <br />
         </div>
@@ -93,12 +124,20 @@
           class="profile-description__detail-element-container"
         >
           <span class="profile-description__detail-element-title"
-            >Link to the portfolio:</span
+            >Link to the portfolio</span
           >
+          <br />
           <a :href="viewedProfile.portfolioLink">{{
             viewedProfile.portfolioLink
           }}</a>
           <br />
+        </div>
+        <div class="profile-description__detail-element-container">
+          <span class="profile-description__detail-element-title"
+            >Contact email</span
+          >
+          <br />
+          witek454@gmail.com
         </div>
         <div
           v-if="
@@ -109,7 +148,7 @@
         >
           <p>
             <span class="profile-description__detail-element-title"
-              >Tech Stack:</span
+              >Tech Stack</span
             >
           </p>
           <ul>
@@ -127,7 +166,7 @@
         >
           <p>
             <span class="profile-description__detail-element-title"
-              >Communicative languages:</span
+              >Communicative languages</span
             >
           </p>
           <ul>
@@ -144,8 +183,9 @@
           class="profile-description__detail-element-container"
         >
           <span class="profile-description__detail-element-title"
-            >Place of stay:</span
+            >Place of stay</span
           >
+          <br />
           <span v-if="viewedProfile.city">{{ viewedProfile.city.name }}, </span>
           {{ viewedProfile.country.name }}
         </div>
@@ -162,21 +202,27 @@
         {{ viewedProfile.name + " " + viewedProfile.surname }}
       </p> -->
 
-    <div v-if="isProfileOwner" id="modification-buttons">
+    <!-- <div v-if="isProfileOwner" id="modification-buttons">
       <router-link
-        class="btn btn-primary btn-lg"
+        class="button"
         :to="{
           name: 'profileModification',
           params: { id: viewedProfile.id }
         }"
         >Edit</router-link
       >
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      imageUrl: "",
+      image: null
+    };
+  },
   computed: {
     viewedProfile() {
       return this.$store.state.profileDetailModule.viewedProfile;
@@ -196,6 +242,31 @@ export default {
   destroyed() {
     console.log(this.viewedProfile.technologies);
     this.$store.dispatch("resetViewedProfile");
+  },
+  methods: {
+    onPickFile() {
+      this.$refs.fileInput.click();
+    },
+    onFilePicked(event) {
+      const files = event.target.files;
+      let filename = files[0].name;
+      if (filename.lastIndexOf(".") <= 0) {
+        return alert("Please add a valid file!");
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        this.imageUrl = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
+    },
+    saveImage() {
+      let payload = {
+        id: this.viewedProfile.id,
+        image: this.image
+      };
+      this.$store.dispatch("editImage", payload);
+    }
   }
 };
 </script>

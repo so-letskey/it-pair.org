@@ -51,6 +51,24 @@ const actions = {
   resetViewedProfile({ commit }) {
     commit("resetViewedProfile");
   },
+  editImage(context, payload) {
+    const filename = payload.image.name;
+    const ext = filename.slice(filename.lastIndexOf("."));
+    firebase
+      .storage()
+      .ref("users/" + payload.id + "." + ext)
+      .put(payload.image)
+      .then(fileData => {
+        return fileData.ref.getDownloadURL();
+      })
+      .then(downloadUrl => {
+        return db
+          .collection("userPreview")
+          .doc(payload.id)
+          .update({ imageUrl: downloadUrl });
+      })
+      .catch(err => alert(err));
+  },
   editProfile(context, payload) {
     let profilePreview = payload.profilePreview;
     let profileDetails = payload.profileDetails;

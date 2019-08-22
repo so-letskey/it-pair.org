@@ -46,6 +46,18 @@
     height: 200px;
 }
 
+#profile-description__picture-edit-button-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.profile-description__picture-edit-button {
+    height: 45px;
+    width: 100px;
+    margin-bottom: 10px;
+}
+
 #profile-description__description-level {
     border-top: 1px solid $base-color--strong-grey;
     padding: 30px;
@@ -73,6 +85,11 @@
 .profile-description__detail-element-title {
     text-decoration: underline;
     font-weight: 450;
+}
+
+#profile-description__contact-level {
+    border-top: 1px solid $base-color--strong-grey;
+    padding: 30px;
 }
 
 #profile-description__contact-info {
