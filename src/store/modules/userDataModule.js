@@ -73,41 +73,6 @@ const actions = {
       })
       .catch(err => alert(err));
   },
-  async createNewUserEntries({ commit }, newUserId) {
-    let newUserBasic = {
-      id: newUserId,
-      registeredAdverts: []
-    };
-    let newUserPreview = {
-      imageUrl:
-        "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png",
-      username: "undefined"
-    };
-    let newUserDetail = {
-      id: newUserId,
-      technologies: [],
-      description: "undefined_description"
-    };
-    try {
-      await Promise.all([
-        db
-          .collection("users")
-          .doc(newUserId)
-          .set(newUserBasic),
-        db
-          .collection("userPreview")
-          .doc(newUserId)
-          .set(newUserPreview),
-        db
-          .collection("userDetails")
-          .doc(newUserId)
-          .set(newUserDetail)
-      ]);
-      commit("setUser", newUserBasic);
-    } catch (err) {
-      alert(err);
-    }
-  },
   deleteAdvertReferenceFromUser({ commit, state }, deletedAdvert) {
     let registeredAdvertsUpdate = state.activeUser.registeredAdverts.slice();
     registeredAdvertsUpdate = registeredAdvertsUpdate.filter(

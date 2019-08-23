@@ -6,6 +6,7 @@ import advertOptions from "./modules/advertOptions";
 import userDataModule from "./modules/userDataModule";
 import profilePreviewModule from "./modules/profilePreviewModule";
 import profileDetailModule from "./modules/profileDetailModule";
+import imageUploadHandling from "./modules/imageUploadHandling";
 import profileOptions from "./modules/profileOptions";
 import filteringEngine from "./modules/filteringEngine";
 
@@ -19,6 +20,7 @@ export const store = new Vuex.Store({
     userDataModule,
     profilePreviewModule,
     profileDetailModule,
+    imageUploadHandling,
     profileOptions
   }
 });

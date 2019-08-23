@@ -1,7 +1,6 @@
 // This module concerns the userDetail database entry, and viewing and modification of different user profiles,
 // It is split from the userDataModule for clarity purposes
 
-// This module uses the async/await functionality both for training, and optimalization purposes
 import * as firebase from "firebase";
 import db from "../../firebase/firebaseInit";
 
@@ -50,6 +49,41 @@ const actions = {
   },
   resetViewedProfile({ commit }) {
     commit("resetViewedProfile");
+  },
+  async createNewUserEntries({ commit }, newUserId) {
+    let newUserBasic = {
+      id: newUserId,
+      registeredAdverts: []
+    };
+    let newUserPreview = {
+      imageUrl:
+        "https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png",
+      username: "undefined"
+    };
+    let newUserDetail = {
+      id: newUserId,
+      technologies: [],
+      description: "undefined_description"
+    };
+    try {
+      await Promise.all([
+        db
+          .collection("users")
+          .doc(newUserId)
+          .set(newUserBasic),
+        db
+          .collection("userPreview")
+          .doc(newUserId)
+          .set(newUserPreview),
+        db
+          .collection("userDetails")
+          .doc(newUserId)
+          .set(newUserDetail)
+      ]);
+      commit("setUser", newUserBasic);
+    } catch (err) {
+      alert(err);
+    }
   },
   editImage(context, payload) {
     const filename = payload.image.name;

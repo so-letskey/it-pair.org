@@ -49,11 +49,33 @@
               @change="onFilePicked"
             />
             <button
+              v-if="
+                !this.$store.state.imageUploadHandling.imageUploadedToClient
+              "
               class="button profile-description__picture-edit-button"
-              @click.prevent="saveImage"
+              disabled
             >
               Save
             </button>
+            <button
+              v-else
+              class="button profile-description__picture-edit-button"
+              @click.prevent="saveImage"
+            >
+              <span v-if="!this.$store.state.imageUploadHandling.imageLoading"
+                >Save</span
+              >
+              <img
+                v-else
+                class="button-loader"
+                src="../../../public/img/loading-gif-40-3.gif"
+              />
+            </button>
+            <span
+              v-if="this.$store.state.imageUploadHandling.imageUploadedToServer"
+              id="profile-description__image-upload-info"
+              >Saved successfully!</span
+            >
           </div>
         </div>
       </div>
@@ -91,7 +113,7 @@
               Website created for a student organisation in Vanilla JS
               (www.sknchak.p.lodz.pl)
             </li>
-            <!-- <li>FreeCodeCamp 4/7 modules finished with projects</li>
+            <li>FreeCodeCamp 4/7 modules finished with projects</li>
             <li>
               Colt Steele's Advanced developers bootcamp finished with projects
             </li>
@@ -100,9 +122,6 @@
               (www.sknchak.p.lodz.pl)
             </li>
             <li>FreeCodeCamp 4/7 modules finished with projects</li>
-            <li>
-              Colt Steele's Advanced developers bootcamp finished with projects
-            </li> -->
           </ul>
         </div>
         <div
@@ -131,13 +150,6 @@
             viewedProfile.portfolioLink
           }}</a>
           <br />
-        </div>
-        <div class="profile-description__detail-element-container">
-          <span class="profile-description__detail-element-title"
-            >Contact email</span
-          >
-          <br />
-          witek454@gmail.com
         </div>
         <div
           v-if="
@@ -188,6 +200,13 @@
           <br />
           <span v-if="viewedProfile.city">{{ viewedProfile.city.name }}, </span>
           {{ viewedProfile.country.name }}
+        </div>
+        <div class="profile-description__detail-element-container">
+          <span class="profile-description__detail-element-title"
+            >Contact email</span
+          >
+          <br />
+          witek454@gmail.com
         </div>
       </div>
     </div>
@@ -240,8 +259,8 @@ export default {
     this.$store.dispatch("setViewedProfile", this.$route.params.id);
   },
   destroyed() {
-    console.log(this.viewedProfile.technologies);
     this.$store.dispatch("resetViewedProfile");
+    this.$store.dispatch("resetImageUpload");
   },
   methods: {
     onPickFile() {
@@ -259,6 +278,7 @@ export default {
       });
       fileReader.readAsDataURL(files[0]);
       this.image = files[0];
+      this.$store.dispatch("imageUploadedToClient");
     },
     saveImage() {
       let payload = {
