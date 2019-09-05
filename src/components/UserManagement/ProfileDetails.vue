@@ -209,6 +209,16 @@
           witek454@gmail.com
         </div>
       </div>
+      <div v-if="isProfileOwner" id="modification-buttons">
+        <router-link
+          class="button"
+          :to="{
+            name: 'profileModification',
+            params: { id: viewedProfile.id }
+          }"
+          >Edit</router-link
+        >
+      </div>
     </div>
 
     <!-- <div id="profile-description__contact-info"></div> -->
@@ -220,17 +230,6 @@
         >Witold S.
         {{ viewedProfile.name + " " + viewedProfile.surname }}
       </p> -->
-
-    <!-- <div v-if="isProfileOwner" id="modification-buttons">
-      <router-link
-        class="button"
-        :to="{
-          name: 'profileModification',
-          params: { id: viewedProfile.id }
-        }"
-        >Edit</router-link
-      >
-    </div> -->
   </div>
 </template>
 
