@@ -3,7 +3,9 @@
     <div id="single-search-result" class="card-body">
       <div id="single-search-result__main-info">
         <h3 class="card-title">{{ advert.title }}</h3>
-        <h5 class="card-title">{{ advert.description }}</h5>
+        <h5 class="card-title single-search-result__description">
+          {{ advert.description }}
+        </h5>
         <strong>Published: </strong>
         {{
           advert.creationDate.toDate().getDate() +
@@ -54,3 +56,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.single-search-result__description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+</style>

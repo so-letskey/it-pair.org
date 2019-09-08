@@ -100,11 +100,14 @@
 .profile-modification__detail-element-container {
     display: inline-block;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .profile-modification__detail-element-title {
+    display: inline-block;
     text-decoration: underline;
     font-weight: 450;
+    margin-bottom: 5px;
 }
 
 #profile-modification__contact-level {

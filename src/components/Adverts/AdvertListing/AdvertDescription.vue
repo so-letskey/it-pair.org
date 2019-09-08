@@ -9,7 +9,9 @@
       <h1 class="display-4">{{ activeAdvert.title }}</h1>
       <div id="advert-description-grid">
         <div id="description-column">
-          <p class="lead">{{ activeAdvert.description }}</p>
+          <div class="advert-description-text">
+            <p class="lead">{{ activeAdvert.description }}</p>
+          </div>
         </div>
         <div id="profile-preview-column">
           <ProfilePreview :id="activeAdvert.creatorsId" />
@@ -37,7 +39,7 @@
           </div>
         </div>
       </div>
-      <!-- <div v-if="isAdvertOwner" id="modification-buttons">
+      <div v-if="isAdvertOwner" id="modification-buttons">
         <router-link
           class="btn btn-primary btn-lg"
           :to="{
@@ -55,7 +57,7 @@
             Delete
           </button></router-link
         >
-      </div> -->
+      </div>
     </div>
   </div>
 </template>

@@ -103,35 +103,23 @@ const actions = {
       })
       .catch(err => alert(err));
   },
-  editProfile(context, payload) {
+  async editProfile(context, payload) {
     let profilePreview = payload.profilePreview;
     let profileDetails = payload.profileDetails;
-    //Image handling
-    const filename = payload.image.name;
-    const ext = filename.slice(filename.lastIndexOf("."));
-    //First we upload the image, and then upload updated object
-    //profileDetails with imageUrl
-    firebase
-      .storage()
-      .ref("users/" + profileDetails.id + "." + ext)
-      .put(payload.image)
-      .then(fileData => {
-        return fileData.ref.getDownloadURL();
-      })
-      .then(downloadUrl => {
-        profilePreview.imageUrl = downloadUrl;
-        return db
+    try {
+      await Promise.all([
+        db
           .collection("userPreview")
           .doc(profileDetails.id)
-          .update(profilePreview);
-      })
-      .then(function() {
-        return db
+          .update(profilePreview),
+        db
           .collection("userDetails")
           .doc(profileDetails.id)
-          .update(profileDetails);
-      })
-      .catch(err => alert(err));
+          .update(profileDetails)
+      ]);
+    } catch (err) {
+      alert(err);
+    }
   }
 };
 

@@ -28,6 +28,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin-left: 60px;
 }
 
 #profile-description__picture-container {
@@ -84,7 +85,8 @@
 
 #profile-description__description {
     font-size: 1.2em;
-    margin: 20px;
+    margin: 0px 20px;
+    white-space: pre-line;
 }
 
 #profile-description__detail-level {

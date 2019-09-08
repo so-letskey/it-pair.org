@@ -10,7 +10,9 @@
       <div id="profile-modification__upper-level">
         <div id="profile-modification__name">
           <div>
-            <label for="username">What is your name?</label>
+            <label for="username"
+              >What name would you like to be displayed?</label
+            >
             <input
               id="username"
               v-model="username"
@@ -110,31 +112,9 @@
               :name="'singleSkill' + index"
               class="form-control"
             />
-            <button @click="deleteSkill(index)">Delete</button>
+            <button class="button" @click="deleteSkill(index)">Delete</button>
           </div>
-          <button @click="addSkill">Add Skill</button>
-        </div>
-        <div class="profile-modification__detail-element-container">
-          <p>
-            <span class="profile-modification__detail-element-title"
-              >Tech Stack</span
-            >
-          </p>
-          <Multiselect
-            v-model="technologies"
-            class="multiselect"
-            :options="this.$store.state.advertOptions.technologiesGrouped"
-            :multiple="true"
-            group-values="libs"
-            group-label="language"
-            :group-select="false"
-            placeholder="Type to search"
-            track-by="name"
-            label="name"
-            ><span slot="noResult"
-              >No elements found. Consider changing the search query.</span
-            ></Multiselect
-          >
+          <button class="button" @click="addSkill">Add Skill</button>
         </div>
         <div class="profile-modification__detail-element-container">
           <span class="profile-modification__detail-element-title"
@@ -178,6 +158,28 @@
         <div class="profile-modification__detail-element-container">
           <p>
             <span class="profile-modification__detail-element-title"
+              >Tech Stack</span
+            >
+          </p>
+          <Multiselect
+            v-model="technologies"
+            class="multiselect"
+            :options="this.$store.state.advertOptions.technologiesGrouped"
+            :multiple="true"
+            group-values="libs"
+            group-label="language"
+            :group-select="false"
+            placeholder="Type to search"
+            track-by="name"
+            label="name"
+            ><span slot="noResult"
+              >No elements found. Consider changing the search query.</span
+            ></Multiselect
+          >
+        </div>
+        <div class="profile-modification__detail-element-container">
+          <p>
+            <span class="profile-modification__detail-element-title"
               >Communicative languages</span
             >
           </p>
@@ -205,13 +207,14 @@
           ></Multiselect>
           City:
           <Multiselect
-            v-model="country"
+            v-model="city"
             :options="this.$store.state.advertOptions.countries"
             placeholder="Type to search"
             label="name"
             track-by="name"
           ></Multiselect>
         </div>
+        <button class="button" @click="editProfile">Save Changes</button>
       </div>
     </div>
   </div>
@@ -233,10 +236,8 @@ export default {
   data() {
     return {
       username: "",
-      name: "",
-      surname: "",
       description: "",
-      skillList: [{ value: "" }],
+      skillList: [],
       gitHubUsername: "",
       portfolioLink: "",
       language: [],
@@ -256,11 +257,11 @@ export default {
   created() {
     this.$store.dispatch("setViewedProfile", this.$route.params.id);
     this.username = this.viewedProfile.username;
-    this.name = this.viewedProfile.name;
-    this.surname = this.viewedProfile.surname;
     this.description = this.viewedProfile.description;
+    this.skillList = this.viewedProfile.skillList;
     this.gitHubUsername = this.viewedProfile.gitHubUsername;
     this.portfolioLink = this.viewedProfile.portfolioLink;
+    this.email = this.viewedProfile.email;
     this.language = this.viewedProfile.language;
     this.technologies = this.viewedProfile.technologies
       ? this.viewedProfile.technologies
@@ -276,11 +277,11 @@ export default {
     editProfile() {
       let profileDetails = {
         username: this.username,
-        name: this.name,
-        surname: this.surname,
         description: this.description,
+        skillList: this.skillList,
         gitHubUsername: this.gitHubUsername,
         portfolioLink: this.portfolioLink,
+        email: this.email,
         language: this.language,
         technologies: this.technologies,
         country: this.country,
@@ -293,8 +294,7 @@ export default {
       };
       let payload = {
         profileDetails,
-        profilePreview,
-        image: this.image
+        profilePreview
       };
       this.$store.dispatch("editProfile", payload);
     },
@@ -343,10 +343,6 @@ export default {
 }
 
 .form-group {
-  margin-bottom: 15px;
-}
-
-.multiselect {
   margin-bottom: 15px;
 }
 

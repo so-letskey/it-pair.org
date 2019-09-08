@@ -2,7 +2,13 @@ const state = {
   technologiesGrouped: [
     {
       language: "Javascript",
-      libs: [{ name: "Vue.js" }, { name: "Adonis" }]
+      libs: [
+        { name: "Vue.js" },
+        { name: "React" },
+        { name: "Node.js" },
+        { name: "Adonis" },
+        { name: "Vanilla JS" }
+      ]
     },
     {
       language: "Ruby",
@@ -15,12 +21,22 @@ const state = {
       language: "Other",
       libs: [
         { name: "Laravel", category: "Backend" },
-        { name: "Phoenix", category: "Backend" }
+        { name: "Phoenix", category: "Backend" },
+        { name: "HTML/CSS", category: "none" }
       ]
+    },
+    {
+      language: "Database",
+      libs: [{ name: "MySQL" }, { name: "MongoDB" }]
     }
   ],
   technologiesSingle: [
+    { name: "HTML/CSS" },
+    { name: "Vanilla JS" },
     { name: "Vue.js" },
+    { name: "React" },
+    { name: "Node.js" },
+    { name: "MySQL" },
     { name: "Adonis" },
     { name: "Rails" },
     { name: "Sinatra" },
