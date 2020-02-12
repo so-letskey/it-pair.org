@@ -6,6 +6,7 @@ const state = {
   technologies: null,
   difficulty: null,
   country: null,
+  city: null,
   language: null,
   //Paginating
   initialSearch: true,
@@ -22,6 +23,7 @@ const getters = {
       technologies: state.technologies,
       difficulty: state.difficulty,
       country: state.country,
+      city: state.city,
       language: state.language
     };
     return searchParameters;
@@ -34,12 +36,14 @@ const mutations = {
     state.technologies = parameters.technologies;
     state.difficulty = parameters.difficulty;
     state.country = parameters.country;
+    state.city = parameters.city;
     state.language = parameters.language;
   },
   resetParameters: state => {
     state.technologies = null;
     state.difficulty = null;
     state.country = null;
+    state.city = null;
     state.language = null;
   },
   //Loading
@@ -86,7 +90,8 @@ const actions = {
       difficulty: "difficulty",
       technologies: "technologiesForQuery",
       language: "language",
-      country: "country"
+      country: "country",
+      city: "city"
     };
     //Dynamic variables
     let paramCounter = 0;
@@ -125,6 +130,14 @@ const actions = {
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
           .where(paramDatabaseEntryNames[1], "==", paramValues[1])
           .where(paramDatabaseEntryNames[2], "==", paramValues[2]);
+        context.dispatch("manageSearchQuery", searchQuery);
+      } else if (paramCounter === 4) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(paramDatabaseEntryNames[0], "==", paramValues[0])
+          .where(paramDatabaseEntryNames[1], "==", paramValues[1])
+          .where(paramDatabaseEntryNames[2], "==", paramValues[2])
+          .where(paramDatabaseEntryNames[3], "==", paramValues[3]);
         context.dispatch("manageSearchQuery", searchQuery);
       }
     } else {
@@ -169,6 +182,19 @@ const actions = {
           .where(paramDatabaseEntryNames[0], "==", paramValues[0])
           .where(paramDatabaseEntryNames[1], "==", paramValues[1])
           .where(paramDatabaseEntryNames[2], "==", paramValues[2]);
+        context.dispatch("manageSearchQuery", searchQuery);
+      } else if (paramCounter === 5) {
+        let searchQuery = db
+          .collection("adverts")
+          .where(
+            "technologiesForQuery",
+            "array-contains",
+            searchParameters.technologies.name
+          )
+          .where(paramDatabaseEntryNames[0], "==", paramValues[0])
+          .where(paramDatabaseEntryNames[1], "==", paramValues[1])
+          .where(paramDatabaseEntryNames[2], "==", paramValues[2])
+          .where(paramDatabaseEntryNames[3], "==", paramValues[3]);
         context.dispatch("manageSearchQuery", searchQuery);
       }
     }

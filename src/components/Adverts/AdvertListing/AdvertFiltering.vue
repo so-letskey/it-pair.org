@@ -37,8 +37,8 @@
             <div class="col-sm-12 col-md-6">
               <label class="filter-label">CITY</label>
               <Multiselect
-                v-model="country"
-                :options="this.$store.state.advertOptions.countries"
+                v-model="city"
+                :options="this.$store.state.advertOptions.cities"
                 placeholder="Type to search a city"
                 label="name"
                 track-by="name"
@@ -103,7 +103,8 @@ export default {
       difficulty: this.$store.state.filteringEngine.difficulty,
       technologies: this.$store.state.filteringEngine.technologies,
       language: this.$store.state.filteringEngine.language,
-      country: this.$store.state.filteringEngine.country
+      country: this.$store.state.filteringEngine.country,
+      city: this.$store.state.filteringEngine.country
     };
   },
   methods: {
@@ -112,7 +113,8 @@ export default {
         difficulty: this.difficulty,
         technologies: this.technologies,
         language: this.language,
-        country: this.country
+        country: this.country,
+        city: this.city
       };
       this.$store.dispatch("resetSearch");
       this.$store.dispatch("saveParameters", searchParameters);
@@ -123,6 +125,7 @@ export default {
       this.technologies = null;
       this.language = null;
       this.country = null;
+      this.city = null;
       this.$store.dispatch("resetParameters");
     }
   }

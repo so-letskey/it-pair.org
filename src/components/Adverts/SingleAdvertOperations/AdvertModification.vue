@@ -86,7 +86,7 @@
         <Multiselect
           v-model.trim.lazy="$v.city.$model"
           :class="{ 'is-invalid-multiselect': $v.city.$error }"
-          :options="this.$store.state.advertOptions.countries"
+          :options="this.$store.state.advertOptions.cities"
           placeholder="Type to search"
           label="name"
           track-by="name"

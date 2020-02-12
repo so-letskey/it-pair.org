@@ -25,9 +25,9 @@
           SHOW PROFILE
         </button></router-link
       >
-      <button class="button advert-description-button">
+      <!-- <button class="button advert-description-button">
         CONTACT
-      </button>
+      </button> -->
     </div>
   </div>
 </template>

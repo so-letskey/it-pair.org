@@ -208,7 +208,7 @@
           City:
           <Multiselect
             v-model="city"
-            :options="this.$store.state.advertOptions.countries"
+            :options="this.$store.state.advertOptions.cities"
             placeholder="Type to search"
             label="name"
             track-by="name"
