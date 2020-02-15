@@ -45,7 +45,8 @@
       <div id="profile-description__detail-level">
         <div
           v-if="
-            viewedProfile.skillList[0] != null &&
+            viewedProfile.skillList !== undefined &&
+              viewedProfile.skillList[0] != null &&
               viewedProfile.skillList.length != 0 &&
               viewedProfile.skillList[0].value !== ''
           "

@@ -63,7 +63,8 @@ const actions = {
     let newUserDetail = {
       id: newUserId,
       technologies: [],
-      description: "undefined_description"
+      description: "undefined_description",
+      skillList: []
     };
     try {
       await Promise.all([
